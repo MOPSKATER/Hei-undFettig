@@ -1,26 +1,16 @@
 {
-  "name": "heissundfettig",
-  "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
+  "name": "hei-und-fettig",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/MOPSKATER/Hei-undFettig.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/MOPSKATER/Hei-undFettig/issues"
-  },
-  "homepage": "https://github.com/MOPSKATER/Hei-undFettig#readme",
-  "devDependencies": {
-    "@types/node": "^14.14.35"
+    "start": "node ./bin/www"
   },
   "dependencies": {
-    "express": "^4.17.1",
-    "express-generator": "^4.16.1"
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1",
+    "pug": "2.0.0-beta11"
   }
 }
