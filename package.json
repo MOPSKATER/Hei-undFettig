@@ -18,5 +18,9 @@
   "homepage": "https://github.com/MOPSKATER/Hei-undFettig#readme",
   "devDependencies": {
     "@types/node": "^14.14.35"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-generator": "^4.16.1"
   }
 }
