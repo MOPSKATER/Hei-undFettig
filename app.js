@@ -1,3 +1,5 @@
+#!/usr/bin/node
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -9,6 +11,8 @@ var usersRouter = require('./routes/users');
 var api = require('./routes/api');
 
 var app = express();
+var session = require('express-session')
+app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 }, SameSite: true }))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
