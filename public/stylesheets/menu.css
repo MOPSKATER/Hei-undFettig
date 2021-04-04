@@ -23,6 +23,7 @@ body {
 #card {
 	table-layout: fixed;
 	text-align: center;
+	font-size: large;
 	width: 100%;
 }
 #card .colOuter {

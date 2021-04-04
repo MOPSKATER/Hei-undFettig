@@ -1,0 +1,64 @@
+
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #DDEEDD;
+	overflow-x: hidden;
+	overflow-y: auto;
+	background-color: rgb(179, 179, 179);
+}
+
+#page {
+	width: 100%;
+	display: block;
+}
+
+#left {
+    float: left;
+    margin: 15px;
+    margin-right: 0;
+    margin-left: 1vw;
+    width: 48vw;
+    height: calc(100vh - 25vh - 11.5vh - 34px);
+    text-align: center;
+}
+#contact {
+    font-size: large;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 30px;
+}
+#contact td {
+    padding: 15px;
+}
+
+.download svg {
+    width: 12px;
+    height: auto;
+}
+.download {
+    padding: 20px;
+    margin-left: 40px;
+    margin-right: 40px;
+    font-size: larger;
+    font-weight: bold;
+    display: block;
+    border: 2px solid rgb(70, 38, 38);
+    background-color: rgb(82, 46, 46);
+    text-decoration: none;
+    color: black;
+}
+.download:hover {
+    cursor: pointer;
+    fill: green;
+    color: green;
+}
+
+#map {
+    float: right;
+    margin: 15px;
+    margin-left: 0;
+    margin-right: 1vw;
+    width: 48vw;
+    height: calc(100vh - 25vh - 11.5vh - 34px);
+}
