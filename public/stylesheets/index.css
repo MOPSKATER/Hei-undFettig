@@ -16,6 +16,7 @@ body {
   top: 0px;
   background-color: rgba(170, 255, 170, 0.3);
   width: 100vw;
+  height: 10vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -69,13 +70,14 @@ body {
 
 #controlIcon {
   left: 94vw;
+  cursor: pointer;
 }
 
 #controlPanel {
   background-color: lightgray;
   position: absolute;
   left: 87vw;
-  top: 6vh;
+  top: 9vh;
   width: 10vw;
   border: 4px solid;
   padding-bottom: 5px;
@@ -128,13 +130,17 @@ body {
   border-bottom: 1px solid #808080;
 }
 
+th {
+  padding: 5%;
+}
+
 #coworkerImg {
   border: 4px solid;
-  max-width: 25vw;
 }
 
 .arrow path {
   fill: #808080;
+  width: 5px;
 }
 
 #footer {
