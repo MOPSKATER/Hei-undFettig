@@ -1,0 +1,189 @@
+html,
+body {
+  padding: 0px;
+  margin: 0px;
+  display: float;
+}
+
+#home1 {
+  height: 100vh;
+  width: 100%;
+}
+
+.menu {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  background-color: rgba(170, 255, 170, 0.3);
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menuContainer {
+  width: 40vw;
+  display: flex;
+}
+
+#menuButton {
+  color: darkgreen;
+  margin: 1vw;
+}
+
+.menuItem {
+  font-weight: bold;
+  border-style: solid;
+  padding: 1vh;
+  background: rgba(50, 50, 50, 0.3);
+}
+
+.centerContent {
+  position: relative;
+  top: 25%;
+  text-align: center;
+  color: #aaffaa;
+}
+
+#titleImage {
+  width: 100%;
+  height: 100%;
+}
+
+#logo {
+  position: absolute;
+  left: 20vw;
+  width: 5vh;
+}
+
+.icon {
+  position: absolute;
+  max-height: 3vw;
+  top: 2vh;
+  border-radius: 20px;
+}
+
+#cart {
+  left: 90vw;
+}
+
+#controlIcon {
+  left: 94vw;
+}
+
+#controlPanel {
+  background-color: lightgray;
+  position: absolute;
+  left: 87vw;
+  top: 6vh;
+  width: 10vw;
+  border: 4px solid;
+  padding-bottom: 5px;
+  font-weight: 550;
+  border-radius: 5px;
+  display: none;
+}
+
+#home2 {
+  width: 100%;
+  height: 92vh;
+  background-color: rgb(179, 179, 179);
+  display: block;
+}
+
+#news {
+  height: 15%;
+  background-color: rgb(255, 85, 85);
+  overflow: auto;
+  color: black;
+  font-size: 2vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  outline: 3px solid #830202;
+  outline-offset: -3px;
+  margin-bottom: 5vh;
+}
+
+#additional {
+  height: 66%;
+  display: flex;
+}
+
+.half {
+  width: 50%;
+  display: block;
+  padding: 3%;
+}
+
+#left {
+  border-right: 1px solid #808080;
+}
+
+#right {
+  border-left: 1px solid #808080;
+}
+
+.underline {
+  border-bottom: 1px solid #808080;
+}
+
+#coworkerImg {
+  border: 4px solid;
+  max-width: 25vw;
+}
+
+.arrow path {
+  fill: #808080;
+}
+
+#footer {
+  background-color: #44aa00;
+  height: 11.5%;
+  width: 100%;
+  margin-top: 2%;
+  outline: 4px solid #265805;
+  outline-offset: -4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2vh;
+}
+
+#impressum {
+  display: flex;
+  width: 40%;
+  justify-content: center;
+  align-items: center;
+}
+
+#btnImpressum {
+  width: 20%;
+  height: 15%;
+  margin-left: 3vw;
+  background-color: #67811a;
+}
+
+#btnSpeisekarte {
+  width: 60%;
+  height: 10%;
+  border-color: #704b6a;
+  border-width: 5px;
+  background-color: #f2991a;
+  margin-bottom: 10%;
+  font-size: 30px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #000;
+}
+
+.noDeco {
+  text-decoration: none;
+  color: black;
+}
