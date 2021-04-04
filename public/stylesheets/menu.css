@@ -1,0 +1,44 @@
+
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #DDEEDD;
+	overflow-x: hidden;
+	overflow-y: auto;
+	background-color: rgb(179, 179, 179);
+}
+
+#page {
+	width: 100%;
+	display: block;
+	min-height: calc(100vh - 25vh - 11.5vh);
+}
+#page h1 {
+	padding-top: 20px;
+	font-weight: bold;
+    text-align: center;
+	color: #332522;
+}
+
+#card {
+	table-layout: fixed;
+	text-align: center;
+	width: 100%;
+}
+#card .colOuter {
+	width: 100px;
+}
+#card .colInner {
+	width: 200px;
+}
+#card .item tr {
+	width: 100%;
+}
+#card .item .basket {
+	width: 30px;
+	height: auto;
+	background-color: bisque;
+}
+#card .item .basket:hover {
+	cursor: pointer;
+}

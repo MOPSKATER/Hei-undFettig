@@ -1,0 +1,26 @@
+
+#banner_small {
+    background-image: url(https://cdn.gutekueche.de/upload/rezept/10862/1600x1200_rib-eye-steak.jpg);
+    background-size: 100vmax;
+    position: absolute;
+    overflow: hidden;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 25vh;
+}
+#banner_small .banner_logo {
+    position: relative;
+    color: white;
+    text-shadow: 0 0 6px #000;
+	font-weight: bold;
+	font-family: "Lucida Console", Courier, monospace;
+	text-align: center;
+    font-size: 30px;
+    top: 10vh;
+}
+#banner_small .banner_logo img {
+    position: relative;
+    width: 50px;
+    padding-right: 15px;
+}
