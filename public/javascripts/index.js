@@ -13,3 +13,7 @@ function toggleControl() {
     else
         panel.style.display = "none"
 }
+
+function displayLogin(name, points) {
+    panel = document.getElementById("summary").textContent = name + "\r\nTreuepunkte: " + points;
+}
