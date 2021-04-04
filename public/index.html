@@ -18,32 +18,32 @@
             <div class="menuContainer">
 
                 <a class="noDeco" id="menuButton" href="/">
-                    <div class="menuItem">
-                        <div class="centerContent" onmouseover="addUnderline(this)" onmouseout="removeUnderline(this)">
+                    <div class="menuItem" onmouseover="addUnderline(this)" onmouseout="removeUnderline(this)">
+                        <div class="centerContent">
                             Start
                         </div>
                     </div>
                 </a>
 
                 <a class="noDeco" id="menuButton" href="/html/speisekarte.html">
-                    <div class="menuItem">
-                        <div class="centerContent" onmouseover="addUnderline(this)" onmouseout="removeUnderline(this)">
+                    <div class="menuItem" onmouseover="addUnderline(this)" onmouseout="removeUnderline(this)">
+                        <div class="centerContent">
                             Speisekarte
                         </div>
                     </div>
                 </a>
 
                 <a class="noDeco" id="menuButton" href="/html/neuigkeiten.html">
-                    <div class="menuItem">
-                        <div class="centerContent" onmouseover="addUnderline(this)" onmouseout="removeUnderline(this)">
+                    <div class="menuItem" onmouseover="addUnderline(this)" onmouseout="removeUnderline(this)">
+                        <div class="centerContent">
                             Neuigkeiten
                         </div>
                     </div>
                 </a>
 
                 <a class="noDeco" id="menuButton" href="/html/impressum.html">
-                    <div class="menuItem">
-                        <div class="centerContent" onmouseover="addUnderline(this)" onmouseout="removeUnderline(this)">
+                    <div class="menuItem" onmouseover="addUnderline(this)" onmouseout="removeUnderline(this)">
+                        <div class="centerContent">
                             Impressum
                         </div>
                     </div>
@@ -60,7 +60,7 @@
                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSN6PSb90rGnT4WTxYC7HBxNWs2Ig-mSP2b0g&usqp=CAU">
 
             <div id="controlPanel" align="center">
-                <p id="summary" style="white-space: pre;">Anonym</p>
+                <p id="summary">Anonym</p>
                 <a href=" /html/profil.html" class="noDeco" style="display:none;">
                     Profil
                 </a>
@@ -100,7 +100,8 @@
                 <table style="margin:2vw; width: 90%;">
                     <tr>
                         <th align="center">
-                            <svg class="arrow" viewBox="0 0 13.125 21">
+                            <svg class="arrow" viewBox="0 0 13.125 21" onclick="cycleStaff(-1)"
+                                style="cursor: pointer;">
                                 <path
                                     d="M 2.8005569,10.57719 12.351843,2.0134396 c 0.583542,-0.5226004 0.05624,-1.33162358 -0.547266,-1.27169228 -0.139271,0.01383 -0.282802,0.073662 -0.417465,0.194262 L 0.63604992,10.575436 v 0.0035 L 11.387112,20.217953 c 0.718204,0.643201 1.682937,-0.433791 0.964731,-1.076991 z">
                                 </path>
@@ -110,7 +111,7 @@
                             <img src="https://static.toiimg.com/photo/73244344.cms" id="coworkerImg" width="100%">
                         </th>
                         <th align="right">
-                            <svg class="arrow" viewBox="0 0 13.125 21">
+                            <svg class="arrow" viewBox="0 0 13.125 21" onclick="cycleStaff(1)" style="cursor: pointer;">
                                 <path
                                     d="M 10.45385,10.57719 0.90256392,2.0134397 c -0.583541,-0.5226004 -0.05624,-1.33162358 0.54726698,-1.27169218 0.139271,0.01383 0.282802,0.073662 0.417465,0.1942619 L 12.618358,10.575436 v 0.0035 L 1.8672959,20.217932 C 1.1490909,20.861133 0.18435992,19.784141 0.90256392,19.140941 Z">
                                 </path>
@@ -120,7 +121,7 @@
                         <td>
                         </td>
                         <td id="coworkerName" align="center">
-                            Josua Wolber
+                            Herman M&uuml;ller
                         </td>
                     </tr>
                 </table>
