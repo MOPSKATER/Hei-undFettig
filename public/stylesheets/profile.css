@@ -1,0 +1,57 @@
+
+body {
+	margin: 0;
+	padding: 0;
+	overflow-x: hidden;
+	overflow-y: auto;
+	background-color: rgb(179, 179, 179);
+}
+
+#page {
+	width: 100%;
+	display: block;
+	/* height: calc(100vh - 25vh - 13.5vh); */
+}
+
+#left {
+    display: inline-block;
+    margin-top: 2vh;
+	margin-left: 10vw;
+    font-size: large;
+    width: 59vw;
+}
+#left .input {
+    margin-top: 1%;
+    margin-bottom: 2%;
+    width: 100%;
+}
+#left .inline {
+    display: inline-block;
+    width: calc(50% - 2.5px);
+}
+#left textarea {
+    resize: none;
+}
+#left #submit {
+    float: right;
+    width: auto;
+}
+
+#right {
+    float: right;
+    margin-top: 4vh;
+	margin-right: 10vw;
+    width: 19vw;
+}
+#right p {
+    text-align: right;
+}
+#right #select_box {
+    float: right;
+}
+
+#footer {
+    position: absolute;
+    bottom: 0;
+    z-index: 4;
+}
