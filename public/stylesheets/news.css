@@ -22,18 +22,36 @@ ul.news-list{
   border-bottom: 2px solid #808080;
   width: 95%;
 }
-.icon-news{
+
+#change{
   position: absolute;
+  left: 80vw;
+  cursor: pointer;
   height: 20px;
   width: 20px;
   outline: 1px solid black;
   outline-offset: 1px;
 }
-#pencil{
-  left: 71vw;
+#delete{
+  position: absolute;
+  left: 82vw;
   cursor: pointer;
+  height: 20px;
+  width: 20px;
+  outline: 1px solid black;
+  outline-offset: 1px;
 }
-#more{
-  left: 73vw;
+
+#submit{
+  position: absolute;
+  left: 84vw;
   cursor: pointer;
+  height: 20px;
+  width: 20px;
+  outline: 1px solid black;
+  outline-offset: 1px;
+}
+#area{
+  width: 80%;
+  height: 10%;
 }
