@@ -14,6 +14,7 @@ let counter = 0
 
 function displayLogin(name, points) {
     document.getElementById("summary").innerHTML = name + "<br>Treuepunkte: " + points;
+    document.getElementById("profilLink").style.display = "block";
     login = document.getElementById("login");
     login.innerHTML = "<u>Logout</u>";
     login.href = "/html/logout.html";
