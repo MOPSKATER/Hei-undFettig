@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="../stylesheets/util/banner.css">
   <link rel="stylesheet" href="../stylesheets/util/footer.css">
   <script src="../javascripts/util/nav.js"></script>
-  <script src="./javascripts/news.js"></script>
+  <script src="../javascripts/news.js"></script>
 </head>
 
 <body>
@@ -77,62 +77,87 @@
   <div class="news-container">
     <ul class="news-list">
       <h2 class="underline">Bleib aktuell:</h2>
-
-      <div class="icon-news">
-        <img id="pencil" class="icon-news" 
-          src="https://uxwing.com/wp-content/themes/uxwing/download/03-text-editing/pencil.svg">  
-        <img id="more" class="icon-news"
-          src="https://uxwing.com/wp-content/themes/uxwing/download/03-text-editing/three-horizontal-lines.svg"> 
+      <div>
+        <img id="change" onClick="changeContent()" src="https://uxwing.com/wp-content/themes/uxwing/download/03-text-editing/signature.svg">
+        <img id="delete" onClick="clearContent()" src="https://uxwing.com/wp-content/themes/uxwing/download/01-user_interface/cancel.svg">
+        <img id="submit" onClick="submitContent()" src="https://uxwing.com/wp-content/themes/uxwing/download/01-user_interface/confirm.svg">
       </div>
-
-      <h3>Januar 2021</h3>
         <li>
-          <p>Liebe Gäste,<br>wir wünschen Ihnen und Ihrer Familie ein gutes
-            und gesundes neues Jahr!</p>
+          <textarea id="area" cols="5" rows="5">
+            <h3>Januar 2021</h3>
+            <p>Liebe Gäste, wir wünschen Ihnen und Ihrer Familie ein gutes und gesundes neues Jahr!</p>
+          </textarea>
         </li>
-      <h3>Weihnachten 2020</h3>
+      <div>
+        <img id="change" onClick="changeContent()" src="https://uxwing.com/wp-content/themes/uxwing/download/03-text-editing/signature.svg">
+        <img id="delete" onClick="clearContent()" src="https://uxwing.com/wp-content/themes/uxwing/download/01-user_interface/cancel.svg">
+        <img id="submit" onClick="submitContent()" src="https://uxwing.com/wp-content/themes/uxwing/download/01-user_interface/confirm.svg">
+      </div>
         <li>
-          <p>Sie suchen für Ihre Lieben noch ein Weihnachtsgeschenk?<br>Bei uns erhalten Sie Gutscheine (Betrag nach
-            Wahl), Schnaps aus unserer historischen
-            Schnapsbrennerei oder selbstgemachte Liköre.<br>Schreiben Sie und eine E-Mail oder rufen Sie uns an.</p>
+          <textarea id="area" cols="5" rows="5">
+            <h3>Weihnachten 2020</h3>
+            <p>Sie suchen für Ihre Lieben noch ein Weihnachtsgeschenk? Bei uns erhalten Sie Gutscheine (Betrag nach Wahl), 
+              Schnaps aus unserer historischen Schnapsbrennerei oder selbstgemachte Liköre. Schreiben Sie und eine E-Mail oder rufen Sie uns an.</p>
+          </textarea>
         </li>
-      <h3>Dezember 2020</h3>
+      <div>
+        <img id="change" onClick="changeContent()" src="https://uxwing.com/wp-content/themes/uxwing/download/03-text-editing/signature.svg">
+        <img id="delete" onClick="clearContent()" src="https://uxwing.com/wp-content/themes/uxwing/download/01-user_interface/cancel.svg">
+        <img id="submit" onClick="submitContent()" src="https://uxwing.com/wp-content/themes/uxwing/download/01-user_interface/confirm.svg">
+      </div>    
         <li>
-          <p>Liebe Gäste, unser Restaurant bleibt bis zum Ende des Lockdown geschlossen.<br>Wir wünschen Ihnen und Ihrer
-            Familie ein schönes Weihnachtsfest
-            und ein gutes, gesundes Jahr 2021.<br>Auf ein baldiges Wiedersehen</p>
+          <textarea id="area" cols="5" rows="5">
+            <h3>Dezember 2020</h3>
+            <p>Liebe Gäste, unser Restaurant bleibt bis zum Ende des Lockdown geschlossen. 
+              Wir wünschen Ihnen und Ihrer Familie ein schönes Weihnachtsfest und ein gutes, gesundes Jahr 2021. Auf ein baldiges Wiedersehen</p>
+          </textarea>
         </li>
-      <h3>Juli 2020</h3>
+        <div>
+          <img id="change" onClick="changeContent()" src="https://uxwing.com/wp-content/themes/uxwing/download/03-text-editing/signature.svg">
+          <img id="delete" onClick="clearContent()" src="https://uxwing.com/wp-content/themes/uxwing/download/01-user_interface/cancel.svg">
+          <img id="submit" onClick="submitContent()" src="https://uxwing.com/wp-content/themes/uxwing/download/01-user_interface/confirm.svg">
+          </div>
         <li>
-          <p>Liebe Gäste, die Ortsdurchfahrt von ist seit Juli gesperrt. Wir möchten Sie darauf hinweisen, dass die
-            Zufahrt trotzdem
-            ohne Probleme möglich ist.<br>Bitte folgen Sie hier der Umleitungs-Beschilderung. Wir hoffen, dass Sie trotz
-            diesen Umständen den Weg zu uns finden.<br>Sollten Sie
-            jedoch Hilfe benötigen können Sie uns gerne kontaktieren.</p>
+          <textarea id="area" cols="5" rows="5">
+            <h3>Juli 2020</h3>
+            <p>Liebe Gäste, die Ortsdurchfahrt von ist seit Juli gesperrt. Wir möchten Sie darauf hinweisen, dass die Zufahrt trotzdem
+              ohne Probleme möglich ist. Bitte folgen Sie hier der Umleitungs-Beschilderung. Wir hoffen, dass Sie trotz diesen Umständen den Weg zu uns finden.Sollten Sie
+              jedoch Hilfe benötigen können Sie uns gerne kontaktieren.</p>
+          </textarea>
         </li>
-      <h3>Mai 2020</h3>
+        <div>
+          <img id="change" onClick="changeContent()" src="https://uxwing.com/wp-content/themes/uxwing/download/03-text-editing/signature.svg">
+          <img id="delete" onClick="clearContent()" src="https://uxwing.com/wp-content/themes/uxwing/download/01-user_interface/cancel.svg">
+          <img id="submit" onClick="submitContent()" src="https://uxwing.com/wp-content/themes/uxwing/download/01-user_interface/confirm.svg">
+          </div>
         <li>
-          <p>Liebe Gäste,<br>wir öffnen unser Restaurant wieder ab dem 21.5.2020 für Sie!<br>Wir bitten Sie sich bei Ihrem
-            Besuch an die Verhaltensregeln zu halten,
-            die sie natürlich auch den ausgehängten Schildern entnehmen können.<br>Bitte unterstützen Sie uns dabei, allen
-            einen sicheren und schönen Besuch bei uns zu ermöglichen.<br>
-            Es ergeben sich dadurch auch einige Neuerungen:</p>
+          <textarea id="area" cols="5" rows="5">
+            <h3>Mai 2020</h3>
+            <p>Liebe Gäste, wir öffnen unser Restaurant wieder ab dem 21.5.2020 für Sie! Wir bitten Sie sich bei Ihrem Besuch an die Verhaltensregeln zu halten,
+              die sie natürlich auch den ausgehängten Schildern entnehmen können. Bitte unterstützen Sie uns dabei, allen einen sicheren und schönen Besuch bei uns zu ermöglichen.
+              Es ergeben sich dadurch auch einige Neuerungen:</p>
+          </textarea>
         </li>
       <ul>
         <li>
-          <p>Geänderte Öffnungszeiten: wir sind nun Freitag von 15 – 21 Uhr und Samstag und Sonntag durchgehend (11- 21
-          Uhr) für Sie da.<br> Die Küche ist jeweils durchgehend bis 20 Uhr geöffnet.<br> Wir bitten Sie zu den
-          Hauptgeschäftszeiten (Samstag und Sonntag 12 – 14 Uhr und 17 – 19 Uhr) einen Tisch zu reservieren.</p>
+          <textarea id="area" cols="5" rows="5">
+            <p>Geänderte Öffnungszeiten: wir sind nun Freitag von 15 – 21 Uhr und Samstag und Sonntag durchgehend (11- 21 Uhr) für Sie da. Die Küche ist jeweils durchgehend
+               bis 20 Uhr geöffnet. Wir bitten Sie zu den Hauptgeschäftszeiten (Samstag und Sonntag 12 – 14 Uhr und 17 – 19 Uhr) einen Tisch zu reservieren.</p>
+          </textarea>
         </li>
         <li>
-         <p> Angepasste Speisekarte: Wir bieten in diesen Zeiten durchgehend warme Küche an. Unsere aktuelle Speisekarte
-          finden Sie <a href="./menu.html">hier</a>.<br> Neu sind auch unsere Kaffeespezialitäten und selbstgemachten Kuchen.</p>
+          <textarea id="area" cols="5" rows="5">
+            <p>Angepasste Speisekarte: Wir bieten in diesen Zeiten durchgehend warme Küche an. Unsere aktuelle Speisekarte
+            finden Sie <a href="./menu.html">hier</a>. Neu sind auch unsere Kaffeespezialitäten und selbstgemachten Kuchen.</p>
+          </textarea>
         </li>
         <li>
-          <p>Gerne können Sie unsere Gerichte auch abholen und bei Ihnen zu Hause genießen.</p>
+          <textarea id="area" cols="5" rows="5">
+            <p>Gerne können Sie unsere Gerichte auch abholen und bei Ihnen zu Hause genießen.</p>
+          </textarea>
         </li>
       </ul>
-      <br>Wir freuen uns, Sie wieder im Heiß und Fettig begrüßen zu dürfen!
+      <br><h3>Wir freuen uns, Sie sobald wie möglich wieder im Heiß und Fettig begrüßen zu dürfen!</h3>
     </ul>
   </div>
 </body>
