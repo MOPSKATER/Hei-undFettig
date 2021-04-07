@@ -1,0 +1,39 @@
+html, body{
+  margin: 0;
+	padding: 0;
+	background-color: #DDEEDD;
+	overflow-x: hidden;
+	overflow-y: auto;
+	background-color: rgb(179, 179, 179);
+}
+
+ul.news-list{
+  list-style-type: none;
+}
+
+.news-container{
+  margin-left: 10vw;
+  margin-right: 10vw;
+  background-color:lightgray;
+  outline: 2px solid gray;
+}
+
+.underline {
+  border-bottom: 2px solid #808080;
+  width: 95%;
+}
+.icon-news{
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  outline: 1px solid black;
+  outline-offset: 1px;
+}
+#pencil{
+  left: 71vw;
+  cursor: pointer;
+}
+#more{
+  left: 73vw;
+  cursor: pointer;
+}
