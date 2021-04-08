@@ -1,0 +1,56 @@
+
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #DDEEDD;
+	overflow-x: hidden;
+	overflow-y: auto;
+	background-color: rgb(179, 179, 179);
+}
+
+#page {
+	width: 100%;
+	display: block;
+	font-size: large;
+	min-height: calc(100vh - 25vh - 13.5vh);
+}
+
+#left {
+	display: inline-block;
+    width: 50%;
+	margin-left: 10%;
+}
+
+#methode {
+	padding: 20px;
+}
+
+#checkout {
+    width: 100%;
+}
+#checkout .colCount {
+	width: 60px;
+}
+#checkout .colPrice {
+	width: 60px;
+}
+#checkout .colRemove {
+	width: max-content;
+}
+.count input {
+	width: 100%;
+}
+
+#right {
+	float: right;
+    margin-top: 4vh;
+	margin-right: 10vw;
+    width: max-content;
+	text-align: right;
+}
+.small {
+	font-size: small;
+}
+#right #submit {
+	width: 100%;
+}
