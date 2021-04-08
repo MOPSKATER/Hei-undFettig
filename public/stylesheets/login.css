@@ -1,0 +1,59 @@
+html body{
+    margin: 0px;
+    padding: 0px;
+}
+
+#page {
+    width: 100vw;
+    height: 76vh;
+    display: flex;
+    justify-content: center;
+    background-color: #AEAEAE;
+}
+
+#container{
+    width: 40%;
+    height: 70%;
+    margin-top: 5%;
+    display: flex;
+}
+
+.half {
+    width: 50%;
+}
+  
+#left {
+    border-right: 1px solid;
+}
+  
+#right {
+    border-left: 1px solid;
+}
+
+h1 {
+    margin-bottom: 15%;
+}
+
+input {
+    position: relative;
+    width: 80%;
+    left: 10%;
+    border: 1px solid;
+    height: 6%;
+}
+
+button {
+    position: relative;
+    width: 70%;
+    height: 6%;
+    left: 15%;
+    margin-top: 10%;
+    background-color: #2CA02C;
+    border: 2px solid;
+    font-weight: bold;
+}
+
+.text {
+    position: relative;
+    left: 10%;
+}

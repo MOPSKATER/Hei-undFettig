@@ -1,24 +1,24 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="./stylesheets/index.css">
-    <script src="./javascripts/index.js"></script>
-    <script src="./javascripts/util/nav.js"></script>
+    <meta charset="utf-8" />
+    <title>Heiß und Fettig - Speisekarte</title>
+    <link rel="stylesheet" href="../stylesheets/login.css">
+    <link rel="stylesheet" href="../stylesheets/util/nav.css">
+    <link rel="stylesheet" href="../stylesheets/util/banner.css">
+    <link rel="stylesheet" href="../stylesheets/util/footer.css">
+    <script src="/javascripts/util/nav.js"></script>
 </head>
 
 <body>
-
-    <div id=" home1">
-
-        <img id="titleImage" src="https://cdn.gutekueche.de/upload/rezept/10862/1600x1200_rib-eye-steak.jpg">
-
+    <div id="home1">
         <div class="menu">
 
             <img id="logo" src="https://www.closeup.de/media/oart_0/oart_p/oart_75514/thumbs/819972_2152510.jpg">
 
             <div class="menuContainer">
 
-                <a class="noDeco" id="menuButton" href="./index.html">
+                <a class="noDeco" id="menuButton" href="../index.html">
                     <div class="menuItem" onmouseover="addUnderline(this)" onmouseout="removeUnderline(this)">
                         <div class="centerContent">
                             Start
@@ -26,7 +26,7 @@
                     </div>
                 </a>
 
-                <a class="noDeco" id="menuButton" href="./html/menu.html">
+                <a class="noDeco" id="menuButton" href="./menu.html">
                     <div class="menuItem" onmouseover="addUnderline(this)" onmouseout="removeUnderline(this)">
                         <div class="centerContent">
                             Speisekarte
@@ -34,7 +34,7 @@
                     </div>
                 </a>
 
-                <a class="noDeco" id="menuButton" href="./html/news.html">
+                <a class="noDeco" id="menuButton" href="./news.html">
                     <div class="menuItem" onmouseover="addUnderline(this)" onmouseout="removeUnderline(this)">
                         <div class="centerContent">
                             Neuigkeiten
@@ -42,7 +42,7 @@
                     </div>
                 </a>
 
-                <a class="noDeco" id="menuButton" href="./html/imprint.html">
+                <a class="noDeco" id="menuButton" href="./imprint.html">
                     <div class="menuItem" onmouseover="addUnderline(this)" onmouseout="removeUnderline(this)">
                         <div class="centerContent">
                             Impressum
@@ -60,88 +60,61 @@
             <img id="controlIcon" class="icon" onclick="toggleControl()"
                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSN6PSb90rGnT4WTxYC7HBxNWs2Ig-mSP2b0g&usqp=CAU">
 
-            <div id="controlPanel" align="center">
+            <div id="controlPanel">
                 <p id="summary">Anonym</p>
-                <a href="./html/profile.html" id="profilLink" class="noDeco" style="display:none;">
-                    <u>
-                        Profil
-                    </u>
+                <a href="./html/profil.html" class="noDeco" style="display:none;">
+                    Profil
                 </a>
                 <a href="./html/login.html" id="login" class="noDeco"><u>Login</u></a>
             </div>
-
+        </div>
+        <div id="banner_small">
+            <p class="banner_logo"><img
+                    src="https://www.closeup.de/media/oart_0/oart_p/oart_75514/thumbs/819972_2069476.jpg"></img>Heiß und
+                Fettig</p>
         </div>
     </div>
 
-    <div id="home2">
-        <a class="noDeco" href="./html/news.html">
-            <div id="news">
-                Keine Neuigkeiten vorhanden
-            </div>
-        </a>
-
-        <div id="additional">
+    <div id="page">
+        <div id="container">
             <div class="half" id="left">
-                <a class="btn noDeco" id="btnSpeisekarte" href="./html/menu.html">
-                    Speisekarte
-                </a>
-                <h1 class="underline">
-                    Generelle Infos
+                <h1 align="center">
+                    Anmelden
                 </h1>
-                <p style="font-size:20px;">
-                    Wir sind ein kleiner Familienbetrieb der sich auf super leckere Fleischgerichte spezialisiert hat.
-                    Wir beziehen unser Fleisch ausschließlich von regionalen Anbietern. Seit Generationen wird auch das
-                    geheime Rezept unserer super scharfen Chillisauce weitergegeben was das Aroma zum vorschein bringt.
-                    Wir garantieren ein unvergessliches Geschmackserlebnis!
-                </p>
+                <p class="text">E-Mail</p>
+                <input type="text"><br>
+                <p class="text">Passwort</p>
+                <input type="password">
+                <button>
+                    Anmelden
+                </button>
             </div>
             <div class="half" id="right">
-                <h1 class="underline">
-                    Mitarbeiter
+                <h1 align="center">
+                    Registrieren
                 </h1>
-
-                <table style="margin:2vw; width: 90%;">
-                    <tr>
-                        <th align="center">
-                            <svg class="arrow" viewBox="0 0 13.125 21" onclick="cycleStaff(-1)"
-                                style="cursor: pointer;">
-                                <path
-                                    d="M 2.8005569,10.57719 12.351843,2.0134396 c 0.583542,-0.5226004 0.05624,-1.33162358 -0.547266,-1.27169228 -0.139271,0.01383 -0.282802,0.073662 -0.417465,0.194262 L 0.63604992,10.575436 v 0.0035 L 11.387112,20.217953 c 0.718204,0.643201 1.682937,-0.433791 0.964731,-1.076991 z">
-                                </path>
-                            </svg>
-                        </th>
-                        <th width="60%">
-                            <img src="https://static.toiimg.com/photo/73244344.cms" id="coworkerImg" width="100%">
-                        </th>
-                        <th align="right">
-                            <svg class="arrow" viewBox="0 0 13.125 21" onclick="cycleStaff(1)" style="cursor: pointer;">
-                                <path
-                                    d="M 10.45385,10.57719 0.90256392,2.0134397 c -0.583541,-0.5226004 -0.05624,-1.33162358 0.54726698,-1.27169218 0.139271,0.01383 0.282802,0.073662 0.417465,0.1942619 L 12.618358,10.575436 v 0.0035 L 1.8672959,20.217932 C 1.1490909,20.861133 0.18435992,19.784141 0.90256392,19.140941 Z">
-                                </path>
-                            </svg>
-                        </th>
-                    <tr>
-                        <td>
-                        </td>
-                        <td id="coworkerName" align="center">
-                            Herman M&uuml;ller
-                        </td>
-                    </tr>
-                </table>
+                <p class="text">E-Mail</p>
+                <input type="text"><br>
+                <p class="text">Passwort</p>
+                <input type="password"><br>
+                <p class="text">Passwort wiederholen</p>
+                <input type="password">
+                <button>
+                    Registrieren
+                </button>
             </div>
         </div>
-
-        <div id="footer">
-            <div id="impressum">
-                <p>&copy; heiß-und-fettig &nbsp &nbsp | </p>
-                <a class="noDeco btn" id="btnImpressum" href="./html/imprint.html">
-                    Impressum
-                </a>
-            </div>
-        </div>
-
     </div>
 
+
+    <div id="footer">
+        <div id="impressum">
+            <p>&copy; heiß-und-fettig &nbsp &nbsp | </p>
+            <a class="noDeco btn" id="btnImpressum" href="./imprint.html">
+                Impressum
+            </a>
+        </div>
+    </div>
 </body>
 
 </html>
