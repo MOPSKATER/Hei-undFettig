@@ -31,18 +31,32 @@ function load() {
 }
 
 function addToBasket(elem) {
-    var id;
-    var menu = "";
-    elem.parentNode.parentNode.childNodes.forEach(function(item) {
-        if (item.className == "num") {
-            id = parseFloat(item.innerHTML);
-            menu += id + " / ";
-        }
-        if (item.className == "name") {
-            menu += item.innerHTML;
+    var cart = [];
+    document.cookie.split(";").forEach(function(elem) {
+        cookie = elem.split("=")
+        if(cookie[0].trim() == "cart") {
+            cart = JSON.parse(cookie[1]);
+            return;
         }
     });
-    alert("Menu \"" + menu + "\" zum Warenkorb hinzugefügt.");
+    var newItem = { id: undefined, name: undefined, price: undefined, count: 1 }
+    elem.parentNode.parentNode.childNodes.forEach(function(x) {
+        if (x.className == "num") newItem.id = parseFloat(x.innerHTML);
+        if (x.className == "name") newItem.name = x.innerHTML;
+        if (x.className == "price") newItem.price = parseFloat(x.innerHTML);
+    });
+    if (cart.findIndex(function(item) {
+        if (item.id === newItem.id) {
+            return true;
+        }
+    }) === -1) {
+        cart.push(newItem);
+        document.cookie = "cart=" + JSON.stringify(cart) + "; path=/;";
+        alert("Menu \"" + newItem.name + "\" zum Warenkorb hinzugefügt.");
+    }
+    else {
+        alert("Menu \"" + newItem.name + "\" bereits im Warenkorb.\nDie Anzahl kann an der Kasse ge\u00e4ndert werden.");
+    }
 }
 
 function add(course, num, attr) {
