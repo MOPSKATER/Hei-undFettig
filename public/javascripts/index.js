@@ -12,14 +12,6 @@ const testImg = {
 
 let counter = 0
 
-function displayLogin(name, points) {
-    document.getElementById("summary").innerHTML = name + "<br>Treuepunkte: " + points;
-    document.getElementById("profilLink").style.display = "block";
-    login = document.getElementById("login");
-    login.innerHTML = "<u>Logout</u>";
-    login.href = "/html/logout.html";
-}
-
 function cycleStaff(dir) {
     counter = (counter + dir) % 3 < 0 ? 2 : (counter + dir) % 3;
     document.getElementById("coworkerName").innerText = staff[counter];
