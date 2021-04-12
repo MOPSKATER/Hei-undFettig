@@ -1,0 +1,39 @@
+html body{
+    margin: 0px;
+    padding: 0px;
+}
+
+.orderPage{
+  width: 100vw;
+  height: 69vh;
+  justify-content: center;
+  display: flex;
+  background-color: lightgray;
+}
+
+.orderContainer{
+    width: 80vw;
+    height: fit-content;
+    margin-top: 7vh;
+    margin-left: 10vw;
+    margin-right: 10vw;
+    margin-bottom: 10vh;
+    outline: 2px solid gray;
+    background-color: orange;
+    padding: 10px;
+}
+
+.underline {
+    border-bottom: 2px solid gray;
+    width: 85%;
+  }
+  #done{
+    position: absolute;
+    width: fit-content;
+    height: fit-content;
+    background-color: rgb(0, 167, 0);
+    left: 85vw;
+    top: 34vh;
+    outline: 1px solid gray;
+  }
+
