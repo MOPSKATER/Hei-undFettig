@@ -1,127 +1,152 @@
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Heiß und Fettig - Speisekarte</title>
-    <link rel="stylesheet" href="../stylesheets/menu.css">
-    <link rel="stylesheet" href="../stylesheets/util/nav.css">
-    <link rel="stylesheet" href="../stylesheets/util/banner.css">
-    <link rel="stylesheet" href="../stylesheets/util/footer.css">
-    <script src="../javascripts/menu.js"></script>
-    <script src="../javascripts/util/nav.js"></script>
-  </head>
-  <body>
-    <div id="home1">
-      <div class="menu">
 
-        <img id="logo" src="https://www.closeup.de/media/oart_0/oart_p/oart_75514/thumbs/819972_2152510.jpg">
+<head>
+  <meta charset="utf-8" />
+  <title>Heiß und Fettig - Speisekarte</title>
+  <link rel="stylesheet" href="../stylesheets/menu.css">
+  <link rel="stylesheet" href="../stylesheets/util/nav.css">
+  <link rel="stylesheet" href="../stylesheets/util/banner.css">
+  <link rel="stylesheet" href="../stylesheets/util/footer.css">
+  <script src="../javascripts/menu.js"></script>
+  <script src="../javascripts/util/nav.js"></script>
+</head>
 
-        <div class="menuContainer">
+<body>
+  <div id="home1">
+    <div class="menu">
 
-            <a class="noDeco" id="menuButton" href="../index.html">
-                <div class="menuItem" onmouseover="addUnderline(this)" onmouseout="removeUnderline(this)">
-                    <div class="centerContent">
-                        Start
-                    </div>
-                </div>
-            </a>
+      <img id="logo" src="https://www.closeup.de/media/oart_0/oart_p/oart_75514/thumbs/819972_2152510.jpg">
 
-            <a class="noDeco" id="menuButton" href="./menu.html">
-                <div class="menuItem" onmouseover="addUnderline(this)" onmouseout="removeUnderline(this)">
-                    <div class="centerContent">
-                        Speisekarte
-                    </div>
-                </div>
-            </a>
+      <div class="menuContainer">
 
-            <a class="noDeco" id="menuButton" href="./news.html">
-                <div class="menuItem" onmouseover="addUnderline(this)" onmouseout="removeUnderline(this)">
-                    <div class="centerContent">
-                        Neuigkeiten
-                    </div>
-                </div>
-            </a>
-
-            <a class="noDeco" id="menuButton" href="./imprint.html">
-                <div class="menuItem" onmouseover="addUnderline(this)" onmouseout="removeUnderline(this)">
-                    <div class="centerContent">
-                        Impressum
-                    </div>
-                </div>
-            </a>
-
-        </div>
-
-        <a href="./cart.html">
-            <img id="cart" class="icon"
-                src="data:image/png;base64,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">
+        <a class="noDeco" id="menuButton" href="../index.html">
+          <div class="menuItem" onmouseover="addUnderline(this)" onmouseout="removeUnderline(this)">
+            <div class="centerContent">
+              Start
+            </div>
+          </div>
         </a>
 
-        <img id="controlIcon" class="icon" onclick="toggleControl()"
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSN6PSb90rGnT4WTxYC7HBxNWs2Ig-mSP2b0g&usqp=CAU">
+        <a class="noDeco" id="menuButton" href="./menu.html">
+          <div class="menuItem" onmouseover="addUnderline(this)" onmouseout="removeUnderline(this)">
+            <div class="centerContent">
+              Speisekarte
+            </div>
+          </div>
+        </a>
 
-        <div id="controlPanel">
-            <p id="summary">Anonym</p>
-            <a href="./profile.html" class="noDeco" style="display:none;">
-                Profil
-            </a>
-            <a href="./login.html" id="login" class="noDeco"><u>Login</u></a>
-        </div>
-      </div>
-      <div id="banner_small">
-        <p class="banner_logo"><img src="https://www.closeup.de/media/oart_0/oart_p/oart_75514/thumbs/819972_2069476.jpg"></img>Heiß und Fettig</p>
-      </div>
-    </div>
-    
-    <div id="page">
-      <table id="card">
-        <colgroup>
-          <col class="colOuter">
-          <col class="colInner">
-          <col>
-          <col class="colInner">
-          <col class="colOuter">
-        </colgroup>
-        <tr id="starters">
-          <td colspan="5"><h1>Vorspeisen</h1></td>
-        </tr>
-        <tr id="mainCourses">
-          <td colspan="5"><h1>Hauptspeisen</h1></td>
-        </tr>
-        <tr id="desserts">
-          <td colspan="5"><h1>Nachspeisen</h1></td>
-        </tr>
-      </table>
-    </div>
-      
-    <div id="footer">
-      <div id="impressum">
-          <p>&copy; heiß-und-fettig &nbsp &nbsp | </p>
-          <a class="noDeco btn" id="btnImpressum" href="./imprint.html">
+        <a class="noDeco" id="menuButton" href="./news.html">
+          <div class="menuItem" onmouseover="addUnderline(this)" onmouseout="removeUnderline(this)">
+            <div class="centerContent">
+              Neuigkeiten
+            </div>
+          </div>
+        </a>
+
+        <a class="noDeco" id="menuButton" href="./imprint.html">
+          <div class="menuItem" onmouseover="addUnderline(this)" onmouseout="removeUnderline(this)">
+            <div class="centerContent">
               Impressum
-          </a>
+            </div>
+          </div>
+        </a>
+
+      </div>
+
+      <a href="./cart.html">
+        <img id="cart" class="icon"
+          src="data:image/png;base64,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">
+      </a>
+
+      <img id="controlIcon" class="icon" onclick="toggleControl()"
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSN6PSb90rGnT4WTxYC7HBxNWs2Ig-mSP2b0g&usqp=CAU">
+
+      <div id="controlPanel" align="center">
+        <p id="summary">Anonym</p>
+        <a href="./profile.html" id="profilLink" class="noDeco" style="display:none;">
+          <u>
+            Profile
+          </u>
+        </a>
+        <a href="./login.html" id="login" class="noDeco"><u>Login</u></a>
       </div>
     </div>
-    
-    <template id="item">
-      <tr class="item">
-        <td class="num">num</td>
-        <td class="name">name</td>
-        <td class="descr">beschr</td>
-        <td class="price">preis</td>
-        <td><a onclick = "addToBasket(this)">
+    <div id="banner_small">
+      <p class="banner_logo"><img
+          src="https://www.closeup.de/media/oart_0/oart_p/oart_75514/thumbs/819972_2069476.jpg"></img>Heiß und Fettig
+      </p>
+    </div>
+  </div>
+
+  <div id="page">
+    <table id="card">
+      <colgroup>
+        <col class="colOuter">
+        <col class="colInner">
+        <col>
+        <col class="colInner">
+        <col class="colOuter">
+      </colgroup>
+      <tr id="starters">
+        <td colspan="5">
+          <h1>Vorspeisen</h1>
+        </td>
+      </tr>
+      <tr id="mainCourses">
+        <td colspan="5">
+          <h1>Hauptspeisen</h1>
+        </td>
+      </tr>
+      <tr id="desserts">
+        <td colspan="5">
+          <h1>Nachspeisen</h1>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div id="footer">
+    <div id="impressum">
+      <p>&copy; heiß-und-fettig &nbsp &nbsp | </p>
+      <a class="noDeco btn" id="btnImpressum" href="./imprint.html">
+        Impressum
+      </a>
+    </div>
+  </div>
+
+  <template id="item">
+    <tr class="item">
+      <td class="num">num</td>
+      <td class="name">name</td>
+      <td class="descr">beschr</td>
+      <td class="price">preis</td>
+      <td><a onclick="addToBasket(this)">
           <svg class="basket" viewBox="0 0 25 25">
-            <path d="M 19.460938,6.8359375 A 0.48254824,0.48254824 0 0 0 19.041016,7.09375 l -1.5625,2.8671875 H 5.9042969 L 8.2714844,15.933594 H 17.21875 l 1.005859,-5.324219 1.664063,-3.0546875 a 0.48254824,0.48254824 0 0 0 -0.427734,-0.71875 z M 7.3242188,10.925781 H 17.183594 L 16.419922,14.96875 H 8.9257812 Z"></path>
-            <path d="m 15.082031,15.0625 a 0.48254824,0.48254824 0 0 0 -0.427734,0.613281 l 0.419922,1.566407 h -4.697266 a 0.48254824,0.48254824 0 1 0 0,0.964843 h 5.955078 l -0.74414,-2.78125 A 0.48254824,0.48254824 0 0 0 15.082031,15.0625 Z"></path>
+            <path
+              d="M 19.460938,6.8359375 A 0.48254824,0.48254824 0 0 0 19.041016,7.09375 l -1.5625,2.8671875 H 5.9042969 L 8.2714844,15.933594 H 17.21875 l 1.005859,-5.324219 1.664063,-3.0546875 a 0.48254824,0.48254824 0 0 0 -0.427734,-0.71875 z M 7.3242188,10.925781 H 17.183594 L 16.419922,14.96875 H 8.9257812 Z">
+            </path>
+            <path
+              d="m 15.082031,15.0625 a 0.48254824,0.48254824 0 0 0 -0.427734,0.613281 l 0.419922,1.566407 h -4.697266 a 0.48254824,0.48254824 0 1 0 0,0.964843 h 5.955078 l -0.74414,-2.78125 A 0.48254824,0.48254824 0 0 0 15.082031,15.0625 Z">
+            </path>
             <path d="m 10.914062,10.314453 -0.9511714,0.152344 0.8007814,5.025391 0.953125,-0.150391 z"></path>
             <path d="m 13.970703,10.404297 -0.716797,4.980469 0.955078,0.136718 0.716797,-4.980468 z"></path>
-            <path d="m 10.488281,17.232422 c -0.8684689,0 -1.5957029,0.727234 -1.5957029,1.595703 0,0.868469 0.727234,1.597656 1.5957029,1.597656 0.868469,0 1.595703,-0.729187 1.595703,-1.597656 0,-0.868469 -0.727234,-1.595703 -1.595703,-1.595703 z m 0,0.992187 c 0.320499,0 0.603516,0.283017 0.603516,0.603516 0,0.320499 -0.283017,0.605469 -0.603516,0.605469 -0.320499,0 -0.6035154,-0.28497 -0.6035154,-0.605469 0,-0.320499 0.2830164,-0.603516 0.6035154,-0.603516 z"></path>
-            <path d="m 15.533203,17.232422 c -0.868469,0 -1.595703,0.727234 -1.595703,1.595703 0,0.868469 0.727234,1.597656 1.595703,1.597656 0.868469,0 1.595703,-0.729187 1.595703,-1.597656 0,-0.868469 -0.727234,-1.595703 -1.595703,-1.595703 z m 0,0.992187 c 0.320499,0 0.603516,0.283017 0.603516,0.603516 0,0.320499 -0.283017,0.605469 -0.603516,0.605469 -0.320499,0 -0.603516,-0.28497 -0.603515,-0.605469 0,-0.320499 0.283016,-0.603516 0.603515,-0.603516 z"></path>
-            <path d="m 8.1601562,5.8632812 a 0.28252828,0.28252828 0 0 0 0.00391,0.5644532 C 8.9125296,6.4602674 9.378968,6.5524607 9.9687537,6.9082031 10.55854,7.2639455 11.272313,7.9051224 12.404301,9.0371094 A 0.28252828,0.28252828 0 1 0 12.804688,8.6386719 C 11.664884,7.4988688 10.932078,6.8293482 10.259766,6.4238281 9.5874535,6.018308 8.9758363,5.8975478 8.1875,5.8632812 a 0.28252828,0.28252828 0 0 0 -0.027344,0 z"></path>
-            <path d="M 11.958984,5.7460938 A 0.28252828,0.28252828 0 0 0 11.693359,6.09375 L 12.230469,8.4726562 9.6210938,7.9277344 A 0.28252828,0.28252828 0 1 0 9.5058594,8.4804688 L 12.976562,9.2050781 12.244141,5.96875 A 0.28252828,0.28252828 0 0 0 11.958984,5.7460938 Z"></path>
+            <path
+              d="m 10.488281,17.232422 c -0.8684689,0 -1.5957029,0.727234 -1.5957029,1.595703 0,0.868469 0.727234,1.597656 1.5957029,1.597656 0.868469,0 1.595703,-0.729187 1.595703,-1.597656 0,-0.868469 -0.727234,-1.595703 -1.595703,-1.595703 z m 0,0.992187 c 0.320499,0 0.603516,0.283017 0.603516,0.603516 0,0.320499 -0.283017,0.605469 -0.603516,0.605469 -0.320499,0 -0.6035154,-0.28497 -0.6035154,-0.605469 0,-0.320499 0.2830164,-0.603516 0.6035154,-0.603516 z">
+            </path>
+            <path
+              d="m 15.533203,17.232422 c -0.868469,0 -1.595703,0.727234 -1.595703,1.595703 0,0.868469 0.727234,1.597656 1.595703,1.597656 0.868469,0 1.595703,-0.729187 1.595703,-1.597656 0,-0.868469 -0.727234,-1.595703 -1.595703,-1.595703 z m 0,0.992187 c 0.320499,0 0.603516,0.283017 0.603516,0.603516 0,0.320499 -0.283017,0.605469 -0.603516,0.605469 -0.320499,0 -0.603516,-0.28497 -0.603515,-0.605469 0,-0.320499 0.283016,-0.603516 0.603515,-0.603516 z">
+            </path>
+            <path
+              d="m 8.1601562,5.8632812 a 0.28252828,0.28252828 0 0 0 0.00391,0.5644532 C 8.9125296,6.4602674 9.378968,6.5524607 9.9687537,6.9082031 10.55854,7.2639455 11.272313,7.9051224 12.404301,9.0371094 A 0.28252828,0.28252828 0 1 0 12.804688,8.6386719 C 11.664884,7.4988688 10.932078,6.8293482 10.259766,6.4238281 9.5874535,6.018308 8.9758363,5.8975478 8.1875,5.8632812 a 0.28252828,0.28252828 0 0 0 -0.027344,0 z">
+            </path>
+            <path
+              d="M 11.958984,5.7460938 A 0.28252828,0.28252828 0 0 0 11.693359,6.09375 L 12.230469,8.4726562 9.6210938,7.9277344 A 0.28252828,0.28252828 0 1 0 9.5058594,8.4804688 L 12.976562,9.2050781 12.244141,5.96875 A 0.28252828,0.28252828 0 0 0 11.958984,5.7460938 Z">
+            </path>
           </svg>
         </a></td>
-      </tr>
-    </template>
+    </tr>
+  </template>
 
-  </body>
+</body>
+
 </html>
