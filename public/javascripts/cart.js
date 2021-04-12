@@ -10,9 +10,6 @@ function load() {
 }
 
 function update() {
-    // override();
-    // return;
-
     document.getElementById("cartContent").innerHTML = "";
     total = 0;
 
@@ -54,7 +51,7 @@ function changedCount(e) {
 
 function remove(e) {
     var index = e.parentNode.parentNode.rowIndex;
-    document.getElementById("checkout").deleteRow(index);
+    document.getElementById("cartContent").deleteRow(index);
     cart.splice(index, 1);
     document.cookie = "cart=" + JSON.stringify(cart) + "; path=/;";
 

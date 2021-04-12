@@ -43,16 +43,26 @@ body {
 	width: 100%;
 }
 
+.tableWrapper{
+	width: 80%;
+	height: 25%;
+	overflow: auto;
+}
+
+table {
+	width: 100%;
+}
+
 td.num{
-	width: 5%;
+	width: 15%;
 }
 
 td.name{
-	width: 65%;
+	width: 60%;
 }
 
 td.price td.count td.remove {
-	width: 10%;
+	width: 15%;
 }
 
 td.count {
@@ -65,5 +75,18 @@ td.remove {
 
 tr:nth-child(even) {
 	background-color: #a7a7a7;
+}
+
+#noticeWrapper{
+	margin-top: 5%;
+}
+
+#notice{
+	height: 10%;
+	width: 80%;
+	overflow: auto;
+	resize: none;
+	font-weight: bold;
+	font-size: 16px;
 }
 
