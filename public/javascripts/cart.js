@@ -10,12 +10,15 @@ function load() {
 }
 
 function update() {
+    override();
+    return;
+
     document.getElementById("checkout").innerHTML = "";
     total = 0;
 
-    document.cookie.split(";").forEach(function(elem) {
+    document.cookie.split(";").forEach(function (elem) {
         cookie = elem.split("=")
-        if(cookie[0].trim() == "cart") {
+        if (cookie[0].trim() == "cart") {
             cart = JSON.parse(cookie[1]);
             return;
         }
@@ -24,7 +27,7 @@ function update() {
         document.getElementById("checkout").append("Noch nichts hier! :( Schaue auf der Speisekarte vorbei!");
     }
     else {
-        cart.forEach(function(item) {
+        cart.forEach(function (item) {
             var newItem = document.getElementsByTagName("template")[0].content.cloneNode(true);
             newItem.querySelector(".num").innerHTML = item.id;
             newItem.querySelector(".name").innerHTML = item.name;
@@ -56,6 +59,35 @@ function remove(e) {
     document.cookie = "cart=" + JSON.stringify(cart) + "; path=/;";
 
     update();
+}
+
+function override() {
+    var table = document.getElementById("cartContent");
+
+    table.innerHTML = "";
+    document.cookie.split(";").forEach(function (elem) {
+        cookie = elem.split("=")
+        if (cookie[0].trim() == "cart") {
+            cart = JSON.parse(cookie[1]);
+            return;
+        }
+    });
+
+    console.log(cart.length);
+    if (cart.length === 0) {
+        table.insertRow(0).innerHTML = "Noch nichts hier! :( Schaue auf der Speisekarte vorbei!";
+        return;
+    }
+    cart.forEach(function (item) {
+        var newItem = document.getElementsByTagName("template")[0].content.cloneNode(true);
+        newItem.querySelector(".num").innerHTML = item.id;
+        newItem.querySelector(".name").innerHTML = item.name;
+        newItem.querySelector(".price").innerHTML = item.price + "€";
+        newItem.querySelector(".count").querySelector("input").value = item.count;
+        document.getElementById("cartContent").append(newItem);
+
+        total += item.price * item.count;
+    })
 }
 
 window.onload = load;

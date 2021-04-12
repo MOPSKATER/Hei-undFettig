@@ -87,14 +87,7 @@
                 <input type="radio" name="methode" id="cash"></input>
                 <label for="cash">Bar</label>
             </div>
-            <table id="checkout">
-                <colgroup>
-                    <col>
-                    <col>
-                    <col class="colPrice">
-                    <col class="colCount">
-                    <col class="colRemove">
-                </colgroup>
+            <table id="cartContent" width="85%" cellspacing="0" cellpadding="0">
             </table>
         </div>
         <div id="right">
@@ -120,11 +113,11 @@
 
     <template>
         <tr class="item">
-            <td class="num"></td>
+            <td class="num" align="center"></td>
             <td class="name"></td>
             <td class="price"></td>
             <td class="count"><input type="number" min=1 value=1 onchange="changedCount(this)"></input></td>
-            <td class="remove"><button onclick="remove(this)">x</button></td>
+            <td class="remove" align="center"><button onclick="remove(this)">x</button></td>
         </tr>
     </template>
 
