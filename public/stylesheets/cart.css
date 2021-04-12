@@ -25,18 +25,6 @@ body {
 	padding: 20px;
 }
 
-#checkout {
-    width: 100%;
-}
-#checkout .colCount {
-	width: 60px;
-}
-#checkout .colPrice {
-	width: 60px;
-}
-#checkout .colRemove {
-	width: max-content;
-}
 .count input {
 	width: 100%;
 }
@@ -54,3 +42,28 @@ body {
 #right #submit {
 	width: 100%;
 }
+
+td.num{
+	width: 5%;
+}
+
+td.name{
+	width: 65%;
+}
+
+td.price td.count td.remove {
+	width: 10%;
+}
+
+td.count {
+	padding: 5px;
+}
+
+td.remove {
+	padding: 5px;
+}
+
+tr:nth-child(even) {
+	background-color: #a7a7a7;
+}
+
