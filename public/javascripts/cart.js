@@ -10,10 +10,10 @@ function load() {
 }
 
 function update() {
-    override();
-    return;
+    // override();
+    // return;
 
-    document.getElementById("checkout").innerHTML = "";
+    document.getElementById("cartContent").innerHTML = "";
     total = 0;
 
     document.cookie.split(";").forEach(function (elem) {
@@ -24,7 +24,7 @@ function update() {
         }
     });
     if (cart.length === 0) {
-        document.getElementById("checkout").append("Noch nichts hier! :( Schaue auf der Speisekarte vorbei!");
+        document.getElementById("cartContent").append("Noch nichts hier! :( Schaue auf der Speisekarte vorbei!");
     }
     else {
         cart.forEach(function (item) {
@@ -33,7 +33,7 @@ function update() {
             newItem.querySelector(".name").innerHTML = item.name;
             newItem.querySelector(".price").innerHTML = item.price + "€";
             newItem.querySelector(".count").querySelector("input").value = item.count;
-            document.getElementById("checkout").append(newItem);
+            document.getElementById("cartContent").append(newItem);
 
             total += item.price * item.count;
         })
@@ -59,35 +59,6 @@ function remove(e) {
     document.cookie = "cart=" + JSON.stringify(cart) + "; path=/;";
 
     update();
-}
-
-function override() {
-    var table = document.getElementById("cartContent");
-
-    table.innerHTML = "";
-    document.cookie.split(";").forEach(function (elem) {
-        cookie = elem.split("=")
-        if (cookie[0].trim() == "cart") {
-            cart = JSON.parse(cookie[1]);
-            return;
-        }
-    });
-
-    console.log(cart.length);
-    if (cart.length === 0) {
-        table.insertRow(0).innerHTML = "Noch nichts hier! :( Schaue auf der Speisekarte vorbei!";
-        return;
-    }
-    cart.forEach(function (item) {
-        var newItem = document.getElementsByTagName("template")[0].content.cloneNode(true);
-        newItem.querySelector(".num").innerHTML = item.id;
-        newItem.querySelector(".name").innerHTML = item.name;
-        newItem.querySelector(".price").innerHTML = item.price + "€";
-        newItem.querySelector(".count").querySelector("input").value = item.count;
-        document.getElementById("cartContent").append(newItem);
-
-        total += item.price * item.count;
-    })
 }
 
 window.onload = load;
