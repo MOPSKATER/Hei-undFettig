@@ -1,8 +1,10 @@
-html,
+
 body {
   padding: 0px;
   margin: 0px;
   display: float;
+	overflow-x: hidden;
+	overflow-y: auto;
 }
 
 #home1 {
