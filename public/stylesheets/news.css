@@ -1,4 +1,5 @@
-html, body{
+body{
+  height: 100vh;
   margin: 0;
 	padding: 0;
 	background-color: #DDEEDD;
@@ -7,51 +8,40 @@ html, body{
 	background-color: rgb(179, 179, 179);
 }
 
-ul.news-list{
-  list-style-type: none;
+.news .content {
+  float: left;
+  width: 87%;
+  margin: 2%;
+  margin-top: 18px;
+}
+.news h3 {
+  margin-top: 0;
+}
+.news textarea {
+  width: 100%;
+  resize: none;
+}
+.news .buttons {
+  width: 7%;
+  margin-top: 18px;
+}
+.news .news-icon {
+  margin-left: 8px;
+	width: 30px;
+	height: auto;
+	background-color: bisque;
+}
+.news .news-icon:hover {
+  cursor: pointer;
 }
 
-.news-container{
+
+.right {
+  float: right;
+}
+
+#news-container {
   margin-left: 10vw;
   margin-right: 10vw;
-  background-color:lightgray;
-  outline: 2px solid gray;
-}
-
-.underline {
-  border-bottom: 2px solid #808080;
-  width: 95%;
-}
-
-#change{
-  position: absolute;
-  left: 80vw;
-  cursor: pointer;
-  height: 20px;
-  width: 20px;
-  outline: 1px solid black;
-  outline-offset: 1px;
-}
-#delete{
-  position: absolute;
-  left: 82vw;
-  cursor: pointer;
-  height: 20px;
-  width: 20px;
-  outline: 1px solid black;
-  outline-offset: 1px;
-}
-
-#submit{
-  position: absolute;
-  left: 84vw;
-  cursor: pointer;
-  height: 20px;
-  width: 20px;
-  outline: 1px solid black;
-  outline-offset: 1px;
-}
-#area{
-  width: 80%;
-  height: 10%;
+  min-height: calc(100vh - 25vh - 11.5vh);
 }
