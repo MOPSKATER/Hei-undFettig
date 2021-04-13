@@ -6,7 +6,7 @@ function load() {
     update();
 
     var today = new Date();
-    document.getElementById("time").value = today.getHours() + ":" + ("00" + today.getMinutes()).slice(-2);
+    document.getElementById("time").value = today.getHours() + ":" + ("00" + (today.getMinutes() + 15) % 60).slice(-2);
 }
 
 function update() {
@@ -56,6 +56,25 @@ function remove(e) {
     document.cookie = "cart=" + JSON.stringify(cart) + "; path=/;";
 
     update();
+}
+
+function order() {
+    // temp until backend is implemented
+    if (confirm("Bestellung abschicken?")) {
+        var orders = getJSONCookie("orders") || [];
+        var newOrder = {
+            name: "Peter Pan",
+            time: document.getElementById("time").value,
+            cart: cart,
+            notice: document.getElementById("notice").value,
+        };
+        console.log(orders);
+        orders.push(newOrder);
+        setJSONCookie("orders", orders);
+        delCookie("cart");
+        alert("Vielen Dank für Ihre Bestellung!\nTemporäre weiterleitung zu \"./order.html\" zu Demonstartionszwecken.")
+        window.location.href = "./order.html";
+    }
 }
 
 window.onload = load;

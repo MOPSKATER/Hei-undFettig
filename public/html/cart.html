@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../stylesheets/util/banner.css">
     <link rel="stylesheet" href="../stylesheets/util/footer.css">
     <script src="../javascripts/cart.js"></script>
+    <script src="../javascripts/util/cookies.js"></script>
     <script src="../javascripts/util/nav.js"></script>
 </head>
 
@@ -107,7 +108,7 @@
             <label for="time">Gew&uuml;schte Abholzeit:</label>
             <input type="time" name="time" id="time"></input>
             <p class="small">(Max. 24Std im Vorraus buchbar)</p>
-            <input type="button" name="submit" id="submit" value="Bestellen"></input>
+            <input type="button" name="submit" id="submit" value="Bestellen" onclick="order()"></input>
         </div>
     </div>
 

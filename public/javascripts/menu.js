@@ -31,14 +31,8 @@ function load() {
 }
 
 function addToBasket(elem) {
-    var cart = [];
-    document.cookie.split(";").forEach(function(elem) {
-        cookie = elem.split("=")
-        if(cookie[0].trim() == "cart") {
-            cart = JSON.parse(cookie[1]);
-            return;
-        }
-    });
+    var cart = getJSONCookie("cart") || [];
+    console.log(getJSONCookie("cart"),cart);
     var newItem = { id: undefined, name: undefined, price: undefined, count: 1 }
     elem.parentNode.parentNode.childNodes.forEach(function(x) {
         if (x.className == "num") newItem.id = parseFloat(x.innerHTML);
@@ -51,7 +45,7 @@ function addToBasket(elem) {
         }
     }) === -1) {
         cart.push(newItem);
-        document.cookie = "cart=" + JSON.stringify(cart) + "; path=/;";
+        setJSONCookie("cart", cart);
         alert("Menu \"" + newItem.name + "\" zum Warenkorb hinzugefügt.");
     }
     else {
