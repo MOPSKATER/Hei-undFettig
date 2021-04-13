@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="../stylesheets/util/nav.css">
     <link rel="stylesheet" href="../stylesheets/util/banner.css">
     <link rel="stylesheet" href="../stylesheets/util/footer.css">
+    <script src="/javascripts/order.js"></script>
+    <script src="/javascripts/util/cookies.js"></script>
     <script src="/javascripts/util/nav.js"></script>
 </head>
 
@@ -79,97 +81,10 @@
     </div>
 
     <div class="orderPage">
-        <div class="orderContainer">
-            <div class="order">
-                <h2 class="headline">
-                    <a class="noDeco" href="">
-                        Peter Lustig
-                    </a> - 14:00
-                </h2>
-                <button id="done"><b>Erledigt<b></button>
-
-                <div class="tableWrapper">
-                    <table class="orderContent">
-                        <tr>
-                            <td><input type="checkbox">1.1 Salat</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox">2.1 Steak </td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox">2.2 Schnitzel</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox">3.1 Salz</td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="notice">
-                    <textarea class="noticeblock" readonly>Ohne Gürkchen!</textarea>
-                </div>
-            </div>
-            <div class="order">
-                <h2 class="headline">
-                    <a class="noDeco" href="">
-                        Hans Günter
-                    </a> - 16:00
-                </h2>
-                <button id="done"><b>Erledigt<b></button>
-
-                <div class="tableWrapper">
-                    <table class="orderContent">
-                        <tr>
-                            <td><input type="checkbox">1.1 Salat</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox">2.1 Steak </td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox">2.2 Schnitzel</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox">3.1 Salz</td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="notice">
-                    <textarea class="noticeblock" readonly style="display: none;"></textarea>
-                </div>
-            </div>
+        <div id="orderContainer">
         </div>
     </div>
-
-    <template>
-        <div class="order">
-            <h2 class="headline">
-                <a class="noDeco" href="">
-                    Peter Lustig
-                </a> - 14:00
-            </h2>
-            <button id="done"><b>Erledigt<b></button>
-
-            <div class="tableWrapper">
-                <table class="orderContent">
-                    <tr>
-                        <td><input type="checkbox">1.1 Salat</td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox">2.1 Steak </td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox">2.2 Schnitzel</td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox">3.1 Salz</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="notice">
-                <textarea class="noticeblock" readonly>Hallo</textarea>
-            </div>
-        </div>
-    </template>
-
+    
     <div id="footer">
         <div id="impressum">
             <p>&copy; heiß-und-fettig &nbsp &nbsp | </p>
@@ -178,6 +93,37 @@
             </a>
         </div>
     </div>
+
+    <template id="order">
+        <div class="order">
+            <h2 class="headline">
+                <a class="noDeco name" href="">
+                    <svg class="linkLogo" viewbox="0 0 100 100">
+                        <path d="m 78.070312,9.1875 -4.935546,3.824219 a 4.4965867,4.4965867 0 0 0 -1.019532,0.791015 L 33.464844,43.75 a 4.4965867,4.4965867 0 1 0 5.5,7.105469 L 65.957031,29.939453 C 60.241307,45.54506 55.701624,55.831718 51.046875,63.019531 45.088284,72.220772 39.058187,76.789732 28.576172,82.472656 a 4.4965867,4.4965867 0 0 0 3.878906,8.103516 v 0.002 a 4.4965867,4.4965867 0 0 0 0.390625,-0.191406 C 43.88611,84.400983 51.79552,78.408636 58.587891,67.919922 63.895399,59.724105 68.621616,48.889751 74.417969,33.005859 l 6.982422,29.644532 a 4.4965867,4.4965867 0 0 0 6.222656,3.121093 4.4965867,4.4965867 0 0 0 2.529297,-5.173828 L 79.832031,16.685547 a 4.4965867,4.4965867 0 0 0 -0.361328,-1.541016 z"></path>
+                    </svg>
+                </a> - 
+            </h2>
+            <button id="done" onclick="remove(this)"><b>Erledigt<b></button>
+            <div class="payment">
+                <p class="price"></p>
+            </div>
+
+            <div class="tableWrapper">
+                <table class="orderContent">
+                </table>
+            </div>
+            <div class="notice">
+                <textarea class="noticeblock" readonly hidden></textarea>
+            </div>
+        </div>
+    </template>
+
+    <template id="orderContent">
+        <tr>
+            <td class="content"><input type="checkbox"></td>
+        </tr>
+    </template>
+
 </body>
 
 </html>
