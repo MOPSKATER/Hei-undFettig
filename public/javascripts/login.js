@@ -3,6 +3,8 @@ function doLogin() {
     email = document.getElementById("loginMail").value;
     if (re.test(email.toLowerCase())) {
         data = { email: email, password: document.getElementById("loginPass").value }
+        displayLogin("Hermann Müller", 70);
+        return
 
         fetch('/api/account/login', { method: "POST", body: JSON.stringify(data), headers: { 'Content-Type': 'application/json' }, credentials: "include" })
             .then(async response => {
