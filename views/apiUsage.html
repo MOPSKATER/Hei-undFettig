@@ -1,0 +1,32 @@
+<html>
+
+<head>
+
+</head>
+
+<body>
+
+  <h3>/user/&lt;ID&gt;</h3>
+  <p>
+    Returns information about user with &ltID&gt, like name, address as JSON. Requires coworker privileges
+    <br>
+    <br>
+    {
+    name: &lt;name&gt;
+    <br>
+    prename: &lt;prename&gt; }
+  </p>
+
+  <h3>/account/</h3>
+  <ul>
+    <h4>.../login</h4>
+    <ul>
+      Send credentials via POST as { email: "&lt;mail&gt;", password: &lt;password&gt; }. If succedd it returns <br><br>
+      { name:
+      &lt;full name&gt;,<br> points: &lt;loyal points&gt; } <br><br>
+      erro code 401 if credentials are wrong.
+    </ul>
+  </ul>
+</body>
+
+</html>

@@ -1,17 +1,30 @@
 var express = require('express');
+const Accountmanager = require('../accountmanager');
+const Privileges = require('../privileges');
 var privileges = require('../privileges')
 var router = express.Router();
+const path = require('path');
 
 router.get('/', function (req, res, next) {
-    res.render("apiUsage");
+    //res.render("apiUsage");
+    res.sendFile(path.join(__dirname + "/../views/apiUsage.html"))
 });
 
 router.get('/user/:uid', function (req, res, next) {
-    if (privileges.hasPrivilege(req.session.privs, privileges.Coworker) || req.session.uid == req.params.uid) {
-        req.session.views++
-        res.setHeader('Content-Type', 'text/html')
-        res.write('<p>views: ' + req.session.views + '</p>')
+    if (Privileges.hasPrivilege(req.session.privs, Privileges.Coworker) || req.session.uid == req.params.uid) {
+        res.setHeader('Content-Type', 'application/json')
         res.write('<p>expires in: ' + (req.session.cookie.maxAge / 1000) + 's</p>')
+        res.end()
+    } else { //Insufficient permissions
+        res.sendStatus(401)
+    }
+});
+
+router.post('/account/login', function (req, res, next) {
+    data = Accountmanager.login(req.body)
+    if (data) {
+        res.setHeader('Content-Type', 'application/json')
+        res.write(JSON.stringify(data))
         res.end()
     } else { //Insufficient permissions
         res.sendStatus(401)
