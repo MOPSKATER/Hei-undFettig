@@ -1,24 +1,27 @@
 html body {
+  height: 100vh;
   margin: 0px;
   padding: 0px;
+	overflow-x: hidden;
+	overflow-y: auto;
+	background-color: rgb(179, 179, 179);
 }
 
 .orderPage{
   width: 100vw;
-  height: 69vh;
+  min-height: calc(100vh - 25vh - 11.5vh);
   justify-content: center;
   display: flex;
-  background-color: lightgray;
 }
 
-.orderContainer{
+#orderContainer{
   width: 80vw;
   height: fit-content;
-  margin-top: 7vh;
+  margin-top: 3vh;
   margin-left: 10vw;
   margin-right: 10vw;
-  margin-bottom: 10vh;
-  background-color: darkolivegreen;
+  margin-bottom: 3vh;
+  background-color: transparent;
   outline: 2px solid gray;
   padding: 10px;
   overflow: auto;
@@ -27,7 +30,7 @@ html body {
 
 .order {
   height: max-content;
-  padding: 2px;
+  padding: 1%;
   border: 2px solid black;
   background-color: darkgoldenrod;
   margin-bottom: 1%;
@@ -35,20 +38,31 @@ html body {
 }
 
 .headline {
-    border-bottom: 2px solid gray;
-    width: 100%;
-    margin-bottom: 0px;
+  border-bottom: 2px solid gray;
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.linkLogo {
+  position: relative;
+  top: 2px;
+  left: 5px;
+  width: 20px;
+  height: 20px;
+  overflow-y: hidden;
+  transform: rotate(90);
 }
 
 #done {
   position: relative;
   background-color: rgb(0, 167, 0);
-  top: -4vh;
-  left: 95%;
+  top: -37px;
+  right: 16px;
+  float: right;
 }
 
 .tableWrapper {
-  width: max-content;
+  width: 98%;
   height: 5%;
   padding-right: 10px;
   overflow: auto;
@@ -58,10 +72,12 @@ html body {
 
 .notice{
   margin-top: 1%;
+  width: 70%;
+  text-align: center;
 }
 
 .noticeblock {
-  width: 20%;
+  width: 100%;
   height: 100%;
   overflow: auto;
   resize: none;
