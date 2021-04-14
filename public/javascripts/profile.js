@@ -1,5 +1,7 @@
 
 function load() {
+    // TODO: remove pseudo login
+    displayLogin("Peter Pan", 120);
     build(10, 1, 0);
     document.getElementById('data').onsubmit = function(e) {
         e.preventDefault();

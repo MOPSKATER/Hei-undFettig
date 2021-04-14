@@ -4,6 +4,7 @@ function doLogin() {
     if (re.test(email.toLowerCase())) {
         data = { email: email, password: document.getElementById("loginPass").value }
         displayLogin("Hermann Müller", 70);
+        alert("Eingeloggt als Hermann Müller\n(Ausschließlich auf dieser Seite)");
         return
 
         fetch('/api/account/login', { method: "POST", body: JSON.stringify(data), headers: { 'Content-Type': 'application/json' }, credentials: "include" })
