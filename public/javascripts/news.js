@@ -1,5 +1,5 @@
 var lastChange = ["",""];
-// TODO: get permission level from server
+// TODO: get permission level from server / predict cookie
 var permission = 10;
 
 function load() {

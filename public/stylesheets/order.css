@@ -63,7 +63,7 @@ html body {
 
 .tableWrapper {
   width: 98%;
-  height: 5%;
+  max-height: 75px;
   padding-right: 10px;
   overflow: auto;
   border: 2px solid silver;

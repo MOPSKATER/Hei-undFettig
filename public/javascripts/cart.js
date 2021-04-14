@@ -1,19 +1,21 @@
 
-var cart = [];
+// exampledata if cookies don't work (local)
+// TODO: change back to empty
+var cart = JSON.parse('[{"id":1.1,"name":"Salat","price":19.01,"count":4},{"id":1.2,"name":"Suppe","price":29.01,"count":1},{"id":2.1,"name":"Steak","price":19.02,"count":1},{"id":2.3,"name":"Schnitzel x2","price":39.02,"count":1},{"id":3.1,"name":"Salz","price":19.03,"count":3}]') // = [];
 var total = 0;
 
 function load() {
     update();
 
     var today = new Date();
-    document.getElementById("time").value = (today.getHours() + Math.min(Math.round((today.getMinutes() + 15) / 60), 1)) + ":" + ("00" + (today.getMinutes() + 15) % 60).slice(-2);
+    document.getElementById("time").value = ("0" + ((today.getHours() + Math.min(Math.round((today.getMinutes() + 15) / 60), 1))) % 24).slice(-2) + ":" + ("0" + (today.getMinutes() + 15) % 60).slice(-2);
 }
 
 function update() {
     document.getElementById("cartContent").innerHTML = "";
     total = 0;
 
-    cart = getJSONCookie("cart") || [];
+    cart = getJSONCookie("cart") || cart;
     if (cart.length === 0) {
         document.getElementById("cartContent").append("Noch nichts hier! :( Schaue auf der Speisekarte vorbei!");
     }
@@ -65,7 +67,6 @@ function order() {
                 total: total.toFixed(2),
                 paypal: document.getElementById("paypal").checked
             };
-            console.log(orders);
             orders.push(newOrder);
             setJSONCookie("orders", orders);
             delCookie("cart");

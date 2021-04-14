@@ -1,3 +1,6 @@
+
+var cart = [];
+
 function load() {
     menu = [
         [
@@ -31,8 +34,7 @@ function load() {
 }
 
 function addToBasket(elem) {
-    var cart = getJSONCookie("cart") || [];
-    console.log(getJSONCookie("cart"),cart);
+    cart = getJSONCookie("cart") || cart;
     var newItem = { id: undefined, name: undefined, price: undefined, count: 1 }
     elem.parentNode.parentNode.childNodes.forEach(function(x) {
         if (x.className == "num") newItem.id = parseFloat(x.innerHTML);

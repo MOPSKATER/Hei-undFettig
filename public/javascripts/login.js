@@ -25,6 +25,7 @@ function doLogin() {
     }
     else {
         //TODO error: invalid e-mail
+        alert("fehlerhafte email");
     }
 }
 
