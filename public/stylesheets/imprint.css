@@ -22,14 +22,9 @@ body {
     height: calc(100vh - 25vh - 11.5vh - 34px);
     text-align: center;
 }
-#contact {
-    font-size: large;
-    width: 100%;
-    text-align: center;
-    margin-bottom: 30px;
-}
-#contact td {
-    padding: 15px;
+#imprint {
+    height: calc(100vh - 25vh - 11.5vh - 34px);
+    overflow: auto;
 }
 
 .download svg {
@@ -37,7 +32,7 @@ body {
     height: auto;
 }
 .download {
-    padding: 20px;
+    padding: 5px;
     margin-left: 40px;
     margin-right: 40px;
     font-size: larger;
