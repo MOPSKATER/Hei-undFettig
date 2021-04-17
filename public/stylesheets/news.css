@@ -10,7 +10,7 @@ body{
 
 .news .content {
   float: left;
-  width: 87%;
+  width: 100%;
   margin: 2%;
   margin-top: 18px;
 }
