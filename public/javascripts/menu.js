@@ -7,7 +7,7 @@ function load() {
             "starters",
             [
                 ["Salat", "Diese Beschreibung ist sehr lang und sagt nichts über das Essen aus.", 19.01],
-                ["Suppe", "Suppe mit Schittlauch", 29.01]
+                ["Suppe", "Suppe mit Schittlauch", 29.00]
             ]
         ],
         [
@@ -34,6 +34,7 @@ function load() {
 }
 
 function addToBasket(elem) {
+    // TODO: Preise nicht aus dem HTML-element lesen
     cart = getJSONCookie("cart") || cart;
     var newItem = { id: undefined, name: undefined, price: undefined, count: 1 }
     elem.parentNode.parentNode.childNodes.forEach(function(x) {
@@ -60,7 +61,7 @@ function add(course, num, attr) {
     newItem.querySelector(".num").innerHTML = num;
     newItem.querySelector(".name").innerHTML = attr[0];
     newItem.querySelector(".descr").innerHTML = attr[1];
-    newItem.querySelector(".price").innerHTML = attr[2] + "€";
+    newItem.querySelector(".price").innerHTML = String(attr[2].toFixed(2)).replace(".",",") + "€";
     document.getElementById(course).parentNode.insertBefore(newItem,document.getElementById(course).nextSibling);
 }
 

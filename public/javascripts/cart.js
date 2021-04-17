@@ -1,7 +1,7 @@
 
 // exampledata if cookies don't work (local)
 // TODO: change back to empty
-var cart = JSON.parse('[{"id":1.1,"name":"Salat","price":19.01,"count":4},{"id":1.2,"name":"Suppe","price":29.01,"count":1},{"id":2.1,"name":"Steak","price":19.02,"count":1},{"id":2.3,"name":"Schnitzel x2","price":39.02,"count":1},{"id":3.1,"name":"Salz","price":19.03,"count":3}]') // = [];
+var cart = JSON.parse('[{"id":1.1,"name":"Salat","price":19.01,"count":4},{"id":1.2,"name":"Suppe","price":29.01,"count":1},{"id":2.1,"name":"Steak","price":19.02,"count":1},{"id":2.3,"name":"Schnitzel x2","price":39.00,"count":1},{"id":3.1,"name":"Salz","price":19.03,"count":3}]') // = [];
 var total = 0;
 
 function load() {
@@ -24,7 +24,7 @@ function update() {
             var newItem = document.getElementsByTagName("template")[0].content.cloneNode(true);
             newItem.querySelector(".num").innerHTML = item.id;
             newItem.querySelector(".name").innerHTML = item.name;
-            newItem.querySelector(".price").innerHTML = item.price + "€";
+            newItem.querySelector(".price").innerHTML = String(item.price.toFixed(2)).replace(".",",") + "€";
             newItem.querySelector(".count").querySelector("input").value = item.count;
             document.getElementById("cartContent").append(newItem);
 
@@ -32,9 +32,9 @@ function update() {
         })
     }
 
-    document.getElementById("total_price").innerHTML = "Preis gesammt: " + total.toFixed(2) + "€";
-    document.getElementById("cut_mwst").innerHTML = "Anteil MwSt: " + (total * 0.19).toFixed(2) + "€";
-    document.getElementById("cut_paypal").innerHTML = "Paypal Gebühren: " + (total * 0.0249 + 0.35).toFixed(2) + "€";
+    document.getElementById("total_price").innerHTML = "Preis gesammt: " + String(total.toFixed(2)).replace(".",",") + "€";
+    document.getElementById("cut_mwst").innerHTML = "Anteil MwSt: " + String((total * 0.19).toFixed(2)).replace(".",",") + "€";
+    document.getElementById("cut_paypal").innerHTML = "Paypal Gebühren: " + String((total * 0.0249 + 0.35).toFixed(2)).replace(".",",") + "€";
 }
 
 function changedCount(e) {
