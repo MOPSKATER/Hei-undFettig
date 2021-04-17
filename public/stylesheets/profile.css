@@ -10,7 +10,7 @@ body {
 #page {
 	width: 100%;
 	display: block;
-	/* height: calc(100vh - 25vh - 13.5vh); */
+	min-height: calc(100vh - 25vh - 11.5vh);
 }
 
 #left {
@@ -48,10 +48,4 @@ body {
 }
 #right #select_box {
     float: right;
-}
-
-#footer {
-    position: absolute;
-    bottom: 0;
-    z-index: 4;
 }

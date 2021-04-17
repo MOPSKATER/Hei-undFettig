@@ -81,10 +81,28 @@
     <div id="page">
         <form id="data">
             <div id="left">
-                <label for="name">Name:</label><br />
-                <input type="text" id="name" name="name" class="input"></input><br />
-                <label for="address">Adresse:</label><br />
-                <textarea id="address" rows="6" class="input"></textarea>
+                <div class="inline">
+                    <label for="forename">Vorname:</label><br />
+                    <input id="forename" class="input"></input>
+                </div>
+                <div class="inline">
+                    <label for="name">Nachname:</label><br />
+                    <input id="name" class="input"></input>
+                </div>
+                <label for="email">E-Mail:</label><br />
+                <input id="email" class="input"></input>
+                <label for="address">Stra&szlig;e, Hausnummer:</label><br />
+                <input id="address" class="input"></input>
+                <label for="extra">Adresszusatz:</label><br />
+                <input id="extra" class="input" placeholder="z.B. erster Stock"></input>
+                <div class="inline">
+                    <label for="plz">Postleitzahl:</label><br />
+                    <input id="plz" class="input"></input>
+                </div>
+                <div class="inline">
+                    <label for="city">Ort:</label><br />
+                    <input id="city" class="input"></input>
+                </div>
                 <div class="inline">
                     <label for="password">Neues Passwort:</label><br />
                     <input id="password" type="password" class="input"></input>

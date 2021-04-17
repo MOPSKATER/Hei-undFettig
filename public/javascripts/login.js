@@ -32,4 +32,6 @@ function doLogin() {
     }
 }
 
-
+function register() {
+    window.location.href = "./profile.html";
+}
