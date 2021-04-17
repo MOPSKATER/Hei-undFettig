@@ -24,7 +24,7 @@ function update() {
             var newItem = document.getElementsByTagName("template")[0].content.cloneNode(true);
             newItem.querySelector(".num").innerHTML = item.id;
             newItem.querySelector(".name").innerHTML = item.name;
-            newItem.querySelector(".price").innerHTML = String(item.price.toFixed(2)).replace(".",",") + "€";
+            newItem.querySelector(".price").innerHTML = item.price.toFixed(2).replace(".",",") + "€";
             newItem.querySelector(".count").querySelector("input").value = item.count;
             document.getElementById("cartContent").append(newItem);
 
@@ -32,9 +32,9 @@ function update() {
         })
     }
 
-    document.getElementById("total_price").innerHTML = "Preis gesammt: " + String(total.toFixed(2)).replace(".",",") + "€";
-    document.getElementById("cut_mwst").innerHTML = "Anteil MwSt: " + String((total * 0.19).toFixed(2)).replace(".",",") + "€";
-    document.getElementById("cut_paypal").innerHTML = "Paypal Gebühren: " + String((total * 0.0249 + 0.35).toFixed(2)).replace(".",",") + "€";
+    document.getElementById("total_price").innerHTML = "Preis gesammt: " + total.toFixed(2).replace(".",",") + "€";
+    document.getElementById("cut_mwst").innerHTML = "Anteil MwSt: " + (total * 0.19).toFixed(2).replace(".",",") + "€";
+    document.getElementById("cut_paypal").innerHTML = "Paypal Gebühren: " + (total * 0.0249 + 0.35).toFixed(2).replace(".",",") + "€";
 }
 
 function changedCount(e) {

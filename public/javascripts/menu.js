@@ -61,7 +61,7 @@ function add(course, num, attr) {
     newItem.querySelector(".num").innerHTML = num;
     newItem.querySelector(".name").innerHTML = attr[0];
     newItem.querySelector(".descr").innerHTML = attr[1];
-    newItem.querySelector(".price").innerHTML = String(attr[2].toFixed(2)).replace(".",",") + "€";
+    newItem.querySelector(".price").innerHTML = attr[2].toFixed(2).replace(".",",") + "€";
     document.getElementById(course).parentNode.insertBefore(newItem,document.getElementById(course).nextSibling);
 }
 

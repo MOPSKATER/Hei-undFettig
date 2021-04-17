@@ -14,7 +14,7 @@ function load() {
             newItem.querySelector(".headline").innerHTML += item.time;
             newItem.querySelector(".name").innerHTML += item.name;
             newItem.querySelector(".name").href = "./profile.html?id=10";
-            newItem.querySelector(".price").innerHTML = String(parseFloat(item.total).toFixed(2)).replace(".",",") + "€";
+            newItem.querySelector(".price").innerHTML = parseFloat(item.total).toFixed(2).replace(".",",") + "€";
             if (item.paypal) {
                 newItem.querySelector(".price").innerHTML += " (bezahlt: PayPal)"
             }
