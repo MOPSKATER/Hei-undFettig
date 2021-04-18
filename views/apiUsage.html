@@ -26,6 +26,11 @@
       &lt;full name&gt;,<br> points: &lt;loyal points&gt; } <br><br>
       erro code 401 if credentials are wrong.
     </ul>
+    <h4>.../logout</h4>
+    <ul>
+      Just send a POST request with "connect.sid" cookie set. The server will delete the associated session. This cookie
+      can be deleted. On error just delete the "connect.sid" cookie anyway.
+    </ul>
   </ul>
 </body>
 

@@ -4,6 +4,7 @@ const Privileges = require('../privileges');
 var privileges = require('../privileges')
 var router = express.Router();
 const path = require('path');
+const { Console } = require('console');
 
 router.get('/', function (req, res, next) {
     //res.render("apiUsage");
@@ -29,6 +30,16 @@ router.post('/account/login', function (req, res, next) {
     } else { //Insufficient permissions
         res.sendStatus(401)
     }
+});
+
+router.post('/account/logout', function (req, res, next) {
+    req.session.destroy((err) => {
+        if (err) {
+            console.log(err);
+            res.sendStatus(500);
+        }
+        res.sendStatus(200);
+    });
 });
 
 
