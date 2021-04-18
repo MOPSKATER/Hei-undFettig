@@ -22,9 +22,14 @@
     <h4>.../login</h4>
     <ul>
       Send credentials via POST as { email: "&lt;mail&gt;", password: &lt;password&gt; }. If succedd it returns <br><br>
-      { name:
-      &lt;full name&gt;,<br> points: &lt;loyal points&gt; } <br><br>
-      erro code 401 if credentials are wrong.
+      { prename:
+      &lt;prename&gt;, name: &lt;name&gt;,<br> points: &lt;loyal points&gt;, accessLevel: &lt;accessLevel&gt; } <br><br>
+      erro code 401 if credentials are wrong.<br><br><br>
+      Access Levels:<br><br>
+      Guest:0<br>
+      User: 5<br>
+      Coworker: 8<br>
+      Admin: 10
     </ul>
     <h4>.../logout</h4>
     <ul>

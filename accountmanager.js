@@ -1,11 +1,17 @@
+const Privileges = require('./privileges');
+
 const Accountmanager = {
 
-    login(params) {
-        if (params.password === "deny")
+    login(req) {
+        if (req.body.params.password === "deny")
             return
-        else
-            return { name: "Hermann Müller", points: 70 }
-
+        else {
+            req.session.name = "Müller";
+            req.session.prename = "Hermann";
+            req.session.points = 70;
+            req.session.accessLevel = Privileges.Guest;
+            return { prename: "Hermann", name: "Müller", points: 70, accessLevel: Privileges.Guest }
+        }
     }
 };
 

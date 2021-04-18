@@ -1,7 +1,7 @@
 const Privileges = {
 
     Admin: 10,
-    Coworker: 9,
+    Coworker: 8,
     User: 5,
     Guest: 0,
 
