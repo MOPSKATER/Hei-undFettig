@@ -3,7 +3,7 @@ const Privileges = require('./privileges');
 const Accountmanager = {
 
     login(req) {
-        if (req.body.params.password === "deny")
+        if (req.body.password === "deny")
             return
         else {
             req.session.name = "Müller";
