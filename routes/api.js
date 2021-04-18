@@ -4,7 +4,6 @@ const Privileges = require('../privileges');
 var privileges = require('../privileges')
 var router = express.Router();
 const path = require('path');
-const { Console } = require('console');
 
 router.get('/', function (req, res, next) {
     //res.render("apiUsage");
@@ -22,7 +21,7 @@ router.get('/user/:uid', function (req, res, next) {
 });
 
 router.post('/account/login', function (req, res, next) {
-    data = Accountmanager.login(req.body)
+    data = Accountmanager.login(req)
     if (data) {
         res.setHeader('Content-Type', 'application/json')
         res.write(JSON.stringify(data))
