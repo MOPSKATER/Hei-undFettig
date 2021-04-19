@@ -83,9 +83,9 @@
     <div id="page">
         <div id="left">
             <div id="methode">
-                <input type="radio" name="methode" id="paypal" checked="checked"></input>
+                <input type="radio" name="methode" id="paypal" checked="checked" onclick="changedMethode()"></input>
                 <label for="paypal">Paypal</label>
-                <input type="radio" name="methode" id="cash"></input>
+                <input type="radio" name="methode" id="cash" onclick="changedMethode()"></input>
                 <label for="cash">Bar</label>
             </div>
 
@@ -105,9 +105,10 @@
             <p id="cut_mwst" class="small"></p>
             <p id="cut_paypal" class="small"></p>
             <br />
-            <label for="time">Gew&uuml;schte Abholzeit:</label>
-            <input type="time" name="time" id="time"></input>
-            <p class="small">(Max. 24Std im Vorraus buchbar)</p>
+            <label for="time">Gew&uuml;schte Abholzeit in</label>
+            <select id="time">
+            </select>
+            <p class="small">(Bei verzögerungen melden wir uns bei Ihnen!)</p>
             <input type="button" name="submit" id="submit" value="Bestellen" onclick="order()"></input>
         </div>
     </div>
