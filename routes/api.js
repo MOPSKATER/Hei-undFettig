@@ -21,7 +21,7 @@ router.get('/user/:uid', function (req, res, next) {
 });
 
 router.post('/account/login', function (req, res, next) {
-    data = Accountmanager.login(req.body)
+    data = Accountmanager.login(req)
     if (data) {
         res.setHeader('Content-Type', 'application/json')
         res.write(JSON.stringify(data))
@@ -29,6 +29,16 @@ router.post('/account/login', function (req, res, next) {
     } else { //Insufficient permissions
         res.sendStatus(401)
     }
+});
+
+router.post('/account/logout', function (req, res, next) {
+    req.session.destroy((err) => {
+        if (err) {
+            console.log(err);
+            res.sendStatus(500);
+        }
+        res.sendStatus(200);
+    });
 });
 
 
