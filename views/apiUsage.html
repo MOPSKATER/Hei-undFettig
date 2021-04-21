@@ -4,7 +4,7 @@
 
 </head>
 
-<body>
+<body style="padding-left: 2%; padding-top: 1%;">
 
   <h3>/user/&lt;ID&gt;</h3>
   <p>
@@ -36,6 +36,22 @@
     <ul>
       Just send a POST request with "connect.sid" cookie set. The server will delete the associated session. This cookie
       can be deleted. On error just delete the "connect.sid" cookie anyway.
+    </ul>
+  </ul>
+
+  <h3>/news/</h3>
+  <ul>
+    <h4>.../new</h4>
+    <ul>
+      Just send a GET request and you will receive<br>
+      { date: &lt;date&gt;, message: &lt;message&gt;}
+    </ul>
+  </ul>
+  <ul>
+    <h4>.../all</h4>
+    <ul>
+      Just send a GET request and you will receive<br>
+      { news: &lt;news[][]&gt;}
     </ul>
   </ul>
 </body>
