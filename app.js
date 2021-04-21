@@ -11,7 +11,8 @@ var api = require('./routes/api');
 
 var app = express();
 var session = require('express-session')
-app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 }, SameSite: true }))
+//FIXME fix secret
+app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 }, SameSite: true, resave: false, saveUninitialized: false }))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
