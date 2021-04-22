@@ -1,6 +1,6 @@
 function doLogin() {
     email = document.getElementById("loginMail").value;
-    if (checkMail(mail)) {
+    if (checkMail(email)) {
         data = { email: email, password: document.getElementById("loginPass").value }
         alert("Eingeloggt als Hermann Müller\n(Ausschließlich auf dieser Seite)");
 
