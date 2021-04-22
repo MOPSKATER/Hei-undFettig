@@ -10,7 +10,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/user/:uid', function (req, res, next) {
-    if (/*FIXME remove "!"*/!Privileges.hasPrivilege(req.session.privs, Privileges.Coworker) || req.session.uid == req.params.uid) {
+    if (/*FIXME remove "!"*/!Privileges.hasPrivilege(req.session.privs, Privileges.Coworker) || req.session.uid === req.params.uid) {
         res.setHeader('Content-Type', 'application/json');
         res.write(JSON.stringify({
             prename: "Peter", name: "Pan", points: 50, street: "Hafenstr. 49",
@@ -51,6 +51,23 @@ router.post('/account/register', function (req, res, next) {
         res.end()
     } else { //Account aready exists
         res.sendStatus(409)
+    }
+});
+
+router.put('/account/set', function (req, res, next) {
+    if (req.session.uid === req.body.uid) {
+        //TODO Set new data
+        res.sendStatus(200)
+    } else { //Insufficient permissions
+        res.sendStatus(401);
+    }
+});
+
+router.delete('/account/delete', function (req, res, next) {
+    if (Privileges.hasPrivilege(req.session.privs, Privileges.Admin) || req.session.uid === req.body.uid) {
+        res.sendStatus(200)
+    } else { //Insufficient permissions
+        res.sendStatus(401);
     }
 });
 
