@@ -43,6 +43,17 @@ router.post('/account/logout', function (req, res, next) {
     });
 });
 
+router.post('/account/register', function (req, res, next) {
+    data = Accountmanager.register(req)
+    if (data) {
+        res.setHeader('Content-Type', 'application/json')
+        res.write(JSON.stringify(data))
+        res.end()
+    } else { //Account aready exists
+        res.sendStatus(409)
+    }
+});
+
 //TODO Remove when Database comes
 news = [
     [
