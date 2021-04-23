@@ -12,8 +12,20 @@ const testImg = {
 
 let counter = 0
 
+function load() {
+    fetch('/api/news/new', { method: "GET", headers: { 'Content-Type': 'application/json' } })
+        .then(async response => {
+            if (response.status !== 404) {
+                var data = await response.json();
+                document.getElementById("news").innerHTML = data.title;
+            }
+        });
+}
+
 function cycleStaff(dir) {
     counter = (counter + dir) % 3 < 0 ? 2 : (counter + dir) % 3;
     document.getElementById("coworkerName").innerText = staff[counter];
     document.getElementById("coworkerImg").src = testImg[counter];
 }
+
+window.onload = load;
