@@ -11,7 +11,7 @@ const Accountmanager = {
     },
 
     register(req) {
-        setSession(req)
+        return setSession(req)
     }
 };
 
