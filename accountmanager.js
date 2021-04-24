@@ -10,6 +10,10 @@ const Accountmanager = {
         }
     },
 
+    isLoggedIn(req) {
+        return req.session.accessLevel != Privileges.Guest ? true : false
+    },
+
     register(req) {
         return setSession(req)
     }
