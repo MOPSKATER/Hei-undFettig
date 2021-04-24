@@ -147,5 +147,14 @@ router.GET('/cart/get', function (req, res, next) {
     res.sendStatus(401)
 });
 
+//TODO Real API
+router.POST('/cart/order', function (req, res, next) {
+    if (Accountmanager.isLoggedIn) {
+        //TODO manage database
+        res.sendStatus(200)
+    }
+    res.sendStatus(401)
+});
+
 
 module.exports = router;
