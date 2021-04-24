@@ -9,6 +9,7 @@ router.get('/', function (req, res, next) {
     res.sendFile(path.join(__dirname + "/../views/apiUsage.html"))
 });
 
+//TODO Real API
 router.get('/user/:uid', function (req, res, next) {
     if (/*FIXME remove "!"*/!Privileges.hasPrivilege(req.session.privs, Privileges.Coworker) || req.session.uid === req.params.uid) {
         res.setHeader('Content-Type', 'application/json');
@@ -22,6 +23,7 @@ router.get('/user/:uid', function (req, res, next) {
     }
 });
 
+//TODO Real API
 router.post('/account/login', function (req, res, next) {
     data = Accountmanager.login(req)
     if (data) {
@@ -33,6 +35,7 @@ router.post('/account/login', function (req, res, next) {
     }
 });
 
+//TODO Real API
 router.post('/account/logout', function (req, res, next) {
     req.session.destroy((err) => {
         if (err) {
@@ -44,6 +47,7 @@ router.post('/account/logout', function (req, res, next) {
     });
 });
 
+//TODO Real API
 router.post('/account/register', function (req, res, next) {
     data = Accountmanager.register(req)
     if (data) {
@@ -55,6 +59,7 @@ router.post('/account/register', function (req, res, next) {
     }
 });
 
+//TODO Real API
 router.put('/account/set', function (req, res, next) {
     if (req.session.uid === req.body.uid) {
         //TODO Set new data
@@ -64,6 +69,7 @@ router.put('/account/set', function (req, res, next) {
     }
 });
 
+//TODO Real API
 router.delete('/account/delete', function (req, res, next) {
     if (Privileges.hasPrivilege(req.session.privs, Privileges.Admin) || req.session.uid === req.body.uid) {
         res.sendStatus(200)
@@ -100,16 +106,36 @@ news = [
     ]
 ]
 
+//TODO Real API
 router.get('/news/new', function (req, res, next) {
     res.setHeader('Content-Type', 'application/json')
     res.write(JSON.stringify({ date: news[0][0], message: news[0][1] }))
     res.end()
 });
 
+//TODO Real API
 router.get('/news/all', function (req, res, next) {
     res.setHeader('Content-Type', 'application/json')
     res.write(JSON.stringify({ news: news }))
     res.end()
+});
+
+//TODO Real API
+router.POST('/cart/add', function (req, res, next) {
+    if (Accountmanager.isLoggedIn) {
+        //TODO manage database
+        res.sendStatus(200)
+    }
+    res.sendStatus(401)
+});
+
+//TODO Real API
+router.POST('/cart/remove', function (req, res, next) {
+    if (Accountmanager.isLoggedIn) {
+        //TODO manage database
+        res.sendStatus(200)
+    }
+    res.sendStatus(401)
 });
 
 
