@@ -121,7 +121,7 @@ router.get('/news/all', function (req, res, next) {
 });
 
 //TODO Real API
-router.POST('/cart/add', function (req, res, next) {
+router.post('/cart/add', function (req, res, next) {
     if (Accountmanager.isLoggedIn) {
         //TODO manage database
         res.sendStatus(200)
@@ -130,7 +130,7 @@ router.POST('/cart/add', function (req, res, next) {
 });
 
 //TODO Real API
-router.POST('/cart/remove', function (req, res, next) {
+router.post('/cart/remove', function (req, res, next) {
     if (Accountmanager.isLoggedIn) {
         //TODO manage database
         res.sendStatus(200)
@@ -139,7 +139,7 @@ router.POST('/cart/remove', function (req, res, next) {
 });
 
 //TODO Real API
-router.GET('/cart/get', function (req, res, next) {
+router.get('/cart/get', function (req, res, next) {
     if (Accountmanager.isLoggedIn) {
         //TODO manage database
         res.sendStatus(200)
@@ -148,7 +148,7 @@ router.GET('/cart/get', function (req, res, next) {
 });
 
 //TODO Real API
-router.POST('/cart/order', function (req, res, next) {
+router.post('/cart/order', function (req, res, next) {
     if (Accountmanager.isLoggedIn) {
         //TODO manage database
         res.sendStatus(200)
