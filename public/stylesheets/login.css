@@ -57,3 +57,9 @@ button {
     position: relative;
     left: 10%;
 }
+
+@media only screen and (max-width: 600px){
+    #page{
+        background-color: red;
+    }
+}
