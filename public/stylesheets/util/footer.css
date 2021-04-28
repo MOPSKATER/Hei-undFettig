@@ -1,9 +1,8 @@
-
 #footer {
   background-color: #44aa00;
   height: 11.5%;
   width: 100%;
-  /* margin-top: 2%; */
+  margin-top: 2%; 
   outline: 4px solid #265805;
   outline-offset: -4px;
   display: flex;
@@ -11,29 +10,26 @@
   align-items: center;
   font-size: 2vh;
 }
-
 #impressum {
   display: flex;
   width: 40%;
   justify-content: center;
   align-items: center;
 }
-
 #btnImpressum {
   width: 20%;
   height: 15%;
   margin-left: 3vw;
   background-color: #67811a;
 }
-
 .btn {
   display: flex;
   justify-content: center;
   align-items: center;
   border: 2px solid #000;
 }
-
 .noDeco {
   text-decoration: none;
   color: black;
 }
+

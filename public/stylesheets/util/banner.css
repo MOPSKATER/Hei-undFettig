@@ -1,4 +1,3 @@
-
 #banner_small {
     background-image: url(https://cdn.gutekueche.de/upload/rezept/10862/1600x1200_rib-eye-steak.jpg);
     background-size: 100vmax;
@@ -24,7 +23,6 @@
     width: 50px;
     padding-right: 15px;
 }
-
 #banner_full {
     z-index: -1;
     background-image: url(https://cdn.gutekueche.de/upload/rezept/10862/1600x1200_rib-eye-steak.jpg);
@@ -53,33 +51,5 @@
     padding-right: 15px;
 }
 
-/*  MEDIA QUERY
 
-  --> for all divices 
-  --> max-with: 600px 
-  --> orientation is in landscape mode
 
-*/
-
-@media all and (max-width: 600px), (orientation: landscape) {
-    #banner_full {
-        background-image: url(https://cdn.gutekueche.de/upload/rezept/10862/1600x1200_rib-eye-steak.jpg);
-        position: relative;
-        width: 100%;
-        height: fit-content;
-    }
-    #banner_full .banner_logo {
-        position: relative;
-        color: white;
-        text-shadow: 0 0 15px #000;
-        font-weight: bold;
-        font-family: "Lucida Console", Courier, monospace;
-        text-align: center;
-        font-size: 50px;
-        top: 1px;
-    }
-    #banner_full .banner_logo img {
-        display: none;
-        
-    }
-}

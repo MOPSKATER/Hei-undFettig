@@ -43,3 +43,65 @@ body {
 #card .item .basket:hover {
 	cursor: pointer;
 }
+/*  MEDIA QUERY
+
+  --> for all divices 
+  --> max-with: 600px 
+
+*/
+
+@media all and (max-width: 600px){
+	/*
+	  -------- NAV-BAR --------
+	*/ 
+	.menu{
+	  background-color: transparent;
+	}
+	.menuContainer {
+	  display: none;
+	}
+	#logo{
+	  display: none;
+	}
+	.icon {
+	  display: none;
+	}
+	 /*
+	  -------- BANNER --------
+	*/
+	#banner_full {
+	  background-image: url(https://cdn.gutekueche.de/upload/rezept/10862/1600x1200_rib-eye-steak.jpg);
+	  position: relative;
+	  width: 100%;
+	  height: fit-content;
+	}
+	#banner_full .banner_logo {
+		position: relative;
+		color: white;
+		text-shadow: 0 0 15px #000;
+		font-weight: bold;
+		font-family: "Lucida Console", Courier, monospace;
+		text-align: center;
+		font-size: 50px;
+		top: 1px;
+	}
+	#banner_full .banner_logo img {
+	  display: none;
+	}
+	/*
+	  -------- FOOTER --------
+	*/
+	#impressum {
+	  display: flex;
+	  width: fit-content;
+	}
+	#btnImpressum {
+	  width: fit-content;
+	  height: fit-content;
+	  margin-left: 3vw;
+	  background-color: #67811a;
+	}
+	/*
+	 -------- MENU --------
+	*/
+  }
