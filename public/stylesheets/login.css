@@ -120,9 +120,10 @@ button {
      -------- LOGIN --------
     */   
     #page {
+      padding-bottom: 20px;
       position: relative;
       width: 100vw;
-      height: 90vh;
+      height: fit-content;
       background-color: #AEAEAE;
     }
     #container{

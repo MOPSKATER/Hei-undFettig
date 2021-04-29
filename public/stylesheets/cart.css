@@ -151,4 +151,37 @@ tr:nth-child(even) {
 	/*
 	 -------- CART --------
 	*/
-  }
+	
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #DDEEDD;
+	overflow-x: hidden;
+	overflow-y: auto;
+	background-color: rgb(179, 179, 179);
+	}
+	#page {
+		width: 100%;
+		height: auto;
+	}
+	#methode {
+		padding: 0px;
+		border-bottom: 1px solid;
+		margin-bottom: 20px;
+	}
+	#left {
+		padding: 10px;
+		width: 80%;
+		margin-left: 0%;
+	}
+	#right {
+		position: relative;
+		border-top: 1px solid;
+		float: left;
+		margin-top: 4vh;
+		margin-bottom: 4vh;
+		margin-left: 10px;
+		width: 80%;
+		text-align: left;
+	}
+}
