@@ -29,3 +29,4 @@ function cycleStaff(dir) {
 }
 
 window.onload = load;
+

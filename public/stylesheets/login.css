@@ -118,5 +118,56 @@ button {
     }
     /*
      -------- LOGIN --------
-    */
-  }
+    */   
+    #page {
+      position: relative;
+      width: 100vw;
+      height: 90vh;
+      background-color: #AEAEAE;
+    }
+    #container{
+      width: 70%;
+      height: 70%;
+      margin-top: 5%;
+      display: block;
+    }
+    .half {
+      width: 100%; 
+    }
+    #left {
+      border-right: none; 
+      padding-bottom: 20px; 
+    }  
+    #right {
+       padding-top: 20px;
+       border-top: 1px solid;  
+       border-left: none;
+    }
+    h1 {
+      margin-top: auto;
+      margin-bottom: auto;
+      text-align: center;
+    }
+    input {
+      position: relative;
+      width: 80%;
+      left: 10%;
+      border: 1px solid;
+      height: 6%;
+    }
+    button {
+      position: relative;
+      width: 70%;
+      height: 6%;
+      left: 15%;
+      margin-top: 10%;
+      background-color: #2CA02C;
+      border: 2px solid;
+      font-weight: bold;
+    }
+    .text {
+      position: relative;
+      left: 10%;
+    }
+    
+ }

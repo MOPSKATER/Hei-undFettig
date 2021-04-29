@@ -1,4 +1,3 @@
-
 body {
   padding: 0px;
   margin: 0px;
@@ -104,6 +103,7 @@ th {
   .icon {
     display: none;
   }
+ 
    /*
     -------- BANNER --------
   */
@@ -142,4 +142,56 @@ th {
   /*
    -------- INDEX --------
   */
+  #home2 {
+    width: 100%;
+    height: fit-content;
+    background-color: rgb(179, 179, 179);
+    display: block;
+  }
+  #news {
+    height: fit-content;
+    background-color: rgb(255, 85, 85);
+    overflow: auto;
+    color: black;
+    font-size: 5vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: 3px solid #830202;
+    outline-offset: -3px;
+    margin-bottom: 5vh;
+  } 
+  #additional {
+    width: 90%;
+    height: fit-content;
+    display: block;
+  }
+  .half {
+    width: 100%;
+    display: block;
+    padding: 3%;
+   
+  }
+  #left {
+    border-right: none;
+  }
+  #right {
+    border-left: none;
+  }
+  .underline {
+    border-bottom: 1px solid #808080;
+  }
+  th {
+    padding: 2%;
+  }
+  #coworkerImg {
+    border: 3px solid;
+  }
+  .arrow path {
+    fill: #808080;
+    width: 5px;
+  }
+  #btnSpeisekarte {
+  display: none;
+  }
 }
