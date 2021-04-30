@@ -94,9 +94,6 @@ th {
   .menu{
     background-color: transparent;
   }
-  .menuContainer {
-    display: none;
-  }
   #logo{
     display: none;
   }
@@ -111,6 +108,7 @@ th {
     font-size: 20px;
     border: 1px solid white;
     cursor: pointer;
+    display: block;
   }
   .menu {
     position: fixed;

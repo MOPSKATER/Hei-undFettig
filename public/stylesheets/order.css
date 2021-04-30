@@ -93,9 +93,6 @@ html body {
   /*
     -------- NAV-BAR --------
   */ 
-/*
-    -------- NAV-BAR --------
-  */ 
   .menu{
     background-color: transparent;
   }
@@ -116,6 +113,7 @@ html body {
     font-size: 20px;
     border: 1px solid white;
     cursor: pointer;
+    display: block;
   }
   .menu {
     position: fixed;
