@@ -66,3 +66,4 @@ function add(course, num, attr) {
 }
 
 window.onload = load;
+

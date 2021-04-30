@@ -64,3 +64,4 @@ function checkMail(mail) {
         return true
     return false
 }
+

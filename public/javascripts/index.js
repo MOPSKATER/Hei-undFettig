@@ -12,7 +12,7 @@ const testImg = {
 
 let counter = 0
 
-function load() {
+function loadNews() {
     fetch('/api/news/new', { method: "GET", headers: { 'Content-Type': 'application/json' } })
         .then(async response => {
             if (response.status !== 404) {
@@ -30,20 +30,5 @@ function cycleStaff(dir) {
 
 window.onload = load;
 
-function mediaDropDown() {
-    document.getElementById("dropdown").classList.toggle("show");
-  }
+
   
-  // Close the dropdown if the user clicks outside of it
-  window.onclick = function(event) {
-    if (!event.target.matches('.dropbtn')) {
-      var dropdowns = document.getElementsByClassName("menuContainer");
-      var i;
-      for (i = 0; i < dropdowns.length; i++) {
-        var openDropdown = dropdowns[i];
-        if (openDropdown.classList.contains('show')) {
-          openDropdown.classList.remove('show');
-        }
-      }
-    }
-  }
