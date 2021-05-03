@@ -37,23 +37,66 @@
       Just send a POST request with "connect.sid" cookie set. The server will delete the associated session. This cookie
       can be deleted. On error just delete the "connect.sid" cookie anyway.
     </ul>
-  </ul>
+    <h4>.../register</h4>
+    <ul>
+      Send a POST request with login data as<br>
+      { email: &lt;email&gt;, password: &lt;SHA-256&gt; }
+    </ul>
+    <h4>.../set</h4>
+    <ul>
+      Send a PUT request with key value pairs<br>
+      { &lt;opt1&gt;: &lt;value&gt;, &lt;opt2&gt;: &lt;value&gt;, ... }
+      Options:
+      <ul>
+        prename,<br>
+        name,<br>
+        password,<br>
+        ... //TODO
+      </ul>
+    </ul>
+    <h4>.../delete</h4>
+    <ul>
+      Just send a DELETE request when logged in<br>
+    </ul>
 
-  <h3>/news/</h3>
-  <ul>
-    <h4>.../new</h4>
+    <h3>/news/</h3>
     <ul>
-      Just send a GET request and you will receive<br>
-      { title: &lt;title&gt;, message: &lt;message&gt;}
+      <h4>.../new</h4>
+      <ul>
+        Just send a GET request and you will receive<br>
+        { title: &lt;title&gt;, message: &lt;message&gt;}
+      </ul>
     </ul>
-  </ul>
-  <ul>
-    <h4>.../all</h4>
     <ul>
-      Just send a GET request and you will receive<br>
-      { news: &lt;news[][]&gt;}
+      <h4>.../all</h4>
+      <ul>
+        Just send a GET request and you will receive<br>
+        { news: &lt;news[][]&gt;}
+      </ul>
     </ul>
-  </ul>
+
+    <h3>/cart/</h3>
+    <ul>
+      <h4>.../add</h4>
+      <ul>
+
+      </ul>
+
+      <h4>.../remove</h4>
+      <ul>
+
+      </ul>
+
+      <h4>.../get</h4>
+      <ul>
+
+      </ul>
+
+      <h4>.../order</h4>
+      <ul>
+
+      </ul>
+    </ul>
 </body>
 
 </html>
