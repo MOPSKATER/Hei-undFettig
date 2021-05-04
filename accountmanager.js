@@ -25,7 +25,7 @@ const Accountmanager = {
         }
 
         //Hash Password
-        data.hash = crypto.createHash("sha256").update(data.hash).digest("hex")
+        data.hash = crypto.createHash("sha256").update(data.salt + data.hash).digest("hex")
 
         //Add creds to table
         Database.register(data, callback)
