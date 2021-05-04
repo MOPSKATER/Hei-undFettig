@@ -1,4 +1,6 @@
+const crypto = require("crypto")
 const Privileges = require('./privileges');
+const Database = require("./databasemanager")
 
 const Accountmanager = {
 
@@ -14,8 +16,19 @@ const Accountmanager = {
         return req.session.accessLevel != Privileges.Guest ? true : false
     },
 
-    register(req) {
-        return setSession(req)
+    async register(data, callback) {
+        //Generate Salt
+        if (!data.salt) {
+            const alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-.,=?<>_!?&%"
+            for (let i = 0; i < 16; i++)
+                data.salt += alphabet[Math.floor(Math.random() * alphabet.length)]
+        }
+
+        //Hash Password
+        data.hash = crypto.createHash("sha256").update(data.hash).digest("hex")
+
+        //Add creds to table
+        Database.register(data, callback)
     }
 };
 

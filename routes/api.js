@@ -7,12 +7,12 @@ var privileges = require('../privileges')
 var router = express.Router();
 const path = require('path');
 const { validators } = require('validate.js');
+const { login } = require('../accountmanager');
 
 router.get('/', function (req, res, next) {
     res.sendFile(path.join(__dirname + "/../views/apiUsage.html"))
 });
 
-//TODO Real API
 router.get('/user/:uid',
     function (req, res, next) {
         if (/*FIXME remove "!"*/!Privileges.hasPrivilege(req.session.privs, Privileges.Coworker) || req.session.uid === req.params.uid) {
@@ -71,14 +71,26 @@ router.post('/account/logout', function (req, res, next) {
 
 //TODO Real API
 router.post('/account/register', function (req, res, next) {
-    data = Accountmanager.register(req)
-    if (data) {
-        res.setHeader('Content-Type', 'application/json')
-        res.write(JSON.stringify(data))
+    //Validation
+    var data = { email: req.body.email, salt: "", hash: req.body.password }
+    err = validate(data, { email: { presence: true, email: true }, hash: { presence: true, length: { is: 64 }, format: { pattern: "[0-9a-f]+" } } })
+    if (err) {
+        statusCode = 400
+        res.write(JSON.stringify(err))
         res.end()
-    } else { //Account aready exists
-        res.sendStatus(409)
+        return
     }
+
+    Accountmanager.register(data, (err) => {
+        if (err) {
+            statusCode = 400
+            res.write(err)
+        } else {
+            res.write(JSON.stringify(Accountmanager.login(req)))
+            res.end()
+        }
+        res.end()
+    })
 });
 
 //TODO Real API
