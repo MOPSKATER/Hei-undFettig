@@ -1,27 +1,49 @@
 var express = require('express');
+var validate = require("validate.js")
 const Accountmanager = require('../accountmanager');
+var Database = require("../databasemanager")
 const Privileges = require('../privileges');
 var privileges = require('../privileges')
 var router = express.Router();
 const path = require('path');
+const { validators } = require('validate.js');
 
 router.get('/', function (req, res, next) {
     res.sendFile(path.join(__dirname + "/../views/apiUsage.html"))
 });
 
 //TODO Real API
-router.get('/user/:uid', function (req, res, next) {
-    if (/*FIXME remove "!"*/!Privileges.hasPrivilege(req.session.privs, Privileges.Coworker) || req.session.uid === req.params.uid) {
-        res.setHeader('Content-Type', 'application/json');
-        res.write(JSON.stringify({
-            prename: "Peter", name: "Pan", points: 50, street: "Hafenstr. 49",
-            city: "Albcity", additionalAddress: "", postcode: "123456", accessLevel: Privileges.Guest
-        }))
-        res.end();
-    } else { //Insufficient permissions
-        res.sendStatus(401);
-    }
-});
+router.get('/user/:uid',
+    function (req, res, next) {
+        if (/*FIXME remove "!"*/!Privileges.hasPrivilege(req.session.privs, Privileges.Coworker) || req.session.uid === req.params.uid) {
+            var uid = req.params.uid
+            var err = validate({ uid: uid }, { uid: { length: { is: 16 }, format: { pattern: "[a-zA-Z0-9]+" } } })
+            if (err) {
+                res.statusCode = 400;
+                res.write(JSON.stringify(err))
+                res.end()
+                return
+            }
+            Database.getUserData(req.params.uid, (err, table) => {
+                if (err) {
+                    res.statusCode = 500
+                    res.write(err)
+                }
+                else {
+                    if (table) {
+                        res.set({ 'Content-Type': 'application/json' });
+                        res.write(JSON.stringify(table)) //FIXME Don't send all data!
+                    }
+                    else
+                        res.statusCode = 404
+                }
+                res.end();
+            });
+        } else { //Insufficient permissions
+            res.sendStatus(401);
+        }
+
+    });
 
 //TODO Real API
 router.post('/account/login', function (req, res, next) {
