@@ -23,9 +23,10 @@ db.run("CREATE TABLE IF NOT EXISTS users (uid text, prename text, name text, poi
             });
     });
 });
-db.run("CREATE TABLE IF NOT EXISTS cart (id integer, itemid integer, ordered integer)");
-db.run("CREATE TABLE IF NOT EXISTS item (name text, description text, price decimal)");
-db.run("CREATE TABLE IF NOT EXISTS news (caption text, text text, date date)");
+db.run("CREATE TABLE IF NOT EXISTS cart (id integer, itemid integer)");
+db.run("CREATE TABLE IF NOT EXISTS item (id integer, name text, description text, price decimal)");
+db.run("CREATE TABLE IF NOT EXISTS news (id integer, caption text, text text, date date)");
+db.run("CREATE TABLE IF NOT EXISTS orders (uid text, id integer, date datetime)");
 
 
 const Databasemanager = {
