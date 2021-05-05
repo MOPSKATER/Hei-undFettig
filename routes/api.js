@@ -62,7 +62,7 @@ router.post('/account/login', function (req, res, next) {
                 res.end()
             }
             else {
-                setSession(req, data)
+                req.session.isLoggedIn = true;
                 res.setHeader('Content-Type', 'application/json')
                 username = data.prename ? data.prename : req.body.email
                 res.write(JSON.stringify({ prename: username, points: data.points }))
