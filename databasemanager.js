@@ -47,7 +47,7 @@ const Databasemanager = {
                 return
             }
             db.prepare("INSERT INTO users (uid, prename, name, points, street , number , place , plz, email, salt , password , permissionlevel) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)").
-                run(newUID, data.prename, data.name, 0, data.street, data.number, data.place, data.plz, data.email, data.salt, data.hash, Privileges.Guest, (err) => {
+                run(newUID, data.prename, data.name, 0, data.street, data.number, data.place, data.plz, data.email, data.salt, data.hash, Privileges.User, (err) => {
                     callback(err, newUID)
                 });
 
@@ -55,7 +55,7 @@ const Databasemanager = {
     },
 
     getCredentials(email, callback) {
-        db.prepare("SELECT email, prename, points, salt, password FROM users WHERE email=?").get(email, (err, table) => {
+        db.prepare("SELECT uid, permissionlevel, email, prename, points, salt, password FROM users WHERE email=?").get(email, (err, table) => {
             callback(err, table)
         })
     }

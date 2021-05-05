@@ -65,7 +65,7 @@ router.post('/account/login', function (req, res, next) {
                 req.session.isLoggedIn = true;
                 res.setHeader('Content-Type', 'application/json')
                 username = data.prename ? data.prename : req.body.email
-                res.write(JSON.stringify({ prename: username, points: data.points }))
+                res.write(JSON.stringify({ username: username, points: data.points, accessLevel: data.accessLevel, uid: data.uid }))
                 res.end()
             }
         })
@@ -97,7 +97,7 @@ router.post('/account/register', function (req, res, next) {
     Accountmanager.register(data, (err, uid) => {
         if (err) {
             statusCode = 400
-            res.write(err)
+            res.write(JSON.stringify(err))
         } else {
             req.session.isLoggedIn = true;
             res.write(JSON.stringify({ uid: uid }))
