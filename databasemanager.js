@@ -48,7 +48,7 @@ const Databasemanager = {
             }
             db.prepare("INSERT INTO users (uid, prename, name, points, street , number , place , plz, email, salt , password , permissionlevel) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)").
                 run(newUID, data.prename, data.name, 0, data.street, data.number, data.place, data.plz, data.email, data.salt, data.hash, Privileges.Guest, (err) => {
-                    callback(err)
+                    callback(err, newUID)
                 });
 
         })
