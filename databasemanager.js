@@ -38,10 +38,20 @@ const Databasemanager = {
     },
 
     register(data, callback) {
-        db.prepare("INSERT INTO users (uid, prename, name, points, street , number , place , plz, email, salt , password , permissionlevel) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)").
-            run(IDGenerator(), data.prename, data.name, 0, data.street, data.number, data.place, data.plz, data.email, data.salt, data.hash, Privileges.Guest, (err) => {
-                callback(err)
-            });
+        newUID = IDGenerator()
+        usedIDs.push(newUID)
+        //Check if Email already exists
+        db.prepare("SELECT email FROM users WHERE email=?").get(data.email, (err, table) => {
+            if (table) {
+                callback("Email already exists")
+                return
+            }
+            db.prepare("INSERT INTO users (uid, prename, name, points, street , number , place , plz, email, salt , password , permissionlevel) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)").
+                run(newUID, data.prename, data.name, 0, data.street, data.number, data.place, data.plz, data.email, data.salt, data.hash, Privileges.Guest, (err) => {
+                    callback(err)
+                });
+
+        })
     }
 
 }
