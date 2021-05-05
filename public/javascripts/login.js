@@ -54,7 +54,24 @@ function register() {
     }
 
     //TODO hash password and send register request
-    //window.location.href = "./profile.html";
+    genHash(document.getElementById("registerPass").value, async (hash) => {
+        var response = await fetch('/api/account/register', { method: "POST", body: JSON.stringify({ email: document.getElementById("registerMail").value, password: hash }), headers: { 'Content-Type': 'application/json' }, credentials: "include" })
+        switch (response.status) {
+            case 200:
+                data = response.json();
+                displayLogin(data.prename, data.points);
+                //window.location.href = "./profile.html";
+                break;
+
+            case 401:
+                //TODO wrong credentials error
+                break;
+
+            default:
+                break;
+        }
+    })
+
 }
 
 function checkMail(mail) {
@@ -62,5 +79,11 @@ function checkMail(mail) {
     if (re.test(email.toLowerCase()))
         return true
     return false
+}
+
+async function genHash(pass, callback) {
+    callback(Array.prototype.map.call(new Uint8Array(
+        await crypto.subtle.digest("SHA-256", new TextEncoder().encode(pass))),
+        (x) => ("0" + x.toString(16)).slice(-2)).join(""));
 }
 

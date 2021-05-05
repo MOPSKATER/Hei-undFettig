@@ -14,7 +14,7 @@ const Accountmanager = {
             }
             else {
                 if (crypto.createHash("sha256").update(table.salt + req.body.password).digest("hex") === table.password)
-                    callback(undefined, table)
+                    callback(undefined, { email: table.email, prename: table.prename, points: table.points })
                 else
                     callback("Email oder Passwort falsch")
             }

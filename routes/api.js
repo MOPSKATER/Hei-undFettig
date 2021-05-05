@@ -98,6 +98,7 @@ router.post('/account/register', function (req, res, next) {
         if (err) {
             statusCode = 400
             res.write(err)
+            res.end()
         } else {
             Accountmanager.login(req, (err, data) => {
                 Accountmanager.setSession(req, data)
@@ -105,7 +106,6 @@ router.post('/account/register', function (req, res, next) {
                 res.end()
             })
         }
-        res.end()
     })
 });
 
