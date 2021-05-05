@@ -1,38 +1,74 @@
 var express = require('express');
+var validate = require("validate.js")
 const Accountmanager = require('../accountmanager');
+var Database = require("../databasemanager")
 const Privileges = require('../privileges');
 var privileges = require('../privileges')
 var router = express.Router();
 const path = require('path');
+const { validators } = require('validate.js');
+const { login, setSession } = require('../accountmanager');
 
 router.get('/', function (req, res, next) {
     res.sendFile(path.join(__dirname + "/../views/apiUsage.html"))
 });
 
-//TODO Real API
-router.get('/user/:uid', function (req, res, next) {
-    if (/*FIXME remove "!"*/!Privileges.hasPrivilege(req.session.privs, Privileges.Coworker) || req.session.uid === req.params.uid) {
-        res.setHeader('Content-Type', 'application/json');
-        res.write(JSON.stringify({
-            prename: "Peter", name: "Pan", points: 50, street: "Hafenstr. 49",
-            city: "Albcity", additionalAddress: "", postcode: "123456", accessLevel: Privileges.Guest
-        }))
-        res.end();
-    } else { //Insufficient permissions
-        res.sendStatus(401);
-    }
-});
+router.get('/user/:uid',
+    function (req, res, next) {
+        var uid = req.params.uid
+        if (/*FIXME remove "!"*/!Privileges.hasPrivilege(req.session.privs, Privileges.Coworker) || req.session.uid === uid) {
+            var err = validate({ uid: uid }, { uid: { length: { is: 16 }, format: { pattern: "[a-zA-Z0-9]+" } } })
+            if (err) {
+                res.statusCode = 400;
+                res.write(JSON.stringify(err))
+                res.end()
+                return
+            }
+            Database.getUserData(uid, (err, table) => {
+                if (err) {
+                    res.statusCode = 500
+                    res.write(err)
+                }
+                else {
+                    if (table) {
+                        res.set({ 'Content-Type': 'application/json' });
+                        res.write(JSON.stringify(table)) //FIXME Don't send all data!
+                    }
+                    else
+                        res.statusCode = 404
+                }
+                res.end();
+            });
+        } else { //Insufficient permissions
+            res.sendStatus(401);
+        }
+
+    });
 
 //TODO Real API
 router.post('/account/login', function (req, res, next) {
-    data = Accountmanager.login(req)
-    if (data) {
-        res.setHeader('Content-Type', 'application/json')
-        res.write(JSON.stringify(data))
+    var data = { email: req.body.email, password: req.body.password }
+    var err = validate(data, { email: { presence: true, email: true }, password: { length: { is: 64 }, format: { pattern: "[0-9a-f]+" } } })
+    if (err) {
+        res.statusCode = 400
+        res.write(JSON.stringify(err))
         res.end()
-    } else { //Insufficient permissions
-        res.sendStatus(401)
     }
+    else
+        Accountmanager.login(req, (err, data) => {
+            if (err) {
+                res.statusCode = 400
+                res.write(JSON.stringify(err))
+                res.end()
+            }
+            else {
+                setSession(req, data)
+                res.setHeader('Content-Type', 'application/json')
+                username = data.prename ? data.prename : req.body.email
+                res.write(JSON.stringify({ prename: username, points: data.points }))
+                res.end()
+            }
+        })
 });
 
 //TODO Real API
@@ -47,16 +83,30 @@ router.post('/account/logout', function (req, res, next) {
     });
 });
 
-//TODO Real API
 router.post('/account/register', function (req, res, next) {
-    data = Accountmanager.register(req)
-    if (data) {
-        res.setHeader('Content-Type', 'application/json')
-        res.write(JSON.stringify(data))
+    //Validation
+    var data = { email: req.body.email, salt: "", hash: req.body.password }
+    err = validate(data, { email: { presence: true, email: true }, hash: { presence: true, length: { is: 64 }, format: { pattern: "[0-9a-f]+" } } })
+    if (err) {
+        statusCode = 400
+        res.write(JSON.stringify(err))
         res.end()
-    } else { //Account aready exists
-        res.sendStatus(409)
+        return
     }
+
+    Accountmanager.register(data, (err) => {
+        if (err) {
+            statusCode = 400
+            res.write(err)
+            res.end()
+        } else {
+            Accountmanager.login(req, (err, data) => {
+                Accountmanager.setSession(req, data)
+                res.write(JSON.stringify(data))
+                res.end()
+            })
+        }
+    })
 });
 
 //TODO Real API

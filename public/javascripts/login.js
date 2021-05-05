@@ -2,7 +2,6 @@ function doLogin() {
     email = document.getElementById("loginMail").value;
     if (checkMail(email)) {
         data = { email: email, password: document.getElementById("loginPass").value }
-        alert("Eingeloggt als Hermann Müller\n(Ausschließlich auf dieser Seite)");
 
         fetch('/api/account/login', { method: "POST", body: JSON.stringify(data), headers: { 'Content-Type': 'application/json' }, credentials: "include" })
             .then(async response => {
@@ -54,38 +53,32 @@ function register() {
         return
     }
 
-    // hash password and send register request
-    var hashedPW;
-    var hash = async () => Array.prototype.map
-    .call(
-        new Uint8Array(
-        await crypto.subtle.digest("SHA-256", new TextEncoder().encode(pass))
-    ),
-    (x) => ("0" + x.toString(16)).slice(-2)
-    ).join("");
-    hash().then((x) => hashedPW = x);
-    var regData = { email: email, password: hashedPW }
-    fetch('/api/account/register', { method: "POST", body: JSON.stringify(regData), headers: { 'Content-Type': 'application/json' } })
-    .then(async response => {
+    //TODO hash password and send register request
+    genHash(document.getElementById("registerPass").value, async (hash) => {
+        var regData = { email: email, password: hash }
+        var response = await fetch('/api/account/register', { method: "POST", body: JSON.stringify(regData), headers: { 'Content-Type': 'application/json' }, credentials: "include" })
         switch (response.status) {
             case 200:
-                data = await response.json();
+                data = response.json();
                 setJSONCookie("predict", { displayName: data.prename, accessLevel: data.accessLevel, points: data.points, uid: data.uid });
+                // redirect to Profile for missing data
+                window.location.href = "./profile.html";
+                break;
+
+            case 401:
+                //TODO wrong credentials error
                 break;
 
             case 409:
                 //TODO error: already exists
                 alert("user existiert bereits")
-                return;
-
+                break;
+    
             default:
-                return;
+                break;
         }
-        console.log(response.status);
-    });
+    })
 
-    // redirect to Profile for missing data
-    window.location.href = "./profile.html";
 }
 
 function checkMail(mail) {
@@ -93,5 +86,11 @@ function checkMail(mail) {
     if (re.test(email.toLowerCase()))
         return true
     return false
+}
+
+async function genHash(pass, callback) {
+    callback(Array.prototype.map.call(new Uint8Array(
+        await crypto.subtle.digest("SHA-256", new TextEncoder().encode(pass))),
+        (x) => ("0" + x.toString(16)).slice(-2)).join(""));
 }
 
