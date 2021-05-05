@@ -75,8 +75,10 @@ router.post('/account/login', function (req, res, next) {
 router.post('/account/logout', function (req, res, next) {
     req.session.destroy((err) => {
         if (err) {
-            console.log(err);
-            res.sendStatus(500);
+            statusCode = 500
+            res.write(JSON.stringify(err))
+            res.end()
+            return
         }
         else
             res.sendStatus(200);
