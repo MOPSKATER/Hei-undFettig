@@ -28,7 +28,7 @@ function cycleStaff(dir) {
     document.getElementById("coworkerImg").src = testImg[counter];
 }
 
-window.onload = load;
+window.onload = loadNews;
 
 
   
