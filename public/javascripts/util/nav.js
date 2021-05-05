@@ -7,6 +7,7 @@ function removeUnderline(obj) {
 }
 
 function toggleControl() {
+    showLogin();
     panel = document.getElementById("controlPanel");
     if (panel.style.display === "block")
         panel.style.display = "none";
@@ -23,18 +24,26 @@ function displayLogin(name, points) {
 }
 function mediaDropDown() {
     document.getElementById("dropdown").classList.toggle("show");
-  }
+}
   
-  // Close the dropdown if the user clicks outside of it
-  window.onclick = function(event) {
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
     if (!event.target.matches('.dropbtn')) {
-      var dropdowns = document.getElementsByClassName("menuContainer");
-      var i;
-      for (i = 0; i < dropdowns.length; i++) {
-        var openDropdown = dropdowns[i];
-        if (openDropdown.classList.contains('show')) {
-          openDropdown.classList.remove('show');
+        var dropdowns = document.getElementsByClassName("menuContainer");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+            }
         }
-      }
     }
-  }
+}
+
+function showLogin() {
+    var profile = getJSONCookie("predict");
+    console.log(profile);
+    if (profile && profile.accessLevel >= 0) {
+        displayLogin(profile.displayName, profile.points);
+    }
+}

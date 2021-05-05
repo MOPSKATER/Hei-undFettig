@@ -13,8 +13,6 @@ var data = {
 }
 
 function load() {
-    // TODO: remove pseudo login
-    displayLogin(data.forename + " " + data.name, data.tp);
     build(10, data);
     document.getElementById('data').onsubmit = function(e) {
         e.preventDefault();

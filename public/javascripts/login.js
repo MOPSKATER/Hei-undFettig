@@ -9,7 +9,7 @@ function doLogin() {
                 switch (response.status) {
                     case 200:
                         data = await response.json();
-                        displayLogin(data.prename + " " + data.name, data.points);
+                        setJSONCookie("predict", { displayName: data.prename, accessLevel: data.accessLevel, points: data.points, uid: data.uid });
                         break;
 
                     case 401:
@@ -54,7 +54,37 @@ function register() {
         return
     }
 
-    //TODO hash password and send register request
+    // hash password and send register request
+    var hashedPW;
+    var hash = async () => Array.prototype.map
+    .call(
+        new Uint8Array(
+        await crypto.subtle.digest("SHA-256", new TextEncoder().encode(pass))
+    ),
+    (x) => ("0" + x.toString(16)).slice(-2)
+    ).join("");
+    hash().then((x) => hashedPW = x);
+    var regData = { email: email, password: hashedPW }
+    fetch('/api/account/register', { method: "POST", body: JSON.stringify(regData), headers: { 'Content-Type': 'application/json' } })
+    .then(async response => {
+        switch (response.status) {
+            case 200:
+                data = await response.json();
+                setJSONCookie("predict", { displayName: data.prename, accessLevel: data.accessLevel, points: data.points, uid: data.uid });
+                break;
+
+            case 409:
+                //TODO error: already exists
+                alert("user existiert bereits")
+                return;
+
+            default:
+                return;
+        }
+        console.log(response.status);
+    });
+
+    // redirect to Profile for missing data
     window.location.href = "./profile.html";
 }
 
