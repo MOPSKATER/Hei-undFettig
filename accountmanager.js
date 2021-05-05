@@ -38,13 +38,6 @@ const Accountmanager = {
 
         //Add creds to table
         Database.register(data, callback)
-    },
-
-    setSession(req, data) {
-        req.session.name = data.name;
-        req.session.prename = data.prename;
-        req.session.points = data.points;
-        req.session.accessLevel = data.accessLevel;
     }
 };
 

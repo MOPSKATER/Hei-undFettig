@@ -99,9 +99,8 @@ router.post('/account/register', function (req, res, next) {
             statusCode = 400
             res.write(err)
         } else {
-            data = { uid: uid }
-            Accountmanager.setSession(req, data)
-            res.write(JSON.stringify(data))
+            req.session.isLoggedIn = true;
+            res.write(JSON.stringify({ uid: uid }))
         }
         res.end()
     })
