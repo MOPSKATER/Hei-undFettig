@@ -57,7 +57,7 @@ router.post('/account/login', function (req, res, next) {
     else
         Accountmanager.login(req, (err, data) => {
             if (err) {
-                res.statusCode = 400
+                res.statusCode = 401
                 res.write(JSON.stringify(err))
                 res.end()
             }
