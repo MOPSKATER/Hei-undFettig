@@ -8,6 +8,7 @@ function doLogin() {
                 switch (response.status) {
                     case 200:
                         data = await response.json();
+                        console.log(data);
                         setJSONCookie("predict", { displayName: data.prename, accessLevel: data.accessLevel, points: data.points, uid: data.uid });
                         break;
 
@@ -59,10 +60,11 @@ function register() {
         var response = await fetch('/api/account/register', { method: "POST", body: JSON.stringify(regData), headers: { 'Content-Type': 'application/json' }, credentials: "include" })
         switch (response.status) {
             case 200:
-                data = response.json();
+                data = await response.json();
+                console.log(data);
                 setJSONCookie("predict", { displayName: data.prename, accessLevel: data.accessLevel, points: data.points, uid: data.uid });
                 // redirect to Profile for missing data
-                window.location.href = "./profile.html";
+                // window.location.href = "./profile.html";
                 break;
 
             case 401:
