@@ -8,7 +8,8 @@ function doLogin() {
                 switch (response.status) {
                     case 200:
                         data = await response.json();
-                        displayLogin(data.prename + " " + data.name, data.points);
+                        console.log(data);
+                        setJSONCookie("predict", { displayName: data.prename, accessLevel: data.accessLevel, points: data.points, uid: data.uid });
                         break;
 
                     case 401:
@@ -55,18 +56,26 @@ function register() {
 
     //TODO hash password and send register request
     genHash(document.getElementById("registerPass").value, async (hash) => {
-        var response = await fetch('/api/account/register', { method: "POST", body: JSON.stringify({ email: document.getElementById("registerMail").value, password: hash }), headers: { 'Content-Type': 'application/json' }, credentials: "include" })
+        var regData = { email: email, password: hash }
+        var response = await fetch('/api/account/register', { method: "POST", body: JSON.stringify(regData), headers: { 'Content-Type': 'application/json' }, credentials: "include" })
         switch (response.status) {
             case 200:
-                data = response.json();
-                displayLogin(data.prename, data.points);
-                //window.location.href = "./profile.html";
+                data = await response.json();
+                console.log(data);
+                setJSONCookie("predict", { displayName: data.prename, accessLevel: data.accessLevel, points: data.points, uid: data.uid });
+                // redirect to Profile for missing data
+                // window.location.href = "./profile.html";
                 break;
 
             case 401:
                 //TODO wrong credentials error
                 break;
 
+            case 409:
+                //TODO error: already exists
+                alert("user existiert bereits")
+                break;
+    
             default:
                 break;
         }
