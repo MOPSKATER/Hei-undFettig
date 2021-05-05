@@ -52,6 +52,12 @@ const Databasemanager = {
                 });
 
         })
+    },
+
+    getCredentials(email, callback) {
+        db.prepare("SELECT prename, points, salt, password FROM users WHERE email=?").get(email, (err, table) => {
+            callback(err, table)
+        })
     }
 
 }

@@ -7,7 +7,7 @@ var privileges = require('../privileges')
 var router = express.Router();
 const path = require('path');
 const { validators } = require('validate.js');
-const { login } = require('../accountmanager');
+const { login, setSession } = require('../accountmanager');
 
 router.get('/', function (req, res, next) {
     res.sendFile(path.join(__dirname + "/../views/apiUsage.html"))
@@ -47,14 +47,28 @@ router.get('/user/:uid',
 
 //TODO Real API
 router.post('/account/login', function (req, res, next) {
-    data = Accountmanager.login(req)
-    if (data) {
-        res.setHeader('Content-Type', 'application/json')
-        res.write(JSON.stringify(data))
+    var data = { email: req.body.email, password: req.body.password }
+    var err = validate(data, { email: { presence: true, email: true }, password: { length: { is: 64 }, format: { pattern: "[0-9a-f]+" } } })
+    if (err) {
+        res.statusCode = 400
+        res.write(JSON.stringify(err))
         res.end()
-    } else { //Insufficient permissions
-        res.sendStatus(401)
     }
+    else
+        Accountmanager.login(req, (err, data) => {
+            if (err) {
+                res.statusCode = 400
+                res.write(JSON.stringify(err))
+                res.end()
+            }
+            else {
+                setSession(req, data)
+                res.setHeader('Content-Type', 'application/json')
+                username = data.prename ? data.prename : req.body.email
+                res.write(JSON.stringify({ prename: username, points: data.points }))
+                res.end()
+            }
+        })
 });
 
 //TODO Real API
@@ -85,8 +99,11 @@ router.post('/account/register', function (req, res, next) {
             statusCode = 400
             res.write(err)
         } else {
-            res.write(JSON.stringify(Accountmanager.login(req)))
-            res.end()
+            Accountmanager.login(req, (err, data) => {
+                Accountmanager.setSession(req, data)
+                res.write(JSON.stringify(data))
+                res.end()
+            })
         }
         res.end()
     })

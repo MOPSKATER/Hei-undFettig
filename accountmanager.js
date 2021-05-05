@@ -4,12 +4,21 @@ const Database = require("./databasemanager")
 
 const Accountmanager = {
 
-    login(req) {
-        if (req.body.password === "deny")
-            return
-        else {
-            return setSession(req)
-        }
+    login(req, callback) {
+        Database.getCredentials(req.body.email, (err, table) => {
+            if (err) {
+                callback(err)
+            }
+            else if (!table) {
+                callback("Email oder Passwort falsch")
+            }
+            else {
+                if (crypto.createHash("sha256").update(table.salt + req.body.password).digest("hex") === table.password)
+                    callback(undefined, table)
+                else
+                    callback("Email oder Passwort falsch")
+            }
+        })
     },
 
     isLoggedIn(req) {
@@ -29,15 +38,14 @@ const Accountmanager = {
 
         //Add creds to table
         Database.register(data, callback)
+    },
+
+    setSession(req, data) {
+        req.session.name = data.name;
+        req.session.prename = data.prename;
+        req.session.points = data.points;
+        req.session.accessLevel = data.accessLevel;
     }
 };
-
-function setSession(req) {
-    req.session.name = "Müller";
-    req.session.prename = "Hermann";
-    req.session.points = 70;
-    req.session.accessLevel = Privileges.Guest;
-    return { prename: "Hermann", name: "Müller", points: 70, accessLevel: Privileges.Guest }
-}
 
 module.exports = Accountmanager;

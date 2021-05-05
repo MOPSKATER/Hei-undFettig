@@ -2,7 +2,6 @@ function doLogin() {
     email = document.getElementById("loginMail").value;
     if (checkMail(email)) {
         data = { email: email, password: document.getElementById("loginPass").value }
-        alert("Eingeloggt als Hermann Müller\n(Ausschließlich auf dieser Seite)");
 
         fetch('/api/account/login', { method: "POST", body: JSON.stringify(data), headers: { 'Content-Type': 'application/json' }, credentials: "include" })
             .then(async response => {
@@ -55,7 +54,7 @@ function register() {
     }
 
     //TODO hash password and send register request
-    window.location.href = "./profile.html";
+    //window.location.href = "./profile.html";
 }
 
 function checkMail(mail) {
