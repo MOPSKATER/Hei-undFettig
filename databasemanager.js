@@ -71,6 +71,12 @@ const Databasemanager = {
         db.prepare("SELECT uid, permissionlevel, email, prename, points, salt, password FROM users WHERE email=?").get(email, (err, table) => {
             callback(err, table)
         })
+    },
+
+    deleteUser(uid, callback) {
+        db.prepare("DELETE FROM users WHERE uid=?").run(uid, (err) => {
+            callback(err)
+        })
     }
 
 }
