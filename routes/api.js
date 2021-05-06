@@ -108,6 +108,10 @@ router.post('/account/register', function (req, res, next) {
     })
 });
 
+router.get('/account/isLoggedin', function (req, res, next) {
+    Accountmanager.isLoggedIn(req) ? req.sendStatus(200) : req.sendStatus(401)
+});
+
 //TODO Real API
 router.put('/account/set', function (req, res, next) {
     if (req.session.uid === req.body.uid) {
