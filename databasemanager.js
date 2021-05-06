@@ -17,7 +17,7 @@ db.run("CREATE TABLE IF NOT EXISTS users (uid text, prename text, name text, poi
         console.error(err)
         process.exit(1)
     }
-    db.all("SELECT id FROM users", (err, rows) => {
+    db.all("SELECT uid FROM users", (err, rows) => {
         if (rows)
             rows.forEach(element => {
                 usedIDs.push(element.id)

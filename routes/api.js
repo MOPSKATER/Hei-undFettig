@@ -60,7 +60,7 @@ router.post('/account/login', function (req, res, next) {
     }
     else {
         if (admin) {
-            req.body.email === "Admin"
+            req.body.email = "Admin"
             data.email = "Admin"
         }
         Accountmanager.login(req, (err, data) => {
