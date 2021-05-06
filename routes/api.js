@@ -133,8 +133,17 @@ router.put('/account/set', function (req, res, next) {
 
 //TODO Real API
 router.delete('/account/delete', function (req, res, next) {
-    if (Privileges.hasPrivilege(req.session.privs, Privileges.Admin) || req.session.uid === req.body.uid) {
-        res.sendStatus(200)
+    if (req.session.uid === req.body.uid) {
+        Database.deleteUser(uid, (err) => {
+            if (err) {
+                res.statusCode = 400
+                res.write(JSON.stringify(err))
+            }
+            else {
+                res.sendStatus(200)
+            }
+            res.end()
+        })
     } else { //Insufficient permissions
         res.sendStatus(401);
     }

@@ -29,7 +29,7 @@ db.run("CREATE TABLE IF NOT EXISTS users (uid text, prename text, name text, poi
             salt = IDGenerator()
             hash = crypto.createHash("sha256").update(pass).digest("hex")
             hash = crypto.createHash("sha256").update(salt + hash).digest("hex")
-            db.prepare("INSERT INTO users (uid, prename, name, points, street , number , place , plz, email, salt , password , permissionlevel) VALUES (?, null, null, null, null, null, null, null, ?, ?, ?, ?)").
+            db.prepare("INSERT INTO users (uid, prename, name, points, street , number , place , plz, email, salt , password , permissionlevel) VALUES (?, null, null, 0, null, null, null, null, ?, ?, ?, ?)").
                 run(newUID, "Admin", salt, hash, Privileges.Admin, (err) => {
                     console.log("Admin credentials:\nemail: Admin\npassword: " + pass + "\n\nChange the default password!")
                 });
@@ -70,6 +70,12 @@ const Databasemanager = {
     getCredentials(email, callback) {
         db.prepare("SELECT uid, permissionlevel, email, prename, points, salt, password FROM users WHERE email=?").get(email, (err, table) => {
             callback(err, table)
+        })
+    },
+
+    deleteUser(uid, callback) {
+        db.prepare("DELETE FROM users WHERE uid=?").run(uid, (err) => {
+            callback(err)
         })
     }
 
