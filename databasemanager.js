@@ -30,8 +30,8 @@ db.run("CREATE TABLE IF NOT EXISTS users (uid text, prename text, name text, poi
             hash = crypto.createHash("sha256").update(pass).digest("hex")
             hash = crypto.createHash("sha256").update(salt + hash).digest("hex")
             db.prepare("INSERT INTO users (uid, prename, name, points, street , number , place , plz, email, salt , password , permissionlevel) VALUES (?, null, null, null, null, null, null, null, ?, ?, ?, ?)").
-                run(newUID, "admin@localhost.fettig", salt, hash, Privileges.Admin, (err) => {
-                    console.log("Admin credentials:\nemail: admin@localhost.\npassword: " + pass + "\n\nChange the default password!")
+                run(newUID, "Admin", salt, hash, Privileges.Admin, (err) => {
+                    console.log("Admin credentials:\nemail: Admin\npassword: " + pass + "\n\nChange the default password!")
                 });
         }
     });
