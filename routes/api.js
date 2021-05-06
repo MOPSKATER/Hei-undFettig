@@ -15,7 +15,7 @@ router.get('/', function (req, res, next) {
 
 router.get('/user/:uid',
     function (req, res, next) {
-        var uid = req.params.uid
+        var uid = req.query.uid
         if (/*FIXME remove "!"*/!Privileges.hasPrivilege(req.session.privs, Privileges.Coworker) || req.session.uid === uid) {
             var err = validate({ uid: uid }, { uid: { length: { is: 16 }, format: { pattern: "[a-zA-Z0-9]+" } } })
             if (err) {
