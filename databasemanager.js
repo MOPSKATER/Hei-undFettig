@@ -1,4 +1,5 @@
 var sqlite3 = require('sqlite3')
+const crypto = require("crypto")
 const Privileges = require("./privileges")
 
 const DBSOURCE = "db.sqlite"
@@ -21,6 +22,18 @@ db.run("CREATE TABLE IF NOT EXISTS users (uid text, prename text, name text, poi
             rows.forEach(element => {
                 usedIDs.push(element.id)
             });
+        if (usedIDs.length === 0) {
+            newUID = IDGenerator()
+            usedIDs.push(newUID)
+            pass = IDGenerator()
+            salt = IDGenerator()
+            hash = crypto.createHash("sha256").update(pass).digest("hex")
+            hash = crypto.createHash("sha256").update(salt + hash).digest("hex")
+            db.prepare("INSERT INTO users (uid, prename, name, points, street , number , place , plz, email, salt , password , permissionlevel) VALUES (?, null, null, null, null, null, null, null, ?, ?, ?, ?)").
+                run(newUID, "Admin", salt, hash, Privileges.Admin, (err) => {
+                    console.log("Admin credentials:\nemail: Admin\npassword: " + pass + "\n\nChange the default password!")
+                });
+        }
     });
 });
 db.run("CREATE TABLE IF NOT EXISTS cart (id integer, itemid integer)");

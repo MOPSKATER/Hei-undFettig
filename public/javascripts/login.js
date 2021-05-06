@@ -28,12 +28,12 @@ function doLogin() {
                             alert(JSON.stringify(data));
                             break;
 
-                    default:
-                        alert("interner Server Error")
-                        break;
-                }
-                console.log(response.status);
-            });
+                        default:
+                            alert("interner Server Error")
+                            break;
+                    }
+                    console.log(response.status);
+                });
         });
     }
     else {
@@ -95,7 +95,7 @@ function register() {
                         alert("interner Server Error")
                         break;
                 }
-        });
+            });
     })
 
 }
