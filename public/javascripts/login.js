@@ -2,26 +2,26 @@ function doLogin() {
     email = document.getElementById("loginMail").value;
     if (checkMail(email)) {
         genHash(document.getElementById("loginPass").value, (hash) => {
-        fetch('/api/account/login', { method: "POST", body: JSON.stringify({ email: email, password: hash }), headers: { 'Content-Type': 'application/json' }, credentials: "include" })
-            .then(async response => {
-                data = await response.json();
-                switch (response.status) {
-                    case 200:
-                        console.log(data);
-                        setJSONCookie("predict", { displayName: data.username, accessLevel: data.accessLevel, points: data.points, uid: data.uid });
-                        break;
+            fetch('/api/account/login', { method: "POST", body: JSON.stringify({ email: email, password: hash }), headers: { 'Content-Type': 'application/json' }, credentials: "include" })
+                .then(async response => {
+                    data = await response.json();
+                    switch (response.status) {
+                        case 200:
+                            console.log(data);
+                            setJSONCookie("predict", { displayName: data.username, accessLevel: data.accessLevel, points: data.points, uid: data.uid });
+                            break;
 
                         case 400:
                         case 401:
                             alert(JSON.stringify(data));
                             break;
 
-                    default:
-                        alert("interner Server Error")
-                        break;
-                }
-                console.log(response.status);
-            });
+                        default:
+                            alert("interner Server Error")
+                            break;
+                    }
+                    console.log(response.status);
+                });
         });
     }
     else {
@@ -83,7 +83,7 @@ function register() {
                         alert("interner Server Error")
                         break;
                 }
-        });
+            });
     })
 
 }

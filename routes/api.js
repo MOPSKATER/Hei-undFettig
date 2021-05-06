@@ -47,6 +47,10 @@ router.get('/user/:uid',
 
 //TODO Real API
 router.post('/account/login', function (req, res, next) {
+    if (req.body.email === "Admin") {
+        var admin = true
+        req.body.email = "admin@heiss.fettig"
+    }
     var data = { email: req.body.email, password: req.body.password }
     var err = validate(data, { email: { presence: true, email: true }, password: { length: { is: 64 }, format: { pattern: "[0-9a-f]+" } } })
     if (err) {
@@ -54,7 +58,11 @@ router.post('/account/login', function (req, res, next) {
         res.write(JSON.stringify(err))
         res.end()
     }
-    else
+    else {
+        if (admin) {
+            req.body.email === "Admin"
+            data.email = "Admin"
+        }
         Accountmanager.login(req, (err, data) => {
             if (err) {
                 res.statusCode = 401
@@ -69,6 +77,7 @@ router.post('/account/login', function (req, res, next) {
                 res.end()
             }
         })
+    }
 });
 
 //TODO Real API
