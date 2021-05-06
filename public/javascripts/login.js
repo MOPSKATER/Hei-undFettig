@@ -1,3 +1,14 @@
+
+var source;
+var params = window.location.search.substring(1).split('&');
+params.forEach((p) => {
+    var pair = p.split('=');
+    if(pair[0] == "source") {
+        source = pair[1];
+    }
+} );
+console.log(source);
+
 function doLogin() {
     email = document.getElementById("loginMail").value;
     if (checkMail(email)) {
@@ -9,6 +20,7 @@ function doLogin() {
                     case 200:
                         console.log(data);
                         setJSONCookie("predict", { displayName: data.username, accessLevel: data.accessLevel, points: data.points, uid: data.uid });
+                        window.location.href = "/" + source;
                         break;
 
                         case 400:
@@ -67,7 +79,7 @@ function register() {
                         console.log(data);
                         setJSONCookie("predict", { displayName: email, accessLevel: 5, points: 0, uid: data.uid });
                         // TODO: redirect to Profile for missing data
-                        // window.location.href = "./profile.html";
+                        window.location.href = "./profile.html";
                         break;
 
                     case 401:
@@ -91,6 +103,8 @@ function register() {
 function checkMail(mail) {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (re.test(email.toLowerCase()))
+        return true
+    else if (mail === "admin")
         return true
     return false
 }
