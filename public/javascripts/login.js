@@ -20,7 +20,7 @@ function doLogin() {
                     case 200:
                         console.log(data);
                         setJSONCookie("predict", { displayName: data.username, accessLevel: data.accessLevel, points: data.points, uid: data.uid });
-                        window.location.href = "/" + source;
+                        if(source) window.location.href = "/" + source;
                         break;
 
                         case 400:
