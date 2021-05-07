@@ -25,6 +25,9 @@ body {
     margin-bottom: 2%;
     width: 100%;
 }
+.input:invalid {
+    border-color: red;
+}
 #left .inline {
     display: inline-block;
     width: calc(50% - 2.5px);
