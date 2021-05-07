@@ -217,7 +217,7 @@ router.post('/news/add', function (req, res, next) {
     })
 });
 
-router.post('/news/remove', function (req, res, next) {
+router.delete('/news/delete', function (req, res, next) {
     if (!Privileges.hasPrivilege(req.session.privs, Privileges.Admin)) {
         statusCode = 401
         res.end()
@@ -240,9 +240,6 @@ router.post('/news/remove', function (req, res, next) {
         }
         res.end()
     })
-});
-
-router.delete('/news/delete', function (req, res, next) {
 });
 
 //TODO Real API
