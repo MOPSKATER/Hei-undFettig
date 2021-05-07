@@ -248,5 +248,12 @@ router.post('/cart/order', function (req, res, next) {
     res.sendStatus(401)
 });
 
+//TODO
+router.get('/orders/all', function (req, res, next) {
+});
+
+//TODO
+router.delete('/orders/delete', function (req, res, next) {
+});
 
 module.exports = router;
