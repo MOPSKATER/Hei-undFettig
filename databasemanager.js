@@ -86,7 +86,13 @@ const Databasemanager = {
     },
 
     addNews(data, callback) {
-        db.prepare("INSERT INTO news (id, caption, text, date) VALUE (? ? ? ?)").run(data.id, data.caption, data.text, data.date, () => {
+        db.prepare("INSERT INTO news (id, caption, text, date) VALUE (? ? ? ?)").run(data.id, data.caption, data.text, data.date, (err) => {
+            callback(err)
+        })
+    },
+
+    deleteNews(id, callback) {
+        db.prepare("DELETE FROM users WHERE id=?").run(id, (err) => {
             callback(err)
         })
     }

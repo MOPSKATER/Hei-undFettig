@@ -232,6 +232,14 @@ router.post('/news/remove', function (req, res, next) {
         res.end()
         return
     }
+
+    Database.deleteNews(req.body.id, (err) => {
+        if (err) {
+            res.statusCode = 400
+            res.write(JSON.stringify(err))
+        }
+        res.end()
+    })
 });
 
 router.delete('/news/delete', function (req, res, next) {
