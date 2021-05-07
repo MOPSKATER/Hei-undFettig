@@ -22,7 +22,7 @@ params.forEach((p) => {
 
 function load() {
     if(!data.uid) data.uid = getJSONCookie("predict")["uid"];
-    fetch('/api/user/uid?uid=' + data.uid, { method: "GET", headers: { 'Content-Type': 'application/json' }, credentials: "include" })
+    fetch('/api/user/' + data.uid, { method: "GET", headers: { 'Content-Type': 'application/json' }, credentials: "include" })
             .then(async response => {
                 switch (response.status) {
                     case 200:
@@ -38,6 +38,7 @@ function load() {
                         build(data.permission, data);
                         break;
 
+                    // FIXME: correct error handling
                     case 401:
                         //TODO unsufficient permissions error
                         break;
