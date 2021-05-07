@@ -206,20 +206,10 @@ router.get('/news/all', function (req, res, next) {
     })
 });
 
-router.get('/news/all', function (req, res, next) {
-    Database.getNews((err, news) => {
-        if (err)
-            res.write(JSON.stringify(err))
-        else {
-            if (news.length) {
-                res.setHeader('Content-Type', 'application/json')
-                res.write(JSON.stringify(news))
-            }
-            else
-                res.sendStatus(404)
-        }
-        res.end()
-    })
+router.post('/news/add', function (req, res, next) {
+});
+
+router.delete('/news/delete', function (req, res, next) {
 });
 
 //TODO Real API
