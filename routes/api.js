@@ -18,37 +18,36 @@ router.get('/', function (req, res, next) {
     res.sendFile(path.join(__dirname + "/../views/apiUsage.html"))
 });
 
-router.get('/user/:uid',
-    function (req, res, next) {
-        var uid = req.params.uid
-        if (Privileges.hasPrivilege(req.session.privs, Privileges.Coworker) || req.session.uid === uid) {
-            var err = validate({ uid: uid }, { uid: { length: { is: 16 }, format: { pattern: "[a-zA-Z0-9]+" } } })
-            if (err) {
-                res.statusCode = 400;
-                res.write(JSON.stringify(err))
-                res.end()
-                return
-            }
-            Database.getUserData(uid, (err, table) => {
-                if (err) {
-                    res.statusCode = 500
-                    res.write(err)
-                }
-                else {
-                    if (table) {
-                        res.set({ 'Content-Type': 'application/json' });
-                        res.write(JSON.stringify(table)) //FIXME Don't send all data!
-                    }
-                    else
-                        res.statusCode = 404
-                }
-                res.end();
-            });
-        } else { //Insufficient permissions
-            res.sendStatus(401);
+router.get('/user/:uid', function (req, res, next) {
+    var uid = req.params.uid
+    if (Privileges.hasPrivilege(req.session.accessLevel, Privileges.Coworker) || req.session.uid === uid) {
+        var err = validate({ uid: uid }, { uid: { length: { is: 16 }, format: { pattern: "[a-zA-Z0-9]+" } } })
+        if (err) {
+            res.statusCode = 400;
+            res.write(JSON.stringify(err))
+            res.end()
+            return
         }
+        Database.getUserData(uid, (err, table) => {
+            if (err) {
+                res.statusCode = 500
+                res.write(err)
+            }
+            else {
+                if (table) {
+                    res.set({ 'Content-Type': 'application/json' });
+                    res.write(JSON.stringify(table)) //FIXME Don't send all data!
+                }
+                else
+                    res.statusCode = 404
+            }
+            res.end();
+        });
+    } else { //Insufficient permissions
+        res.sendStatus(401);
+    }
 
-    });
+});
 
 router.post('/account/login', function (req, res, next) {
     if (req.body.email === "Admin") {
@@ -74,7 +73,8 @@ router.post('/account/login', function (req, res, next) {
                 res.end()
             }
             else {
-                req.session.isLoggedIn = true;
+                req.session.uid = data.uid
+                req.session.accessLevel = data.accessLevel
                 res.setHeader('Content-Type', 'application/json')
                 username = data.prename ? data.prename : req.body.email
                 res.write(JSON.stringify({ username: username, points: data.points, accessLevel: data.accessLevel, uid: data.uid }))
@@ -112,10 +112,8 @@ router.post('/account/register', function (req, res, next) {
         if (err) {
             statusCode = 400
             res.write(JSON.stringify(err))
-        } else {
-            req.session.isLoggedIn = true;
+        } else
             res.write(JSON.stringify({ uid: uid }))
-        }
         res.end()
     })
 });
@@ -127,7 +125,6 @@ router.get('/account/isLoggedin', function (req, res, next) {
 //TODO Real API
 router.put('/account/set', function (req, res, next) {
     if (req.session.uid === req.body.uid) {
-        //TODO Set new data
         res.sendStatus(200)
     } else { //Insufficient permissions
         res.sendStatus(401);
@@ -245,7 +242,6 @@ router.delete('/news/delete', function (req, res, next) {
 //TODO Real API
 router.post('/cart/add', function (req, res, next) {
     if (Accountmanager.isLoggedIn) {
-        //TODO manage database
         res.sendStatus(200)
     }
     res.sendStatus(401)
@@ -254,7 +250,6 @@ router.post('/cart/add', function (req, res, next) {
 //TODO Real API
 router.post('/cart/remove', function (req, res, next) {
     if (Accountmanager.isLoggedIn) {
-        //TODO manage database
         res.sendStatus(200)
     }
     res.sendStatus(401)
@@ -263,7 +258,6 @@ router.post('/cart/remove', function (req, res, next) {
 //TODO Real API
 router.get('/cart/get', function (req, res, next) {
     if (Accountmanager.isLoggedIn) {
-        //TODO manage database
         res.sendStatus(200)
     }
     res.sendStatus(401)
@@ -272,7 +266,6 @@ router.get('/cart/get', function (req, res, next) {
 //TODO Real API
 router.post('/cart/order', function (req, res, next) {
     if (Accountmanager.isLoggedIn) {
-        //TODO manage database
         res.sendStatus(200)
     }
     res.sendStatus(401)
