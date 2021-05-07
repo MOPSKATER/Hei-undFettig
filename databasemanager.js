@@ -77,6 +77,12 @@ const Databasemanager = {
         db.prepare("DELETE FROM users WHERE uid=?").run(uid, (err) => {
             callback(err)
         })
+    },
+
+    getNews(callback) {
+        db.prepare("SELECT * FROM news").all((err, table) => {
+            callback(err, table)
+        })
     }
 
 }

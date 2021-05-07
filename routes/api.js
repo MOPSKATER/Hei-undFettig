@@ -8,6 +8,7 @@ var router = express.Router();
 const path = require('path');
 const { validators } = require('validate.js');
 const { login, setSession } = require('../accountmanager');
+const { table } = require('console');
 
 router.get('/', function (req, res, next) {
     res.sendFile(path.join(__dirname + "/../views/apiUsage.html"))
@@ -16,7 +17,7 @@ router.get('/', function (req, res, next) {
 router.get('/user/:uid',
     function (req, res, next) {
         var uid = req.params.uid
-        if (/*FIXME remove "!"*/!Privileges.hasPrivilege(req.session.privs, Privileges.Coworker) || req.session.uid === uid) {
+        if (Privileges.hasPrivilege(req.session.privs, Privileges.Coworker) || req.session.uid === uid) {
             var err = validate({ uid: uid }, { uid: { length: { is: 16 }, format: { pattern: "[a-zA-Z0-9]+" } } })
             if (err) {
                 res.statusCode = 400;
@@ -45,7 +46,6 @@ router.get('/user/:uid',
 
     });
 
-//TODO Real API
 router.post('/account/login', function (req, res, next) {
     if (req.body.email === "Admin") {
         var admin = true
@@ -80,7 +80,6 @@ router.post('/account/login', function (req, res, next) {
     }
 });
 
-//TODO Real API
 router.post('/account/logout', function (req, res, next) {
     req.session.destroy((err) => {
         if (err) {
@@ -131,7 +130,6 @@ router.put('/account/set', function (req, res, next) {
     }
 });
 
-//TODO Real API
 router.delete('/account/delete', function (req, res, next) {
     if (req.session.uid === req.body.uid) {
         Database.deleteUser(uid, (err) => {
@@ -149,8 +147,7 @@ router.delete('/account/delete', function (req, res, next) {
     }
 });
 
-//TODO Remove when Database comes
-news = [
+/*news = [
     [
         "Januar 2021: Frohes Neues!",
         "Liebe Gäste, wir wünschen Ihnen und Ihrer Familie ein gutes und gesundes neues Jahr!"
@@ -175,20 +172,38 @@ news = [
         "Wir freuen uns, Sie sobald wie möglich wieder im Heiß und Fettig begrüßen zu dürfen!",
         ""
     ]
-]
+]*/
 
-//TODO Real API
 router.get('/news/new', function (req, res, next) {
-    res.setHeader('Content-Type', 'application/json')
-    res.write(JSON.stringify({ title: news[0][0], message: news[0][1] }))
-    res.end()
+    Database.getNews((err, news) => {
+        if (err)
+            res.write(JSON.stringify(err))
+        else {
+            if (news.length) {
+                res.setHeader('Content-Type', 'application/json')
+                res.write(JSON.stringify(news[-1]))
+            }
+            else
+                res.sendStatus(404)
+        }
+        res.end()
+    })
 });
 
-//TODO Real API
 router.get('/news/all', function (req, res, next) {
-    res.setHeader('Content-Type', 'application/json')
-    res.write(JSON.stringify({ news: news }))
-    res.end()
+    Database.getNews((err, news) => {
+        if (err)
+            res.write(JSON.stringify(err))
+        else {
+            if (news.length) {
+                res.setHeader('Content-Type', 'application/json')
+                res.write(JSON.stringify(news))
+            }
+            else
+                res.sendStatus(404)
+        }
+        res.end()
+    })
 });
 
 //TODO Real API
