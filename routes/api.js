@@ -206,6 +206,22 @@ router.get('/news/all', function (req, res, next) {
     })
 });
 
+router.get('/news/all', function (req, res, next) {
+    Database.getNews((err, news) => {
+        if (err)
+            res.write(JSON.stringify(err))
+        else {
+            if (news.length) {
+                res.setHeader('Content-Type', 'application/json')
+                res.write(JSON.stringify(news))
+            }
+            else
+                res.sendStatus(404)
+        }
+        res.end()
+    })
+});
+
 //TODO Real API
 router.post('/cart/add', function (req, res, next) {
     if (Accountmanager.isLoggedIn) {
