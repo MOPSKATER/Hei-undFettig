@@ -189,7 +189,41 @@ router.post('/news/add', function (req, res, next) {
 
     data = { id: req.body.id, caption: req.body.caption, text: req.body.text }
     err = validate(data, {
-        id: { presence: true, numericality: true, length: { maximum: 1 } }, caption: { presence: true, pattern: "[0-9a-zA-Z" + unsafe + "]+", length: { maximum: 30 } },
+        id: { presence: true, numericality: true, length: { maximum: 4 } }, caption: { presence: true, format: { pattern: "[0-9a-zA-Z" + unsafe + "]+" }, length: { maximum: 30 } },
+        text: { format: { pattern: "[0-9a-zA-Z" + unsafe + "]+" }, length: { maximum: 200 } }
+    })
+    if (err) {
+        statusCode = 400
+        res.write(JSON.stringify(err))
+        res.end()
+        return
+    }
+    var date = new Date(Date.now()),
+        month = "0" + (date.getMonth() + 1),
+        day = "0" + date.getDate(),
+        year = date.getFullYear();
+
+    data.date = [year, month.slice(-2), day.slice(-2)].join("-")
+
+    Database.addNews(data, (err) => {
+        if (err) {
+            res.statusCode = 400
+            res.write(JSON.stringify(err))
+        }
+        res.end()
+    })
+});
+
+router.delete('/news/edit', function (req, res, next) {
+    if (!Privileges.hasPrivilege(req.session.privs, Privileges.Admin)) {
+        statusCode = 401
+        res.end()
+        return
+    }
+
+    data = { id: req.body.id, caption: req.body.caption, text: req.body.text }
+    err = validate(data, {
+        id: { presence: true, numericality: true, length: { maximum: 4 } }, caption: { presence: true, pattern: "[0-9a-zA-Z" + unsafe + "]+", length: { maximum: 30 } },
         text: { pattern: "[0-9a-zA-Z" + unsafe + "]+", length: { maximum: 200 } }
     })
     if (err) {
@@ -199,13 +233,13 @@ router.post('/news/add', function (req, res, next) {
         return
     }
     var date = new Date(Date.now()),
-        month = "0" + (d.getMonth() + 1),
-        day = "0" + d.getDate(),
-        year = d.getFullYear();
+        month = "0" + (date.getMonth() + 1),
+        day = "0" + date.getDate(),
+        year = date.getFullYear();
 
     data.date = [year, month.slice(-2), day.slice(-2)].join("-")
 
-    Database.addNews(data, (err) => {
+    Database.editNews(req.body.id, (err) => {
         if (err) {
             res.statusCode = 400
             res.write(JSON.stringify(err))
@@ -241,10 +275,6 @@ router.delete('/news/delete', function (req, res, next) {
 
 //TODO Real API
 router.post('/cart/add', function (req, res, next) {
-    if (Accountmanager.isLoggedIn) {
-        res.sendStatus(200)
-    }
-    res.sendStatus(401)
 });
 
 //TODO Real API
@@ -272,7 +302,7 @@ router.post('/cart/order', function (req, res, next) {
 });
 
 //TODO
-router.get('/orders/all', function (req, res, next) {
+router.get('/orders/get', function (req, res, next) {
 });
 
 //TODO

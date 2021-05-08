@@ -86,7 +86,13 @@ const Databasemanager = {
     },
 
     addNews(data, callback) {
-        db.prepare("INSERT INTO news (id, caption, text, date) VALUE (? ? ? ?)").run(data.id, data.caption, data.text, data.date, (err) => {
+        db.prepare("INSERT INTO news (id, caption, text, date) VALUES (?, ?, ?, ?)").run(data.id, data.caption, data.text, data.date, (err) => {
+            callback(err)
+        })
+    },
+
+    editNews(data, callback) {
+        db.prepare("UPDATE news SET caption=?, text=?, date=? WHERE id=?").run(data.caption, data.text, data.date, data.id, (err) => {
             callback(err)
         })
     },
