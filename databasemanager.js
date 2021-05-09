@@ -36,7 +36,7 @@ db.run("CREATE TABLE IF NOT EXISTS users (uid text, prename text, name text, poi
         }
     });
 });
-db.run("CREATE TABLE IF NOT EXISTS cart (id integer, itemid integer)");
+db.run("CREATE TABLE IF NOT EXISTS cart (id integer, itemid integer, amount integer)");
 db.run("CREATE TABLE IF NOT EXISTS item (id integer, name text, description text, price decimal)");
 db.run("CREATE TABLE IF NOT EXISTS news (id integer, caption text, text text, date date)");
 db.run("CREATE TABLE IF NOT EXISTS orders (uid text, id integer, date datetime)");
@@ -100,6 +100,17 @@ const Databasemanager = {
     deleteNews(id, callback) {
         db.prepare("DELETE FROM users WHERE id=?").run(id, (err) => {
             callback(err)
+        })
+    },
+
+    addCart(uid, id, callback) {
+        let amount
+        db.prepare("SELECT itemid, amount WHERE uid=? AND id=?").get(uid, id, (err, row) => {
+            if (err)
+                callback(err)
+            else {
+                amount = row ? row.amount : 1
+            }
         })
     }
 

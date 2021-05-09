@@ -77,7 +77,9 @@ router.post('/account/login', function (req, res, next) {
                 req.session.accessLevel = data.accessLevel
                 res.setHeader('Content-Type', 'application/json')
                 username = data.prename ? data.prename : req.body.email
-                res.write(JSON.stringify({ username: username, points: data.points, accessLevel: data.accessLevel, uid: data.uid }))
+                cart = Database.getCart()
+                req.session.cart = cart
+                res.write(JSON.stringify({ username: username, points: data.points, accessLevel: data.accessLevel, uid: data.uid, cart: cart }))
                 res.end()
             }
         })
@@ -112,8 +114,12 @@ router.post('/account/register', function (req, res, next) {
         if (err) {
             statusCode = 400
             res.write(JSON.stringify(err))
-        } else
-            res.write(JSON.stringify({ uid: uid }))
+        } else {
+            req.session.uid = uid
+            req.session.accessLevel = Privileges.Guest
+            req.session.cart = []
+            res.write(JSON.stringify({ uid: uid, accessLevel: Privileges.Guest, cart: [] }))
+        }
         res.end()
     })
 });
@@ -273,32 +279,63 @@ router.delete('/news/delete', function (req, res, next) {
     })
 });
 
-//TODO Real API
 router.post('/cart/add', function (req, res, next) {
+    if (!Accountmanager.isLoggedIn) {
+        res.sendStatus(401)
+        return
+    }
+
+    err = validate({ id: res.body.id }, { id: { presence: true, numericality: true } })
+    if (err) {
+        res.statusCode = 400;
+        res.write(JSON.stringify(err))
+        return
+    }
+
+    let sum = 0
+    for (var key in req.session.cart)
+        sum += req.session.cart[key]
+
+    //Max cart size
+    if (sum >= 20) {
+        res.statusCode = 400;
+        res.write("To many items (" + sum + ")")
+        return
+    }
+
+    if (req.body.id >= 0 && req.body.id < 6)
+        Database.addCart(req.session.uid, req.body.id, (err) => {
+            if (err) {
+                res.statusCode = 500
+                res.write(JSON.stringify(err))
+            }
+            res.end()
+        })
+
 });
 
 //TODO Real API
 router.post('/cart/remove', function (req, res, next) {
-    if (Accountmanager.isLoggedIn) {
-        res.sendStatus(200)
+    if (!Accountmanager.isLoggedIn) {
+        res.sendStatus(401)
+        return
     }
-    res.sendStatus(401)
 });
 
 //TODO Real API
 router.get('/cart/get', function (req, res, next) {
-    if (Accountmanager.isLoggedIn) {
-        res.sendStatus(200)
+    if (!Accountmanager.isLoggedIn) {
+        res.sendStatus(401)
+        return
     }
-    res.sendStatus(401)
 });
 
 //TODO Real API
 router.post('/cart/order', function (req, res, next) {
-    if (Accountmanager.isLoggedIn) {
-        res.sendStatus(200)
+    if (!Accountmanager.isLoggedIn) {
+        res.sendStatus(401)
+        return
     }
-    res.sendStatus(401)
 });
 
 //TODO
