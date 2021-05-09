@@ -10,7 +10,7 @@ const { validators } = require('validate.js');
 const { login, setSession } = require('../accountmanager');
 const { table } = require('console');
 
-var unsafe = "" // "<>=\"\""
+var unsafe = "<>=\"\""
 
 module.exports = unsafe;
 
@@ -292,17 +292,6 @@ router.post('/cart/add', function (req, res, next) {
         return
     }
 
-    let sum = 0
-    for (var key in req.session.cart)
-        sum += req.session.cart[key]
-
-    //Max cart size
-    if (sum >= 20) {
-        res.statusCode = 400;
-        res.write("To many items (" + sum + ")")
-        return
-    }
-
     if (req.body.id >= 0 && req.body.id < 6)
         Database.addCart(req.session.uid, req.body.id, (err) => {
             if (err) {
@@ -311,23 +300,56 @@ router.post('/cart/add', function (req, res, next) {
             }
             res.end()
         })
-
+    else {
+        res.statusCode = 400
+        res.write("Invalid id")
+        res.end()
+    }
 });
 
-//TODO Real API
 router.post('/cart/remove', function (req, res, next) {
     if (!Accountmanager.isLoggedIn) {
         res.sendStatus(401)
         return
     }
+
+    err = validate({ id: res.body.id }, { id: { presence: true, numericality: true } })
+    if (err) {
+        res.statusCode = 400;
+        res.write(JSON.stringify(err))
+        return
+    }
+
+    if (req.body.id >= 0 && req.body.id < 6)
+        Database.removeCart(req.session.uid, req.body.id, (err) => {
+            if (err) {
+                res.statusCode = 500
+                res.write(JSON.stringify(err))
+            }
+            res.end()
+        })
+    else {
+        res.statusCode = 400
+        res.write("Invalid id")
+        res.end()
+    }
 });
 
-//TODO Real API
 router.get('/cart/get', function (req, res, next) {
     if (!Accountmanager.isLoggedIn) {
         res.sendStatus(401)
         return
     }
+
+    Database.getCart(req.session.uid, (err, table) => {
+        if (err) {
+            res.statusCode = 500
+            res.write(JSON.stringify(err))
+        }
+        else
+            res.write(JSON.stringify(table))
+        res.end()
+    })
 });
 
 //TODO Real API

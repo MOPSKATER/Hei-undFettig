@@ -109,8 +109,46 @@ const Databasemanager = {
             if (err)
                 callback(err)
             else {
-                amount = row ? row.amount : 1
+                if (row) {
+                    amount = row.amount + 1
+                    db.prepare("UPDATE cart SET amount=? WHERE uid=? AND id=?)").run(amount, uid, id, (err) => {
+                        callback(err)
+                    })
+                }
+                else
+                    db.prepare("INSERT INTO cart (uid, id, amount) VALUES (?, ?, 1)").run(uid, id, (err) => {
+                        callback(err)
+                    })
             }
+        })
+    },
+
+    removeCart(uid, id, callback) {
+        let amount
+        db.prepare("SELECT itemid, amount WHERE uid=? AND id=?").get(uid, id, (err, row) => {
+            if (err)
+                callback(err)
+            else {
+                if (row) {
+                    amount = row.amount - 1
+                    if (amount <= 0)
+                        db.prepare("DELETE FROM cart WHERE uid=? AND id=?").run(uid, id, (err) => {
+                            callback(err)
+                        })
+                    else
+                        db.prepare("UPDATE cart SET amount=? WHERE uid=? AND id=?)").run(amount, uid, id, (err) => {
+                            callback(err)
+                        })
+                }
+                else
+                    callback("Item not found")
+            }
+        })
+    },
+
+    getCart(uid, callback) {
+        db.prepare("SELECT id, amount WHERE uid=?").all(uid, (err, table) => {
+            callback(err, table)
         })
     }
 
