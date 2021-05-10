@@ -22,7 +22,7 @@ const Accountmanager = {
     },
 
     isLoggedIn(req) {
-        return req.session.accessLevel != Privileges.Guest ? true : false
+        return req.session.accessLevel > Privileges.Guest ? true : false
     },
 
     async register(data, callback) {
