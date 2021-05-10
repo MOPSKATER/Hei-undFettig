@@ -84,7 +84,7 @@ router.post('/account/login', function (req, res, next) {
                         res.setHeader('Content-Type', 'application/json')
                         username = data.prename ? data.prename : req.body.email
                         req.session.cart = cart
-                        res.write(JSON.stringify({ username: username, points: data.points, accessLevel: data.accessLevel, uid: data.uid, cart: cart }))
+                        res.write(JSON.stringify({ username: username, points: data.points, accessLevel: data.accessLevel, uid: data.uid }))
                         res.end()
                     }
                 })
@@ -367,7 +367,6 @@ router.post('/cart/order', function (req, res, next) {
     }
 });
 
-//TODO
 router.get('/orders/get', function (req, res, next) {
     if (!Privileges.hasPrivilege(req.session.accessLevel, Privileges.Coworker)) {
         res.sendStatus(401)
