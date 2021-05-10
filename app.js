@@ -14,7 +14,7 @@ if (process.argv[-1] === "unsafe")
 var app = express();
 var session = require('express-session')
 //FIXME fix secret
-app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 }, SameSite: true, resave: false, saveUninitialized: false }))
+app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 1800000 }, rolling: true, SameSite: true, resave: false, saveUninitialized: false }))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
