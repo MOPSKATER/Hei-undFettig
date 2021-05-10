@@ -369,10 +369,45 @@ router.post('/cart/order', function (req, res, next) {
 
 //TODO
 router.get('/orders/get', function (req, res, next) {
+    if (!Privileges.hasPrivilege(req.session.accessLevel, Privileges.Coworker)) {
+        res.sendStatus(401)
+        return
+    }
+
+    Database.getOrders((err, table) => {
+        if (err) {
+            statusCode = 500
+            res.write(JSON.stringify(err))
+        }
+        else
+            if (table)
+                res.write(JSON.stringify(table))
+            else
+                res.statusCode = 404
+        res.end()
+    })
 });
 
-//TODO
 router.delete('/orders/delete', function (req, res, next) {
+    if (!Privileges.hasPrivilege(req.session.accessLevel, Privileges.Coworker)) {
+        res.sendStatus(401)
+        return
+    }
+
+    err = validate({ uid: req.body.uid }, { uid: { length: { is: 16 }, format: { pattern: "[a-zA-Z0-9]+" } } })
+    if (err) {
+        res.statusCode = 400;
+        res.write(JSON.stringify(err))
+        return
+    }
+
+    Database.deleteOrder((err) => {
+        if (err) {
+            statusCode = 500
+            res.write(JSON.stringify(err))
+        }
+        res.end()
+    })
 });
 
 module.exports = router;

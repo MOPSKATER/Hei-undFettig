@@ -39,7 +39,7 @@ db.run("CREATE TABLE IF NOT EXISTS users (uid text, prename text, name text, poi
 db.run("CREATE TABLE IF NOT EXISTS cart (uid integer, itemid integer, amount integer)");
 db.run("CREATE TABLE IF NOT EXISTS item (id integer, name text, description text, price decimal)");
 db.run("CREATE TABLE IF NOT EXISTS news (id integer, caption text, text text, date date)");
-db.run("CREATE TABLE IF NOT EXISTS orders (uid text, id integer, date datetime)");
+db.run("CREATE TABLE IF NOT EXISTS orders (uid text, id integer, amount integer, date datetime)");
 
 
 const Databasemanager = {
@@ -150,8 +150,23 @@ const Databasemanager = {
         db.prepare("SELECT itemid, amount FROM cart WHERE uid=?").all(uid, (err, table) => {
             callback(err, table)
         })
-    }
+    },
 
+    orderCart(uid, callback) {
+        //TODO
+    },
+
+    getOrders(callback) {
+        db.prepare("SELECT * FROM orders").all((err) => {
+            callback(err)
+        })
+    },
+
+    deleteOrder(uid, datetime, callback) {
+        db.prepare("DELETE FROM orders WHERE uid=? AND datetime=?").run(uid, datetime, (err) => {
+            callback(err)
+        })
+    }
 }
 
 function IDGenerator() {
