@@ -7,10 +7,26 @@ function removeUnderline(obj) {
 }
 
 function toggleControl() {
-    var profile = getJSONCookie("predict");
-    if (profile && profile.accessLevel > 0) {
-        displayLogin(profile.displayName, profile.points);
-    }
+    fetch('/api/account/isLoggedin', { method: "GET" })
+            .then(async response => {
+                var profile = getJSONCookie("predict");
+                switch (response.status) {
+                    case 200:
+                        if (profile) {
+                            displayLogin(profile.displayName, profile.points);
+                        }
+                        else {
+                            displayLogout()
+                        }
+                        break;
+
+                    case 401:
+                    default:
+                        delCookie("predict");
+                        break;
+                }
+                console.log(response.status);
+            });
     panel = document.getElementById("controlPanel");
     if (panel.style.display === "block")
         panel.style.display = "none";
@@ -42,7 +58,11 @@ function displayLogout() {
                 console.log(response.status);
             });
     delCookie("predict");
-    window.location.href = "/index.html";
+    document.getElementById("summary").innerHTML = "Anonym";
+    document.getElementById("profilLink").style.display = "none";
+    login = document.getElementById("login");
+    login.innerHTML = "<u>Login</u>";
+    login.href = "/html/login.html";
 }
 
 function mediaDropDown() {
