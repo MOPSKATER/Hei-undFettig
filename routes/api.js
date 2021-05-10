@@ -10,7 +10,7 @@ const { validators } = require('validate.js');
 const { login, setSession } = require('../accountmanager');
 const { table } = require('console');
 
-var unsafe = "<>=\"\""
+var unsafe = ""
 
 module.exports = unsafe;
 
@@ -132,7 +132,7 @@ router.post('/account/register', function (req, res, next) {
 });
 
 router.get('/account/isLoggedin', function (req, res, next) {
-    Accountmanager.isLoggedIn(req) ? req.sendStatus(200) : req.sendStatus(401)
+    Accountmanager.isLoggedIn(req) ? res.sendStatus(200) : res.sendStatus(401)
 });
 
 //TODO Real API
@@ -194,19 +194,18 @@ router.get('/news/all', function (req, res, next) {
 });
 
 router.post('/news/add', function (req, res, next) {
-    if (!Privileges.hasPrivilege(req.session.privs, Privileges.Admin)) {
-        statusCode = 401
-        res.end()
+    if (Privileges.hasPrivilege(req.session.privs, Privileges.Admin)) {
+        res.sendStatus(401)
         return
     }
 
     data = { id: req.body.id, caption: req.body.caption, text: req.body.text }
     err = validate(data, {
-        id: { presence: true, numericality: true, length: { maximum: 4 } }, caption: { presence: true, format: { pattern: "[0-9a-zA-Z" + unsafe + "]+" }, length: { maximum: 30 } },
+        id: { presence: true, numericality: true }, caption: { presence: true, format: { pattern: "[0-9a-zA-Z" + unsafe + "]+" }, length: { maximum: 30 } },
         text: { format: { pattern: "[0-9a-zA-Z" + unsafe + "]+" }, length: { maximum: 200 } }
     })
     if (err) {
-        statusCode = 400
+        res.statusCode = 400
         res.write(JSON.stringify(err))
         res.end()
         return
@@ -236,7 +235,7 @@ router.delete('/news/edit', function (req, res, next) {
 
     data = { id: req.body.id, caption: req.body.caption, text: req.body.text }
     err = validate(data, {
-        id: { presence: true, numericality: true, length: { maximum: 4 } }, caption: { presence: true, pattern: "[0-9a-zA-Z" + unsafe + "]+", length: { maximum: 30 } },
+        id: { presence: true, numericality: true }, caption: { presence: true, pattern: "[0-9a-zA-Z" + unsafe + "]+", length: { maximum: 30 } },
         text: { pattern: "[0-9a-zA-Z" + unsafe + "]+", length: { maximum: 200 } }
     })
     if (err) {
