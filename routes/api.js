@@ -393,14 +393,14 @@ router.delete('/orders/delete', function (req, res, next) {
         return
     }
 
-    err = validate({ uid: req.body.uid }, { uid: { length: { is: 16 }, format: { pattern: "[a-zA-Z0-9]+" } } })
+    err = validate({ uid: req.body.uid, datetime: req.body.datetime }, { uid: { presence: true, length: { is: 16 }, format: { pattern: "[a-zA-Z0-9]+" } }, datetime: { presence: true, datetime: true /*FIXME check date*/ } })
     if (err) {
         res.statusCode = 400;
         res.write(JSON.stringify(err))
         return
     }
 
-    Database.deleteOrder((err) => {
+    Database.deleteOrder(uid, datetime, (err) => {
         if (err) {
             statusCode = 500
             res.write(JSON.stringify(err))
