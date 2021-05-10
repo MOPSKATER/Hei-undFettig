@@ -36,7 +36,7 @@ db.run("CREATE TABLE IF NOT EXISTS users (uid text, prename text, name text, poi
         }
     });
 });
-db.run("CREATE TABLE IF NOT EXISTS cart (id integer, itemid integer, amount integer)");
+db.run("CREATE TABLE IF NOT EXISTS cart (uid integer, itemid integer, amount integer)");
 db.run("CREATE TABLE IF NOT EXISTS item (id integer, name text, description text, price decimal)");
 db.run("CREATE TABLE IF NOT EXISTS news (id integer, caption text, text text, date date)");
 db.run("CREATE TABLE IF NOT EXISTS orders (uid text, id integer, date datetime)");
@@ -105,18 +105,18 @@ const Databasemanager = {
 
     addCart(uid, id, callback) {
         let amount
-        db.prepare("SELECT itemid, amount WHERE uid=? AND id=?").get(uid, id, (err, row) => {
+        db.prepare("SELECT itemid, amount WHERE uid=? AND itemid=?").get(uid, id, (err, row) => {
             if (err)
                 callback(err)
             else {
                 if (row) {
                     amount = row.amount + 1
-                    db.prepare("UPDATE cart SET amount=? WHERE uid=? AND id=?)").run(amount, uid, id, (err) => {
+                    db.prepare("UPDATE cart SET amount=? WHERE uid=? AND itemid=?)").run(amount, uid, id, (err) => {
                         callback(err)
                     })
                 }
                 else
-                    db.prepare("INSERT INTO cart (uid, id, amount) VALUES (?, ?, 1)").run(uid, id, (err) => {
+                    db.prepare("INSERT INTO cart (uid, itemid, amount) VALUES (?, ?, 1)").run(uid, id, (err) => {
                         callback(err)
                     })
             }
@@ -125,18 +125,18 @@ const Databasemanager = {
 
     removeCart(uid, id, callback) {
         let amount
-        db.prepare("SELECT itemid, amount WHERE uid=? AND id=?").get(uid, id, (err, row) => {
+        db.prepare("SELECT itemid, amount WHERE uid=? AND itemid=?").get(uid, id, (err, row) => {
             if (err)
                 callback(err)
             else {
                 if (row) {
                     amount = row.amount - 1
                     if (amount <= 0)
-                        db.prepare("DELETE FROM cart WHERE uid=? AND id=?").run(uid, id, (err) => {
+                        db.prepare("DELETE FROM cart WHERE uid=? AND itemid=?").run(uid, id, (err) => {
                             callback(err)
                         })
                     else
-                        db.prepare("UPDATE cart SET amount=? WHERE uid=? AND id=?)").run(amount, uid, id, (err) => {
+                        db.prepare("UPDATE cart SET amount=? WHERE uid=? AND itemid=?)").run(amount, uid, id, (err) => {
                             callback(err)
                         })
                 }
@@ -147,7 +147,7 @@ const Databasemanager = {
     },
 
     getCart(uid, callback) {
-        db.prepare("SELECT id, amount WHERE uid=?").all(uid, (err, table) => {
+        db.prepare("SELECT itemid, amount FROM cart WHERE uid=?").all(uid, (err, table) => {
             callback(err, table)
         })
     }

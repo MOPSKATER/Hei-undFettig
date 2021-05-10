@@ -73,14 +73,21 @@ router.post('/account/login', function (req, res, next) {
                 res.end()
             }
             else {
-                req.session.uid = data.uid
-                req.session.accessLevel = data.accessLevel
-                res.setHeader('Content-Type', 'application/json')
-                username = data.prename ? data.prename : req.body.email
-                cart = Database.getCart()
-                req.session.cart = cart
-                res.write(JSON.stringify({ username: username, points: data.points, accessLevel: data.accessLevel, uid: data.uid, cart: cart }))
-                res.end()
+                Database.getCart(data.uid, (err, cart) => {
+                    if (err) {
+                        res.statusCode = 400
+                        res.write(JSON.stringify(err))
+                    }
+                    else {
+                        req.session.uid = data.uid
+                        req.session.accessLevel = data.accessLevel
+                        res.setHeader('Content-Type', 'application/json')
+                        username = data.prename ? data.prename : req.body.email
+                        req.session.cart = cart
+                        res.write(JSON.stringify({ username: username, points: data.points, accessLevel: data.accessLevel, uid: data.uid, cart: cart }))
+                        res.end()
+                    }
+                })
             }
         })
     }
