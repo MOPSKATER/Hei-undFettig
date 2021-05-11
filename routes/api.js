@@ -203,7 +203,7 @@ router.post('/news/add', function (req, res, next) {
     data = { id: req.body.id, caption: req.body.caption, text: req.body.text }
     err = validate(data, {
         id: { presence: true, numericality: true }, caption: { presence: true, format: { pattern: "[0-9a-zA-ZäöüÄÖÜ .,:;-_!?" + unsafe + "]+" }, length: { maximum: 30 } },
-        text: { format: { pattern: "[0-9a-zA-ZäöüÄÖÜ .,:;-_!?\n" + unsafe + "]+" }, length: { maximum: 200 } }
+        text: { format: { pattern: "[0-9a-zA-ZäöüÄÖÜ .,:;-_!?\n" + unsafe + "]*" }, length: { maximum: 200 } }
     })
     if (err) {
         res.statusCode = 400
@@ -237,7 +237,7 @@ router.delete('/news/edit', function (req, res, next) {
     data = { id: req.body.id, caption: req.body.caption, text: req.body.text }
     err = validate(data, {
         id: { presence: true, numericality: true }, caption: { presence: true, format: { pattern: "[0-9a-zA-ZäöüÄÖÜ .,:;-_!?#" + unsafe + "]+" }, length: { maximum: 30 } },
-        text: { format: { pattern: "[0-9a-zA-ZäöüÄÖÜ .,:;-_!?#\n" + unsafe + "]+" }, length: { maximum: 200 } }
+        text: { format: { pattern: "[0-9a-zA-ZäöüÄÖÜ .,:;-_!?#\n" + unsafe + "]*" }, length: { maximum: 200 } }
     })
     if (err) {
         res.statusCode = 400
