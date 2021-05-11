@@ -207,4 +207,15 @@ body {
       margin-right: 0;
       margin-bottom: 10px;
     }
+    .openHourImprint{
+      border: none;
+      display: none;
+      position: relative;
+      color: black;
+      font-size: bold;
+      background-color: transparent;
+      margin: 20px;
+      justify-content: center;
+      align-items: center;
+    }
   }

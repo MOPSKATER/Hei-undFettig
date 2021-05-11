@@ -17,6 +17,7 @@
 .menuContainer {
   width: 40vw;
   display: flex;
+  justify-content: center;
 }
 #menuButton {
   color: darkgreen;
