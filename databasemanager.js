@@ -98,7 +98,7 @@ const Databasemanager = {
     },
 
     deleteNews(id, callback) {
-        db.prepare("DELETE FROM users WHERE id=?").run(id, (err) => {
+        db.prepare("DELETE FROM news WHERE id=?").run(id, (err) => {
             callback(err)
         })
     },

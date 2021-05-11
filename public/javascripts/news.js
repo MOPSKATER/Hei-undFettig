@@ -1,89 +1,120 @@
 var lastChange = ["",""];
+var lastId = 0;
 // TODO: get permission level from server / predict cookie
-var permission = 10;
+var permission = 0;
 var news = []
+var highestId = 0;
+var editing = false;
 
 function load() {
-    fetch('/api/news/all', { method: "GET", headers: { 'Content-Type': 'application/json' } })
-        .then(async response => {
-            if (response.status !== 404) {
-                var data = await response.json();
-                news = data.news;
-                update();
-            }
-        });
+    update();
 }
 
 function update() {
-    news.forEach(function(item) {
-        var newItem = document.getElementById("news-item").content.cloneNode(true);
-        newItem.querySelector(".header").innerHTML = item[0];
-        newItem.querySelector(".text").innerHTML = item[1];
-        if (permission >= 10) {
-            newItem.querySelector(".admin").removeAttribute("hidden");
-        }
-        document.getElementById("news-container").appendChild(newItem);
+    editing = false;
+    Array.from(document.getElementsByClassName("news")).forEach(elem => {
+        if(elem.id != "new-news") elem.remove();
     });
-    if (permission >= 10) {
-        document.getElementById("new-news").removeAttribute("hidden");
-        Array.from(document.getElementsByClassName("news")).forEach(elem => {
-            elem.querySelector(".content").style.width = "87%"
+    var predict = getJSONCookie("predict");
+    predict ? permission = predict.accessLevel : permission = 0
+    fetch('/api/news/all', { method: "GET", headers: { 'Content-Type': 'application/json' } })
+        .then(async response => {
+            if (response.status === 200) {
+                var data = await response.json();
+                data.forEach(function(item) {
+                    var newItem = document.getElementById("news-item").content.cloneNode(true);
+                    newItem.querySelector(".header").innerHTML = item.caption;
+                    newItem.querySelector(".text").innerHTML = item.text.replaceAll("\n","<br/>");
+                    if (highestId <= item.id) highestId = item.id;
+                    if (permission >= 10) newItem.querySelector(".admin").removeAttribute("hidden");
+                    document.getElementById("news-container").insertBefore(newItem, document.getElementById("news-container").children[0].nextSibling);
+                    document.getElementById("news-container").children[1].setAttribute("newsId", item.id);
+                });
+            }
+            if (permission >= 10) {
+                document.getElementById("new-news").removeAttribute("hidden");
+                Array.from(document.getElementsByClassName("news")).forEach(elem => {
+                    elem.querySelector(".content").style.width = "87%"
+                });
+            }
+            //TODO: add error handling
         });
-    }
 }
 
 function add(e) {
     div = e.parentNode.parentNode;
     if (div.querySelector(".header").value !== "") {
-        var newItem = document.getElementById("news-item").content.cloneNode(true);
-        newItem.querySelector(".header").innerHTML = div.querySelector(".header").value.replaceAll("\n","");
-        newItem.querySelector(".text").innerHTML = div.querySelector(".text").value.replaceAll("\n","<br>");
-        if (permission >= 10) {
-            newItem.querySelector(".admin").removeAttribute("hidden");
-            newItem.querySelector(".content").style.width = "87%";
-        }
-        div.parentNode.insertBefore(newItem,div.nextSibling);
-        div.querySelector(".header").value = "";
-        div.querySelector(".text").value = "";
+        fetch('/api/news/add', { method: "POST", body: JSON.stringify({ id: highestId+1, caption: document.getElementById("new-news").querySelector(".header").value, text: document.getElementById("new-news").querySelector(".text").value }), headers: { 'Content-Type': 'application/json' } })
+            .then(async response => {
+                switch (response.status) {
+                    case 200:
+                        update();
+                        document.getElementById("new-news").querySelector(".header").value = "";
+                        document.getElementById("new-news").querySelector(".text").value = "";
+                        break;
+
+                    default:
+                        //TODO: add proper error handling
+                        alert("failed")
+                        break;
+                }
+            });
     }
     else {
         alert("Zumindest ein Titel muss angegeben werden!");
     }
 }
 function remove(e) {
-    e.parentNode.parentNode.remove();
-    // TODO: api remove
+    fetch('/api/news/delete', { method: "DELETE", body: JSON.stringify({ id: e.parentNode.parentNode.getAttribute("newsId") }), headers: { 'Content-Type': 'application/json' } })
+    .then(async response => {
+        switch (response.status) {
+            case 200:
+                update();
+                break;
+
+            default:
+                //TODO: add proper error handling
+                alert("failed")
+                break;
+        }
+    });
 }
 function edit(e) {
-    div = e.parentNode.parentNode;
-    lastChange = [div.querySelector(".header").innerHTML, div.querySelector(".text").innerHTML];
-    var newItem = document.getElementById("edit-news").content.cloneNode(true);
-    newItem.querySelector(".header").value = lastChange[0];
-    newItem.querySelector(".text").value = lastChange[1].replaceAll("<br>","\n");
-    newItem.querySelector(".content").style.width = "87%";
-    div.parentNode.replaceChild(newItem, div);
+    if(!editing){
+        editing = true;
+        div = e.parentNode.parentNode;
+        lastId = e.parentNode.parentNode.getAttribute("newsId");
+        lastChange = [div.querySelector(".header").innerHTML, div.querySelector(".text").innerHTML];
+        var newItem = document.getElementById("edit-news").content.cloneNode(true);
+        newItem.querySelector(".header").value = lastChange[0];
+        newItem.querySelector(".text").value = lastChange[1].replaceAll("<br>","\n");
+        newItem.querySelector(".content").style.width = "87%";
+        div.parentNode.replaceChild(newItem, div);
+    }
 }
 function save(e) {
     div = e.parentNode.parentNode;
-    var newItem = document.getElementById("news-item").content.cloneNode(true);
-    newItem.querySelector(".header").innerHTML = div.querySelector(".header").value.replaceAll("\n","");
-    newItem.querySelector(".text").innerHTML = div.querySelector(".text").value.replaceAll("\n","<br>");
-    if (permission >= 10) {
-        newItem.querySelector(".admin").removeAttribute("hidden");
-        newItem.querySelector(".content").style.width = "87%";
+    if (div.querySelector(".header").value !== "") {
+        fetch('/api/news/edit', { method: "DELETE", body: JSON.stringify({ id: lastId, caption: div.querySelector(".header").value.replaceAll("\n",""), text: div.querySelector(".text").value }), headers: { 'Content-Type': 'application/json' } })
+            .then(async response => {
+                switch (response.status) {
+                    case 200:
+                        update();
+                        break;
+
+                    default:
+                        //TODO: add proper error handling
+                        alert("failed")
+                        break;
+                }
+            });
     }
-    div.parentNode.replaceChild(newItem, div);
+    else {
+        alert("Zumindest ein Titel muss angegeben werden!");
+    }
 }
 function cancel(e) {
-    div = e.parentNode.parentNode;
-    var newItem = document.getElementById("news-item").content.cloneNode(true);
-    newItem.querySelector(".header").innerHTML = lastChange[0];
-    newItem.querySelector(".text").innerHTML = lastChange[1];
-    if (permission >= 10) {
-        newItem.querySelector(".admin").removeAttribute("hidden");
-        newItem.querySelector(".content").style.width = "87%";
-    }
-    div.parentNode.replaceChild(newItem, div);
+    update();
 }
 
 window.onload = load;

@@ -196,13 +196,14 @@ router.get('/news/all', function (req, res, next) {
 router.post('/news/add', function (req, res, next) {
     if (Privileges.hasPrivilege(req.session.privs, Privileges.Admin)) {
         res.sendStatus(401)
+        res.end()
         return
     }
 
     data = { id: req.body.id, caption: req.body.caption, text: req.body.text }
     err = validate(data, {
-        id: { presence: true, numericality: true }, caption: { presence: true, format: { pattern: "[0-9a-zA-Z" + unsafe + "]+" }, length: { maximum: 30 } },
-        text: { format: { pattern: "[0-9a-zA-Z" + unsafe + "]+" }, length: { maximum: 200 } }
+        id: { presence: true, numericality: true }, caption: { presence: true, format: { pattern: "[0-9a-zA-ZäöüÄÖÜ .,:;-_!?" + unsafe + "]+" }, length: { maximum: 30 } },
+        text: { format: { pattern: "[0-9a-zA-ZäöüÄÖÜ .,:;-_!?\n" + unsafe + "]+" }, length: { maximum: 200 } }
     })
     if (err) {
         res.statusCode = 400
@@ -227,19 +228,19 @@ router.post('/news/add', function (req, res, next) {
 });
 
 router.delete('/news/edit', function (req, res, next) {
-    if (!Privileges.hasPrivilege(req.session.privs, Privileges.Admin)) {
-        statusCode = 401
+    if (Privileges.hasPrivilege(req.session.privs, Privileges.Admin)) {
+        res.statusCode = 401
         res.end()
         return
     }
 
     data = { id: req.body.id, caption: req.body.caption, text: req.body.text }
     err = validate(data, {
-        id: { presence: true, numericality: true }, caption: { presence: true, pattern: "[0-9a-zA-Z" + unsafe + "]+", length: { maximum: 30 } },
-        text: { pattern: "[0-9a-zA-Z" + unsafe + "]+", length: { maximum: 200 } }
+        id: { presence: true, numericality: true }, caption: { presence: true, format: { pattern: "[0-9a-zA-ZäöüÄÖÜ .,:;-_!?#" + unsafe + "]+" }, length: { maximum: 30 } },
+        text: { format: { pattern: "[0-9a-zA-ZäöüÄÖÜ .,:;-_!?#\n" + unsafe + "]+" }, length: { maximum: 200 } }
     })
     if (err) {
-        statusCode = 400
+        res.statusCode = 400
         res.write(JSON.stringify(err))
         res.end()
         return
@@ -251,7 +252,7 @@ router.delete('/news/edit', function (req, res, next) {
 
     data.date = [year, month.slice(-2), day.slice(-2)].join("-")
 
-    Database.editNews(req.body.id, (err) => {
+    Database.editNews(data, (err) => {
         if (err) {
             res.statusCode = 400
             res.write(JSON.stringify(err))
@@ -261,16 +262,16 @@ router.delete('/news/edit', function (req, res, next) {
 });
 
 router.delete('/news/delete', function (req, res, next) {
-    if (!Privileges.hasPrivilege(req.session.privs, Privileges.Admin)) {
-        statusCode = 401
+    if (Privileges.hasPrivilege(req.session.privs, Privileges.Admin)) {
+        res.statusCode = 401
         res.end()
         return
     }
 
     data = { id: req.body.id }
-    err = validate(data, { id: { presence: true, numericality: true, length: { maximum: 1 } } })
+    err = validate(data, { id: { presence: true, numericality: true } })
     if (err) {
-        statusCode = 400
+        res.statusCode = 400
         res.write(JSON.stringify(err))
         res.end()
         return
