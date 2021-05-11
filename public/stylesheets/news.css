@@ -51,54 +51,86 @@ body{
   --> max-with: 600px 
 
 */
-
 @media all and (max-width: 600px){
   /*
     -------- NAV-BAR --------
   */ 
-  .menu{
-    background-color: transparent;
-  }
-  .menuContainer {
-    display: none;
-  }
-  #logo{
-    display: none;
-  }
-  .icon {
-    display: none;
-  }
-  .dropbtn {
-    background-color: #44aa00;
-    padding: 5px;
-    color: white;
-    font-weight: bold;
-    font-size: 20px;
-    border: 1px solid white;
-    cursor: pointer;
-    display: block;
-  }
-  .menu {
-    position: fixed;
-    display: inline-block;
-  }
- .menuContainer {
-    display: none;
-    position: relative;
-    border: 1px solid white;
-    background-color: gray;
-    min-width: 160px;
-    overflow: auto;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-    opacity: 90%;
-  }
-  .menuContainer a {
-    padding: 10px 12px;
-    text-decoration: none;
-    display: block;
-  }
-  .show {display: block;}
+.menu{
+  background-color: transparent;
+  position: fixed;
+  display: inline-block;
+}
+#logo{
+  display: none;
+}
+.icon {
+  position: absolute;
+  display: block;
+  max-block-size: 4vw;
+}
+#cart {
+  left: 10vw;
+  top: 35vh;
+}
+#controlIcon {
+  left: 26vw;
+  top: 35vh;
+}
+#login{
+  padding: 6px;
+}
+#profilLink{
+  padding: 6px;
+}
+#summary{
+  padding: 6px;
+  margin: 0px;
+}
+#controlPanel{
+  left: 24vw;
+  top: 39vh;
+  display: none;
+  color: black;
+  background-color: lightgray;
+  position: absolute;
+  width: fit-content;
+  border: 2px solid white;
+  font-weight: bold;
+  border-radius: 0px;
+  opacity: 70%;
+  margin: 0px;
+  padding: 0px;
+}
+.noDeco {
+  background-color: transparent;
+}
+.dropbtn {
+  background-color: #44aa00;
+  padding: 5px;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  border: 1px solid white;
+  cursor: pointer;
+  display: block;
+}
+.menuContainer {
+  display: none;
+  position: relative;
+  border: 1px solid white;
+  background-color: gray;
+  max-width: 50vw;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  opacity: 90%;
+}
+.menuContainer a {
+  padding: 10px 12px;
+  text-decoration: none;
+  display: block;
+}
+.show {display: block;}
    /*
     -------- BANNER --------
   */
