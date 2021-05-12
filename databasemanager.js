@@ -38,6 +38,12 @@ var news = [
     ]
 ]
 
+db.run("CREATE TABLE IF NOT EXISTS news (id integer, caption text, text text, date text)", (err) => {
+    if (usedIDs.length === 0) {
+        for (i = 0; i < news.length; i++)
+            db.run("INSERT INTO news (id, caption, text, date) VALUES (?, ?, ?, null)", i, news[i][0], news[i][1])
+    }
+});
 db.run("CREATE TABLE IF NOT EXISTS users (uid text, prename text, name text, points integer, street text, number text, place text, plz integer, email text, salt text, password text, permissionlevel integer)", (err) => {
     if (err) {
         console.error(err)
@@ -64,12 +70,6 @@ db.run("CREATE TABLE IF NOT EXISTS users (uid text, prename text, name text, poi
 });
 db.run("CREATE TABLE IF NOT EXISTS cart (uid integer, itemid integer, amount integer)");
 db.run("CREATE TABLE IF NOT EXISTS item (id integer, name text, description text, price decimal)");
-db.run("CREATE TABLE IF NOT EXISTS news (id integer, caption text, text text, date text)", (err) => {
-    if (usedIDs.length === 0) {
-        for (i = 0; i < news.length; i++)
-            db.run("INSERT INTO news (id, caption, text, date) VALUES (?, ?, ?, null)", i, news[i][0], news[i][1])
-    }
-});
 db.run("CREATE TABLE IF NOT EXISTS orders (uid text, itemid integer, amount integer, datetime datetime)");
 
 const validKeys = ["prename", "name", "street", "number", "place", "plz", "email", "password"]
