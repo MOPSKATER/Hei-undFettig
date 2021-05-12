@@ -292,7 +292,7 @@ router.post('/cart/add', function (req, res, next) {
         return
     }
 
-    err = validate({ id: res.body.id }, { id: { presence: true, numericality: true } })
+    err = validate({ id: req.body.id }, { id: { presence: true, numericality: true } })
     if (err) {
         res.statusCode = 400;
         res.write(JSON.stringify(err))
@@ -309,7 +309,7 @@ router.post('/cart/add', function (req, res, next) {
         })
     else {
         res.statusCode = 400
-        res.write("Invalid id")
+        res.write(JSON.stringify("Invalid id"))
         res.end()
     }
 });
@@ -320,7 +320,7 @@ router.post('/cart/remove', function (req, res, next) {
         return
     }
 
-    err = validate({ id: res.body.id }, { id: { presence: true, numericality: true } })
+    err = validate({ id: req.body.id }, { id: { presence: true, numericality: true } })
     if (err) {
         res.statusCode = 400;
         res.write(JSON.stringify(err))
@@ -328,7 +328,7 @@ router.post('/cart/remove', function (req, res, next) {
     }
 
     if (req.body.id >= 0 && req.body.id < 6)
-        Database.removeCart(req.session.uid, req.body.id, (err) => {
+        Database.updateCountCart(req.session.uid, req.body.id, 0, (err) => {
             if (err) {
                 res.statusCode = 500
                 res.write(JSON.stringify(err))
@@ -349,6 +349,38 @@ router.get('/cart/get', function (req, res, next) {
     }
 
     Database.getCart(req.session.uid, (err, table) => {
+        if (err) {
+            res.statusCode = 500
+            res.write(JSON.stringify(err))
+        }
+        else
+            res.write(JSON.stringify(table))
+        res.end()
+    })
+});
+
+router.post('/item/updateCount', function (req, res, next) {
+    if (!Accountmanager.isLoggedIn) {
+        res.sendStatus(401)
+        return
+    }
+
+    Database.updateCountCart(req.session.uid, req.body.id, req.body.count, (err) => {
+        if (err) {
+            res.statusCode = 500
+            res.write(JSON.stringify(err))
+        }
+        res.end()
+    })
+});
+
+router.post('/item/get', function (req, res, next) {
+    if (!Accountmanager.isLoggedIn) {
+        res.sendStatus(401)
+        return
+    }
+
+    Database.getItem(req.body.id, (err, table) => {
         if (err) {
             res.statusCode = 500
             res.write(JSON.stringify(err))

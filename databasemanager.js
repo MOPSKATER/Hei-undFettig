@@ -104,46 +104,31 @@ const Databasemanager = {
     },
 
     addCart(uid, id, callback) {
-        let amount
-        db.prepare("SELECT itemid, amount WHERE uid=? AND itemid=?").get(uid, id, (err, row) => {
+        db.prepare("SELECT itemid, amount FROM cart WHERE uid=? AND itemid=?").get(uid, id, (err, row) => {
             if (err)
                 callback(err)
             else {
-                if (row) {
-                    amount = row.amount + 1
-                    db.prepare("UPDATE cart SET amount=? WHERE uid=? AND itemid=?)").run(amount, uid, id, (err) => {
-                        callback(err)
-                    })
-                }
-                else
+                if (!row)
                     db.prepare("INSERT INTO cart (uid, itemid, amount) VALUES (?, ?, 1)").run(uid, id, (err) => {
                         callback(err)
                     })
+                else
+                    callback("item already exists in cart")
             }
         })
     },
 
-    removeCart(uid, id, callback) {
-        let amount
-        db.prepare("SELECT itemid, amount WHERE uid=? AND itemid=?").get(uid, id, (err, row) => {
-            if (err)
+    updateCountCart(uid, id, count, callback) {
+        if (count <= 0) {
+            db.prepare("DELETE FROM cart WHERE uid=? AND itemid=?").run(uid, id, (err) => {
                 callback(err)
-            else {
-                if (row) {
-                    amount = row.amount - 1
-                    if (amount <= 0)
-                        db.prepare("DELETE FROM cart WHERE uid=? AND itemid=?").run(uid, id, (err) => {
-                            callback(err)
-                        })
-                    else
-                        db.prepare("UPDATE cart SET amount=? WHERE uid=? AND itemid=?)").run(amount, uid, id, (err) => {
-                            callback(err)
-                        })
-                }
-                else
-                    callback("Item not found")
-            }
-        })
+            })
+        }
+        else {
+            db.prepare("UPDATE cart SET amount=? WHERE uid=? AND itemid=?").run(count, uid, id, (err) => {
+                callback(err)
+            })
+        }
     },
 
     getCart(uid, callback) {
@@ -165,6 +150,13 @@ const Databasemanager = {
     deleteOrder(uid, datetime, callback) {
         db.prepare("DELETE FROM orders WHERE uid=? AND datetime=?").run(uid, datetime, (err) => {
             callback(err)
+        })
+    },
+
+    getItem(itemid, callback) {
+        db.prepare("SELECT * FROM item WHERE id=?").all(itemid, (err, table) => {
+            console.log(table,itemid)
+            callback(err, table)
         })
     }
 }
