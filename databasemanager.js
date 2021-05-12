@@ -179,8 +179,8 @@ const Databasemanager = {
     },
 
     getOrders(callback) {
-        db.prepare("SELECT * FROM orders").all((err) => {
-            callback(err)
+        db.prepare("SELECT * FROM orders").all((err, table) => {
+            callback(err, table)
         })
     },
 
