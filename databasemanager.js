@@ -1,6 +1,8 @@
 var sqlite3 = require('sqlite3')
 const crypto = require("crypto")
 const Privileges = require("./privileges")
+const { generateHash } = require('./accountmanager')
+const Accountmanager = require('./accountmanager')
 
 const DBSOURCE = "db.sqlite"
 const db = new sqlite3.Database("db.sqlite", (err) => {
@@ -41,6 +43,9 @@ db.run("CREATE TABLE IF NOT EXISTS item (id integer, name text, description text
 db.run("CREATE TABLE IF NOT EXISTS news (id integer, caption text, text text, date date)");
 db.run("CREATE TABLE IF NOT EXISTS orders (uid text, id integer, amount integer, date datetime)");
 
+const validKeys = ["prename", "name", "street", "number", "place", "plz", "email", "password"]
+
+
 const Databasemanager = {
 
     async getUserData(userID, callback) {
@@ -73,10 +78,19 @@ const Databasemanager = {
     },
 
     setData(uid, data, callback) {
+        for (key in Object.keys(data))
+            if (!key in validKeys) {
+                callback("Invalid key: " + key)
+                return
+            }
+
+        if (data.password)
+            Accountmanager.generateHash(data)
+
         statement = Object.keys(data)
         for (i = 0; i < statement.length; i++)
-            statement[i] = statement[i] + "=" + data[statement[i]]
-        db.prepare("UPDATE users " + statement.join(", ") + " WHERE uid=?").run(uid, (err) => {
+            statement[i] = statement[i] + "=\"" + data[statement[i]] + "\""
+        db.prepare("UPDATE users SET " + statement.join(", ") + " WHERE uid=?").run(uid, (err) => {
             callback(err)
         })
     },
