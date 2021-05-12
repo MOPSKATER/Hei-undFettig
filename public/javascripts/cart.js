@@ -20,38 +20,65 @@ function load() {
 
 function update() {
     document.getElementById("cartContent").innerHTML = "";
+    cart = []
     total = 0;
 
-    cart = getJSONCookie("cart") || cart;
-    if (cart.length === 0) {
-        document.getElementById("cartContent").append("Noch nichts hier! :( Schaue auf der Speisekarte vorbei!");
-    }
-    else {
-        cart.forEach(function (item) {
-            var newItem = document.getElementsByTagName("template")[0].content.cloneNode(true);
-            newItem.querySelector(".num").innerHTML = item.id;
-            newItem.querySelector(".name").innerHTML = item.name;
-            newItem.querySelector(".price").innerHTML = item.price.toFixed(2).replace(".",",") + "€";
-            newItem.querySelector(".count").querySelector("input").value = item.count;
-            document.getElementById("cartContent").append(newItem);
-
-            total += item.price * item.count;
-        })
-    }
-
-    paypal = 0;
-    if (document.getElementById("paypal").checked) paypal = (total * 0.0249 + 0.35);
-    document.getElementById("total_price").innerHTML = "Preis gesammt: " + (total + paypal).toFixed(2).replace(".",",") + "€";
-    document.getElementById("cut_mwst").innerHTML = "Anteil MwSt: " + (total * 0.19).toFixed(2).replace(".",",") + "€";
-    document.getElementById("cut_paypal").innerHTML = "Paypal Gebühren: " + paypal.toFixed(2).replace(".",",") + "€";
+    fetch('/api/cart/get', { method: "GET", headers: { 'Content-Type': 'application/json' } })
+        .then(async response => {
+            if (response.status === 200) {
+                var data = await response.json();
+                var fetches = [];
+                data.forEach(function(item) {
+                    console.log(item.itemid)
+                    fetches.push(fetch('/api/item/get', { method: "POST", body: JSON.stringify({ id: item.itemid }), headers: { 'Content-Type': 'application/json' } })
+                        .then(async response => {
+                            var data = await response.json();
+                            if (response.status === 200) {
+                                console.log(data)
+                                data[0].count = item.amount;
+                                cart.push(data[0]);
+                            }
+                        }))
+                    // TODO: add error handling
+                })
+                Promise.all(fetches).then(function() {
+                    if (cart.length === 0) {
+                        document.getElementById("cartContent").append("Noch nichts hier! :( Schaue auf der Speisekarte vorbei!");
+                    }
+                    else {
+                        cart.sort((a, b) => (a.id > b.id) ? 1 : -1)
+                        cart.forEach(function (item) {
+                            var newItem = document.getElementsByTagName("template")[0].content.cloneNode(true);
+                            newItem.querySelector(".num").innerHTML = item.id;
+                            newItem.querySelector(".name").innerHTML = item.name;
+                            newItem.querySelector(".price").innerHTML = item.price.toFixed(2).replace(".",",") + "€";
+                            newItem.querySelector(".count").querySelector("input").value = item.count;
+                            document.getElementById("cartContent").append(newItem);
+                
+                            total += item.price * item.count;
+                        })
+                    }
+            
+                    paypal = 0;
+                    if (document.getElementById("paypal").checked) paypal = (total * 0.0249 + 0.35);
+                    document.getElementById("total_price").innerHTML = "Preis gesammt: " + (total + paypal).toFixed(2).replace(".",",") + "€";
+                    document.getElementById("cut_mwst").innerHTML = "Anteil MwSt: " + (total * 0.19).toFixed(2).replace(".",",") + "€";
+                    document.getElementById("cut_paypal").innerHTML = "Paypal Gebühren: " + paypal.toFixed(2).replace(".",",") + "€";  
+                });      
+            }
+            //TODO: add error handling
+        });
 }
 
 function changedCount(e) {
-    var index = e.parentNode.parentNode.rowIndex;
-    cart[index].count = e.value;
-    setJSONCookie("cart", cart);
+    var div = e.parentNode.parentNode;
+    var id = div.querySelector(".num").innerHTML;
+    fetch('/api/cart/updateCount', { method: "POST", body: JSON.stringify({ id: id, count: div.querySelector(".count").querySelector("input").value }), headers: { 'Content-Type': 'application/json' } })
+        .then(async response => {
+            //TODO: add error handling
 
-    update();
+            update();
+        });
 }
 
 function changedMethode() {
@@ -61,12 +88,14 @@ function changedMethode() {
 }
 
 function remove(e) {
-    var index = e.parentNode.parentNode.rowIndex;
-    document.getElementById("cartContent").deleteRow(index);
-    cart.splice(index, 1);
-    setJSONCookie("cart", cart);
+    var div = e.parentNode.parentNode;
+    var id = div.querySelector(".num").innerHTML;
+    fetch('/api/cart/remove', { method: "POST", body: JSON.stringify({ id: id }), headers: { 'Content-Type': 'application/json' } })
+        .then(async response => {
+            //TODO: add error handling
 
-    update();
+            update();
+        });
 }
 
 function order() {

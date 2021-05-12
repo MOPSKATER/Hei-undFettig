@@ -1,6 +1,4 @@
 
-var cart = [];
-
 function load() {
     menu = [
         [
@@ -26,34 +24,32 @@ function load() {
         ]
     ]
 
+    var prev = 0;
     for (var i=0; i < menu.length; i++) {
+        var current = 0
         for (var j=menu[i][1].length - 1; j >= 0 ; j--) {
-            add(menu[i][0], (i+1)+"."+(j+1) , menu[i][1][j]);
+            add(menu[i][0], prev+j , menu[i][1][j]);
+            current += 1;
         }
+        prev += current;
     }
 }
 
 function addToBasket(elem) {
-    // TODO: Preise nicht aus dem HTML-element lesen
-    cart = getJSONCookie("cart") || cart;
-    var newItem = { id: undefined, name: undefined, price: undefined, count: 1 }
-    elem.parentNode.parentNode.childNodes.forEach(function(x) {
-        if (x.className == "num") newItem.id = parseFloat(x.innerHTML);
-        if (x.className == "name") newItem.name = x.innerHTML;
-        if (x.className == "price") newItem.price = parseFloat(x.innerHTML);
-    });
-    if (cart.findIndex(function(item) {
-        if (item.id === newItem.id) {
-            return true;
-        }
-    }) === -1) {
-        cart.push(newItem);
-        setJSONCookie("cart", cart);
-        alert("Menu \"" + newItem.name + "\" zum Warenkorb hinzugefügt.");
-    }
-    else {
-        alert("Menu \"" + newItem.name + "\" bereits im Warenkorb.\nDie Anzahl kann an der Kasse ge\u00e4ndert werden.");
-    }
+    var div = elem.parentNode.parentNode;
+    fetch('/api/cart/add', { method: "POST", body: JSON.stringify({ id: parseInt(div.querySelector(".num").innerHTML) }), headers: { 'Content-Type': 'application/json' } })
+        .then(async response => {
+            switch (response.status) {
+                case 200:
+                    alert("Menu \"" + div.querySelector(".name").innerHTML + "\" zum Warenkorb hinzugefügt.");
+                    break;
+
+                default:
+                    //TODO: add proper error handling
+                    alert("Menu \"" + div.querySelector(".name").innerHTML + "\" bereits im Warenkorb.");
+                    break;
+                }
+        });
 }
 
 function add(course, num, attr) {
