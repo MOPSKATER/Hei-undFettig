@@ -293,12 +293,12 @@ router.delete('/news/delete', function (req, res, next) {
 });
 
 router.post('/cart/add', function (req, res, next) {
-    if (!Accountmanager.isLoggedIn) {
+    if (!Accountmanager.isLoggedIn(req)) {
         res.sendStatus(401)
         return
     }
 
-    err = validate({ id: res.body.id }, { id: { presence: true, numericality: true } })
+    err = validate({ id: req.body.id }, { id: { presence: true, numericality: true } })
 
     if (printErr(err, res))
         return
@@ -319,7 +319,7 @@ router.post('/cart/add', function (req, res, next) {
 });
 
 router.post('/cart/remove', function (req, res, next) {
-    if (!Accountmanager.isLoggedIn) {
+    if (!Accountmanager.isLoggedIn(req)) {
         res.sendStatus(401)
         return
     }
@@ -345,7 +345,7 @@ router.post('/cart/remove', function (req, res, next) {
 });
 
 router.get('/cart/get', function (req, res, next) {
-    if (!Accountmanager.isLoggedIn) {
+    if (!Accountmanager.isLoggedIn(req)) {
         res.sendStatus(401)
         return
     }
@@ -362,18 +362,18 @@ router.get('/cart/get', function (req, res, next) {
 });
 
 router.post('/cart/order', function (req, res, next) {
-    if (!Accountmanager.isLoggedIn) {
+    if (!Accountmanager.isLoggedIn(req)) {
         res.sendStatus(401)
         return
     }
 
     data = { datetime: req.body.datetime }
+    err = validate(data, { datetime: Ruleset.Datetime })
 
-    err = validate(data, { data: Ruleset.Datetime })
     if (printErr(err))
         return
 
-    Database.orderCart(req.session.uid, datetime, (err) => {
+    Database.orderCart(req.session.uid, req.body.datetime, (err) => {
         if (err) {
             res.statusCode = 500
             res.write(JSON.stringify(err))

@@ -1,7 +1,6 @@
 var sqlite3 = require('sqlite3')
 const crypto = require("crypto")
 const Privileges = require("./privileges")
-const Accountmanager = require('./accountmanager')
 
 const DBSOURCE = "db.sqlite"
 const db = new sqlite3.Database("db.sqlite", (err) => {
@@ -40,7 +39,7 @@ db.run("CREATE TABLE IF NOT EXISTS users (uid text, prename text, name text, poi
 db.run("CREATE TABLE IF NOT EXISTS cart (uid integer, itemid integer, amount integer)");
 db.run("CREATE TABLE IF NOT EXISTS item (id integer, name text, description text, price decimal)");
 db.run("CREATE TABLE IF NOT EXISTS news (id integer, caption text, text text, date date)");
-db.run("CREATE TABLE IF NOT EXISTS orders (uid text, itemid integer, amount integer, date datetime)");
+db.run("CREATE TABLE IF NOT EXISTS orders (uid text, itemid integer, amount integer, datetime datetime)");
 
 const validKeys = ["prename", "name", "street", "number", "place", "plz", "email", "password"]
 
@@ -126,13 +125,13 @@ const Databasemanager = {
 
     addCart(uid, id, callback) {
         let amount
-        db.prepare("SELECT itemid, amount WHERE uid=? AND itemid=?").get(uid, id, (err, row) => {
+        db.prepare("SELECT itemid, amount FROM cart WHERE uid=? AND itemid=?").get(uid, id, (err, row) => {
             if (err)
                 callback(err)
             else {
                 if (row) {
                     amount = row.amount + 1
-                    db.prepare("UPDATE cart SET amount=? WHERE uid=? AND itemid=?)").run(amount, uid, id, (err) => {
+                    db.prepare("UPDATE cart SET amount=? WHERE uid=? AND itemid=?").run(amount, uid, id, (err) => {
                         callback(err)
                     })
                 }
@@ -173,8 +172,8 @@ const Databasemanager = {
         })
     },
 
-    async orderCart(uid, datetime, callback) {
-        db.prepare("SELECT itemid, amount FROM cart WHERE uid=?").all((err, rows) => {
+    orderCart(uid, datetime, callback) {
+        db.prepare("SELECT itemid, amount FROM cart WHERE uid=?").all(uid, (err, rows) => {
             if (err) {
                 callback(err)
                 return
@@ -185,11 +184,11 @@ const Databasemanager = {
                 return
             }
 
-            rows.array.forEach(element => {
+            for (row in rows) {
                 db.prepare("INSERT INTO orders (uid, itemid, amount, datetime) VALUES (?, ?, ?, ?)").run(uid, row.itemid, row.amount, datetime, (err) => {
                     db.prepare("DELETE from cart WHERE uid=?").run(uid)
                 })
-            });
+            }
             callback(err)
         })
     },
@@ -216,6 +215,7 @@ function IDGenerator() {
 }
 
 module.exports = Databasemanager;
+const Accountmanager = require('./accountmanager')
 
 /*news = [
     [
