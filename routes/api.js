@@ -101,8 +101,8 @@ router.post('/account/logout', function (req, res, next) {
 });
 
 router.post('/account/register', function (req, res, next) {
-    var data = { email: req.body.email, salt: "", hash: req.body.password }
-    err = validate(data, { email: { presence: true, email: true }, hash: { presence: true, length: { is: 64 }, format: { pattern: "[0-9a-f]+" } } })
+    var data = { email: req.body.email, salt: "", password: req.body.password }
+    err = validate(data, { email: { presence: true, email: true }, password: { presence: true, length: { is: 64 }, format: { pattern: "[0-9a-f]+" } } })
 
     if (printErr(err, res))
         return
@@ -115,7 +115,7 @@ router.post('/account/register', function (req, res, next) {
             req.session.uid = uid
             req.session.accessLevel = Privileges.Guest
             req.session.cart = []
-            res.write(JSON.stringify({ uid: uid, accessLevel: Privileges.Guest, cart: [] }))
+            res.write(JSON.stringify({ uid: uid, accessLevel: Privileges.Guest }))
         }
         res.end()
     })
@@ -126,18 +126,15 @@ router.get('/account/isLoggedin', function (req, res, next) {
 });
 
 router.put('/account/set', function (req, res, next) {
-    if (!Accountmanager.isLoggedIn(req)) {
+    if (Accountmanager.isLoggedIn(req)) {
         res.statusCode = 401
         res.end()
         return
     }
 
-    data = {
-        prename: req.body.prename, name: req.body.name, email: req.body.email,
-        street: req.body.street, number: req.body.number, plz: req.body.plz, place: req.body.place, password: req.body.password
-    }
+    data = req.body
 
-    if (!Object.keys(data)) {
+    if (!Object.keys(data).length) {
         err = "Nothing to set"
         printErr(err, res)
         return
