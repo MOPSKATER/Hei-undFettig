@@ -41,7 +41,6 @@ db.run("CREATE TABLE IF NOT EXISTS item (id integer, name text, description text
 db.run("CREATE TABLE IF NOT EXISTS news (id integer, caption text, text text, date date)");
 db.run("CREATE TABLE IF NOT EXISTS orders (uid text, id integer, amount integer, date datetime)");
 
-
 const Databasemanager = {
 
     async getUserData(userID, callback) {
@@ -70,6 +69,15 @@ const Databasemanager = {
     getCredentials(email, callback) {
         db.prepare("SELECT uid, permissionlevel, email, prename, points, salt, password FROM users WHERE email=?").get(email, (err, table) => {
             callback(err, table)
+        })
+    },
+
+    setData(uid, data, callback) {
+        statement = Object.keys(data)
+        for (i = 0; i < statement.length; i++)
+            statement[i] = statement[i] + "=" + data[statement[i]]
+        db.prepare("UPDATE users " + statement.join(", ") + " WHERE uid=?").run(uid, (err) => {
+            callback(err)
         })
     },
 
