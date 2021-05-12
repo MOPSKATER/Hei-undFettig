@@ -17,7 +17,7 @@ function loadNews() {
         .then(async response => {
             if (response.status !== 404) {
                 var data = await response.json();
-                document.getElementById("news").innerHTML = data.title;
+                document.getElementById("news").innerHTML = data.caption;
             }
         });
 }
