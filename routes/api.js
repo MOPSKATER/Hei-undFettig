@@ -367,7 +367,13 @@ router.post('/cart/order', function (req, res, next) {
         return
     }
 
-    Database.orderCart(req.session.uid, (err) => {
+    data = { datetime: req.body.datetime }
+
+    err = validate(data, { data: Ruleset.Datetime })
+    if (printErr(err))
+        return
+
+    Database.orderCart(req.session.uid, datetime, (err) => {
         if (err) {
             res.statusCode = 500
             res.write(JSON.stringify(err))

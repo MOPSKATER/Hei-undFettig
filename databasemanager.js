@@ -1,7 +1,6 @@
 var sqlite3 = require('sqlite3')
 const crypto = require("crypto")
 const Privileges = require("./privileges")
-const { generateHash } = require('./accountmanager')
 const Accountmanager = require('./accountmanager')
 
 const DBSOURCE = "db.sqlite"
@@ -41,7 +40,7 @@ db.run("CREATE TABLE IF NOT EXISTS users (uid text, prename text, name text, poi
 db.run("CREATE TABLE IF NOT EXISTS cart (uid integer, itemid integer, amount integer)");
 db.run("CREATE TABLE IF NOT EXISTS item (id integer, name text, description text, price decimal)");
 db.run("CREATE TABLE IF NOT EXISTS news (id integer, caption text, text text, date date)");
-db.run("CREATE TABLE IF NOT EXISTS orders (uid text, id integer, amount integer, date datetime)");
+db.run("CREATE TABLE IF NOT EXISTS orders (uid text, itemid integer, amount integer, date datetime)");
 
 const validKeys = ["prename", "name", "street", "number", "place", "plz", "email", "password"]
 
@@ -174,8 +173,24 @@ const Databasemanager = {
         })
     },
 
-    orderCart(uid, callback) {
-        //TODO
+    async orderCart(uid, datetime, callback) {
+        db.prepare("SELECT itemid, amount FROM cart WHERE uid=?").all((err, rows) => {
+            if (err) {
+                callback(err)
+                return
+            }
+
+            if (!rows.length) {
+                callback("Nothing to order")
+            }
+
+            rows.array.forEach(element => {
+                db.prepare("INSERT INTO orders (uid, itemid, amount, datetime) VALUES (?, ?, ?, ?)").run(uid, row.itemid, row.amount, datetime, (err) => {
+                    db.prepare("DELETE from cart WHERE uid=?").run(uid)
+                })
+            });
+            callback(err)
+        })
     },
 
     getOrders(callback) {
