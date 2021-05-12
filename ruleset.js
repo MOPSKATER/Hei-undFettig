@@ -10,7 +10,7 @@ const Ruleset = {
     Number: { numericality: true },
     Plz: { numericality: true },
     Place: { format: { pattern: "[a-zA-Z]+" } },
-    Datetime: { presence: true, datetime: true }
+    Datetime: { presence: true, format: { pattern: "[0-9]{4}\.[0-9]{2}\.[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}" } }
 
 }
 
