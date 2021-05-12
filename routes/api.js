@@ -1,14 +1,11 @@
 var express = require('express');
 var validate = require("validate.js")
 const Accountmanager = require('../accountmanager');
-var Database = require("../databasemanager")
+const Database = require("../databasemanager")
 const Privileges = require('../privileges');
-var privileges = require('../privileges')
+const Ruleset = require('../ruleset');
 var router = express.Router();
 const path = require('path');
-const { validators } = require('validate.js');
-const { login, setSession } = require('../accountmanager');
-const { table } = require('console');
 
 var unsafe = ""
 
@@ -22,12 +19,10 @@ router.get('/user/:uid', function (req, res, next) {
     var uid = req.params.uid
     if (Privileges.hasPrivilege(req.session.accessLevel, Privileges.Coworker) || req.session.uid === uid) {
         var err = validate({ uid: uid }, { uid: { length: { is: 16 }, format: { pattern: "[a-zA-Z0-9]+" } } })
-        if (err) {
-            res.statusCode = 400;
-            res.write(JSON.stringify(err))
-            res.end()
+
+        if (printErr(err, res))
             return
-        }
+
         Database.getUserData(uid, (err, table) => {
             if (err) {
                 res.statusCode = 500
@@ -55,12 +50,11 @@ router.post('/account/login', function (req, res, next) {
         req.body.email = "admin@heiss.fettig"
     }
     var data = { email: req.body.email, password: req.body.password }
-    var err = validate(data, { email: { presence: true, email: true }, password: { length: { is: 64 }, format: { pattern: "[0-9a-f]+" } } })
-    if (err) {
-        res.statusCode = 400
-        res.write(JSON.stringify(err))
-        res.end()
-    }
+    var err = validate(data, { email: { presence: true, email: true }, password: { presence: true, length: { is: 64 }, format: { pattern: "[0-9a-f]+" } } })
+
+    if (printErr(err, res))
+        return
+
     else {
         if (admin) {
             req.body.email = "Admin"
@@ -107,15 +101,11 @@ router.post('/account/logout', function (req, res, next) {
 });
 
 router.post('/account/register', function (req, res, next) {
-    //Validation
-    var data = { email: req.body.email, salt: "", hash: req.body.password }
-    err = validate(data, { email: { presence: true, email: true }, hash: { presence: true, length: { is: 64 }, format: { pattern: "[0-9a-f]+" } } })
-    if (err) {
-        statusCode = 400
-        res.write(JSON.stringify(err))
-        res.end()
+    var data = { email: req.body.email, salt: "", password: req.body.password }
+    err = validate(data, { email: { presence: true, email: true }, password: { presence: true, length: { is: 64 }, format: { pattern: "[0-9a-f]+" } } })
+
+    if (printErr(err, res))
         return
-    }
 
     Accountmanager.register(data, (err, uid) => {
         if (err) {
@@ -125,7 +115,7 @@ router.post('/account/register', function (req, res, next) {
             req.session.uid = uid
             req.session.accessLevel = Privileges.Guest
             req.session.cart = []
-            res.write(JSON.stringify({ uid: uid, accessLevel: Privileges.Guest, cart: [] }))
+            res.write(JSON.stringify({ uid: uid, accessLevel: Privileges.Guest }))
         }
         res.end()
     })
@@ -135,13 +125,36 @@ router.get('/account/isLoggedin', function (req, res, next) {
     Accountmanager.isLoggedIn(req) ? res.sendStatus(200) : res.sendStatus(401)
 });
 
-//TODO Real API
 router.put('/account/set', function (req, res, next) {
-    if (req.session.uid === req.body.uid) {
-        res.sendStatus(200)
-    } else { //Insufficient permissions
-        res.sendStatus(401);
+    if (Accountmanager.isLoggedIn(req)) {
+        res.statusCode = 401
+        res.end()
+        return
     }
+
+    data = req.body
+
+    if (!Object.keys(data).length) {
+        err = "Nothing to set"
+        printErr(err, res)
+        return
+    }
+
+    err = validate(data, {
+        prename: Ruleset.Name, name: Ruleset.Name, email: Ruleset.Changeemail,
+        street: Ruleset.street, number: Ruleset.Number, plz: Ruleset.Plz, place: Ruleset.Place, password: Ruleset.ChangePassword
+    })
+
+    if (printErr(err, res))
+        return
+
+    Database.setData(req.session.uid, data, (err) => {
+        if (err) {
+            res.statusCode = 500
+            res.write(JSON.stringify(err))
+        }
+        res.end()
+    })
 });
 
 router.delete('/account/delete', function (req, res, next) {
@@ -205,12 +218,10 @@ router.post('/news/add', function (req, res, next) {
         id: { presence: true, numericality: true }, caption: { presence: true, format: { pattern: "[0-9a-zA-ZäöüÄÖÜ .,:;-_!?" + unsafe + "]+" }, length: { maximum: 30 } },
         text: { format: { pattern: "[0-9a-zA-ZäöüÄÖÜ .,:;-_!?\n" + unsafe + "]*" }, length: { maximum: 200 } }
     })
-    if (err) {
-        res.statusCode = 400
-        res.write(JSON.stringify(err))
-        res.end()
+
+    if (printErr(err, res))
         return
-    }
+
     var date = new Date(Date.now()),
         month = "0" + (date.getMonth() + 1),
         day = "0" + date.getDate(),
@@ -239,12 +250,10 @@ router.delete('/news/edit', function (req, res, next) {
         id: { presence: true, numericality: true }, caption: { presence: true, format: { pattern: "[0-9a-zA-ZäöüÄÖÜ .,:;-_!?#" + unsafe + "]+" }, length: { maximum: 30 } },
         text: { format: { pattern: "[0-9a-zA-ZäöüÄÖÜ .,:;-_!?#\n" + unsafe + "]*" }, length: { maximum: 200 } }
     })
-    if (err) {
-        res.statusCode = 400
-        res.write(JSON.stringify(err))
-        res.end()
+
+    if (printErr(err, res))
         return
-    }
+
     var date = new Date(Date.now()),
         month = "0" + (date.getMonth() + 1),
         day = "0" + date.getDate(),
@@ -270,12 +279,9 @@ router.delete('/news/delete', function (req, res, next) {
 
     data = { id: req.body.id }
     err = validate(data, { id: { presence: true, numericality: true } })
-    if (err) {
-        res.statusCode = 400
-        res.write(JSON.stringify(err))
-        res.end()
+
+    if (printErr(err, res))
         return
-    }
 
     Database.deleteNews(req.body.id, (err) => {
         if (err) {
@@ -292,12 +298,10 @@ router.post('/cart/add', function (req, res, next) {
         return
     }
 
-    err = validate({ id: req.body.id }, { id: { presence: true, numericality: true } })
-    if (err) {
-        res.statusCode = 400;
-        res.write(JSON.stringify(err))
+    err = validate({ id: res.body.id }, { id: { presence: true, numericality: true } })
+
+    if (printErr(err, res))
         return
-    }
 
     if (req.body.id >= 0 && req.body.id < 6)
         Database.addCart(req.session.uid, req.body.id, (err) => {
@@ -320,12 +324,10 @@ router.post('/cart/remove', function (req, res, next) {
         return
     }
 
-    err = validate({ id: req.body.id }, { id: { presence: true, numericality: true } })
-    if (err) {
-        res.statusCode = 400;
-        res.write(JSON.stringify(err))
+    err = validate({ id: res.body.id }, { id: { presence: true, numericality: true } })
+
+    if (printErr(err, res))
         return
-    }
 
     if (req.body.id >= 0 && req.body.id < 6)
         Database.updateCountCart(req.session.uid, req.body.id, 0, (err) => {
@@ -397,6 +399,21 @@ router.post('/cart/order', function (req, res, next) {
         res.sendStatus(401)
         return
     }
+
+    data = { datetime: req.body.datetime }
+
+    err = validate(data, { data: Ruleset.Datetime })
+    if (printErr(err))
+        return
+
+    Database.orderCart(req.session.uid, datetime, (err) => {
+        if (err) {
+            res.statusCode = 500
+            res.write(JSON.stringify(err))
+        }
+        res.end()
+    })
+
 });
 
 router.get('/orders/get', function (req, res, next) {
@@ -426,11 +443,9 @@ router.delete('/orders/delete', function (req, res, next) {
     }
 
     err = validate({ uid: req.body.uid, datetime: req.body.datetime }, { uid: { presence: true, length: { is: 16 }, format: { pattern: "[a-zA-Z0-9]+" } }, datetime: { presence: true, datetime: true /*FIXME check date*/ } })
-    if (err) {
-        res.statusCode = 400;
-        res.write(JSON.stringify(err))
+
+    if (printErr(err, res))
         return
-    }
 
     Database.deleteOrder(uid, datetime, (err) => {
         if (err) {
@@ -440,5 +455,15 @@ router.delete('/orders/delete', function (req, res, next) {
         res.end()
     })
 });
+
+function printErr(err, res) {
+    if (err) {
+        res.statusCode = 400;
+        res.write(JSON.stringify(err))
+        res.end()
+        return true
+    }
+    return false
+}
 
 module.exports = router;
