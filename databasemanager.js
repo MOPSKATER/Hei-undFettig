@@ -169,11 +169,13 @@ const Databasemanager = {
                 return
             }
 
-            for (row in rows) {
+
+
+            rows.forEach(element => {
                 db.prepare("INSERT INTO orders (uid, itemid, amount, datetime) VALUES (?, ?, ?, ?)").run(uid, row.itemid, row.amount, datetime, (err) => {
                     db.prepare("DELETE from cart WHERE uid=?").run(uid)
                 })
-            }
+            });
             callback(err)
         })
     },
