@@ -324,7 +324,7 @@ router.post('/cart/remove', function (req, res, next) {
         return
     }
 
-    err = validate({ id: res.body.id }, { id: { presence: true, numericality: true } })
+    err = validate({ id: req.body.id }, { id: { presence: true, numericality: true } })
 
     if (printErr(err, res))
         return
