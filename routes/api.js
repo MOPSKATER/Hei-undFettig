@@ -181,7 +181,7 @@ router.get('/news/new', function (req, res, next) {
         else {
             if (news.length) {
                 res.setHeader('Content-Type', 'application/json')
-                res.write(JSON.stringify(news[-1]))
+                res.write(JSON.stringify(news[news.length - 1]))
             }
             else
                 res.sendStatus(404)
