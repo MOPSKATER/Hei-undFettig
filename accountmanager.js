@@ -26,6 +26,12 @@ const Accountmanager = {
     },
 
     async register(data, callback) {
+        generateHash(data)
+        //Add creds to table
+        Database.register(data, callback)
+    },
+
+    generateHash(data) {
         //Generate Salt
         if (!data.salt) {
             const alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-.,=?<>_!?&%"
@@ -34,11 +40,8 @@ const Accountmanager = {
         }
 
         //Hash Password
-        data.hash = crypto.createHash("sha256").update(data.salt + data.hash).digest("hex")
-
-        //Add creds to table
-        Database.register(data, callback)
+        data.password = crypto.createHash("sha256").update(data.salt + data.password).digest("hex")
     }
 };
 
-module.exports = Accountmanager;
+module.exports = Accountmanager
