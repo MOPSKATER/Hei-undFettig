@@ -182,6 +182,7 @@ const Databasemanager = {
 
             if (!rows.length) {
                 callback("Nothing to order")
+                return
             }
 
             rows.array.forEach(element => {
