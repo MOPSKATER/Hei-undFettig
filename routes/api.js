@@ -361,7 +361,7 @@ router.get('/cart/get', function (req, res, next) {
     })
 });
 
-router.post('/item/updateCount', function (req, res, next) {
+router.post('/cart/updateCount', function (req, res, next) {
     if (!Accountmanager.isLoggedIn) {
         res.sendStatus(401)
         return

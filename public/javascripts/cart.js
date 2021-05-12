@@ -73,7 +73,7 @@ function update() {
 function changedCount(e) {
     var div = e.parentNode.parentNode;
     var id = div.querySelector(".num").innerHTML;
-    fetch('/api/item/updateCount', { method: "POST", body: JSON.stringify({ id: id, count: div.querySelector(".count").querySelector("input").value }), headers: { 'Content-Type': 'application/json' } })
+    fetch('/api/cart/updateCount', { method: "POST", body: JSON.stringify({ id: id, count: div.querySelector(".count").querySelector("input").value }), headers: { 'Content-Type': 'application/json' } })
         .then(async response => {
             //TODO: add error handling
 
