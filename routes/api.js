@@ -393,7 +393,6 @@ router.post('/item/get', function (req, res, next) {
     })
 });
 
-//TODO Real API
 router.post('/cart/order', function (req, res, next) {
     if (!Accountmanager.isLoggedIn(req)) {
         res.sendStatus(401)
