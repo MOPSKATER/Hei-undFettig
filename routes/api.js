@@ -361,12 +361,19 @@ router.get('/cart/get', function (req, res, next) {
     })
 });
 
-//TODO Real API
 router.post('/cart/order', function (req, res, next) {
     if (!Accountmanager.isLoggedIn) {
         res.sendStatus(401)
         return
     }
+
+    Database.orderCart(req.session.uid, (err) => {
+        if (err) {
+            res.statusCode = 500
+            res.write(JSON.stringify(err))
+        }
+        res.end()
+    })
 
 });
 
