@@ -1,6 +1,8 @@
 # Heiß und Fettig
 
-Der Standart-Port ist 3000.
+Zum starten im Hauptverzeichnis "npm start" eingeben.
+
+Der Standart-Port ist 3000. Dieser kann mit dem parameter geändert werden (nur die aktuelle Version)
 
 Benutzer "Admin" wir beim ersten Start generiert (1).
 Das Passwort wird in der Konsole ausgegeben.
