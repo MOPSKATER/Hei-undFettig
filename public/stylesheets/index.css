@@ -101,15 +101,14 @@ th {
   position: absolute;
   display: block;
   max-block-size: 4vw;
-  border: 1px solid lightgray;
 }
 #cart {
   left: 10vw;
-  top: 35vh;
+  top: 41vh;
 }
 #controlIcon {
   left: 26vw;
-  top: 35vh;
+  top: 41vh;
 }
 #login{
   padding: 6px;
@@ -140,7 +139,7 @@ th {
   background-color: transparent;
 }
 .dropbtn {
-  background-color: #44aa00;
+  background-color: lightgray;
   padding: 5px;
   color: white;
   font-weight: bold;
@@ -171,13 +170,13 @@ th {
    /*
     -------- BANNER --------
   */
-  #banner_full {
+  #banner_small {
     background-image: url(https://cdn.gutekueche.de/upload/rezept/10862/1600x1200_rib-eye-steak.jpg);
     position: relative;
     width: 100%;
     height: fit-content;
   }
-  #banner_full .banner_logo {
+  #banner_small .banner_logo {
       position: relative;
       color: white;
       text-shadow: 0 0 15px #000;
@@ -187,9 +186,10 @@ th {
       font-size: 50px;
       top: 1px;
   }
-  #banner_full .banner_logo img {
+  #banner_small .banner_logo img {
     display: none;
   }
+
   /*
     -------- FOOTER --------
   */
@@ -201,7 +201,7 @@ th {
     width: fit-content;
     height: fit-content;
     margin-left: 3vw;
-    background-color: #67811a;
+    background-color: lightgray;
   }
   /*
    -------- INDEX --------

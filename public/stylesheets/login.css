@@ -1,14 +1,18 @@
 html body{
-    margin: 0px;
-    padding: 0px;
+  padding: 0px;
+  margin: 0px;
+	overflow-x: hidden;
+	overflow-y: auto;
 }
 
 #page {
-    width: 100vw;
+    width: 96vw;
     height: 76vh;
     display: flex;
     justify-content: center;
-    background-color: #AEAEAE;
+    background-color: lightgray;
+    opacity: 60%;
+    margin:  2%;
 }
 
 #container{
@@ -119,7 +123,7 @@ input {
   background-color: transparent;
 }
 .dropbtn {
-  background-color: #44aa00;
+  background-color: lightgray;
   padding: 5px;
   color: white;
   font-weight: bold;
@@ -178,7 +182,7 @@ input {
     width: fit-content;
     height: fit-content;
     margin-left: 3vw;
-    background-color: #67811a;
+    background-color: lightgray;
   }
     /*
      -------- LOGIN --------
@@ -186,7 +190,7 @@ input {
     #page {
       padding-bottom: 20px;
       position: relative;
-      width: 100vw;
+      width: 96vw;
       height: fit-content;
       background-color: #AEAEAE;
     }

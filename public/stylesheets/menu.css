@@ -165,7 +165,7 @@ body {
 	  width: fit-content;
 	  height: fit-content;
 	  margin-left: 3vw;
-	  background-color: #67811a;
+	  background-color: lightgray;
 	}
 	/*
 	 -------- MENU --------
@@ -205,7 +205,7 @@ body {
 	#card .item .basket {
 		width: 30px;
 		height: auto;
-		background-color: bisque;
+		background-color: lightgray;
 	}
 	#card .item .basket:hover {
 		cursor: pointer;
