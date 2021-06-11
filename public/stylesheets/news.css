@@ -1,21 +1,23 @@
 body{
-  height: 100vh;
+  height: fit-content;
   margin: 0;
 	padding: 0;
-	background-color: #DDEEDD;
 	overflow-x: hidden;
 	overflow-y: auto;
-	background-color: rgb(179, 179, 179);
+  
 }
-
 .news .content {
   float: left;
   width: 100%;
-  margin: 2%;
+  margin: 1%;
   margin-top: 18px;
+  opacity: 60%;
+  background-color: lightgray;
+  padding: 3vw;
 }
 .news h3 {
   margin-top: 0;
+  color: black;
 }
 .news textarea {
   width: 100%;
@@ -34,7 +36,6 @@ body{
 .news .news-icon:hover {
   cursor: pointer;
 }
-
 
 .right {
   float: right;

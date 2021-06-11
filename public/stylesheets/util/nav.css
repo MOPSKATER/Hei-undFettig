@@ -36,7 +36,7 @@
   position: relative;
   top: 25%;
   text-align: center;
-  color: darkgray;
+  color: black;
 }
 #titleImage {
   width: 100%;
@@ -52,6 +52,7 @@
   position: absolute;
   max-height: 3vw;
   top: 2vh;
+  
 }
 #cart {
   left: 90vw;
