@@ -1,8 +1,8 @@
 #footer {
-  background-color: #44aa00;
+  background-color: lightgray;
   height: 11.5%;
   width: 100%;
-  outline: 4px solid #265805;
+  outline: 4px solid darkgray;
   outline-offset: -4px;
   display: flex;
   justify-content: center;
@@ -19,13 +19,13 @@
   width: 20%;
   height: 15%;
   margin-left: 3vw;
-  background-color: #67811a;
+  background-color: #ffffff;
 }
 .btn {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 2px solid #000;
+  border: 2px solid darkgray;
 }
 .noDeco {
   text-decoration: none;
@@ -37,7 +37,7 @@
   position: relative;
   color: black;
   font-size: bold;
-  background-color: #67811a;
+  background-color: #ffffff;
   margin: 20px;
 }
 
