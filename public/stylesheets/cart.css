@@ -2,17 +2,25 @@
 body {
 	margin: 0;
 	padding: 0;
-	background-color: #DDEEDD;
 	overflow-x: hidden;
 	overflow-y: auto;
-	background-color: rgb(179, 179, 179);
+	background-color: rgb(255, 255, 255);
+	width: 100%;
 }
 
 #page {
-	width: 100%;
+	width: 96%;
 	display: block;
 	font-size: large;
 	min-height: calc(100vh - 25vh - 11.5vh);
+	margin: 2%;
+	background-color: lightgray;
+	opacity: 60%;
+}
+#bon-page{
+	background-color: lightgray;
+	opacity: 60%;
+	margin: 2%;
 }
 
 #left {

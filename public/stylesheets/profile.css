@@ -4,13 +4,16 @@ body {
 	padding: 0;
 	overflow-x: hidden;
 	overflow-y: auto;
-	background-color: rgb(179, 179, 179);
+	background-color: rgb(255, 255, 255);
 }
 
 #page {
-	width: 100%;
+	width: 96%;
 	display: block;
 	min-height: calc(100vh - 25vh - 11.5vh);
+  background-color: lightgray;
+  opacity: 60%;
+  margin: 2%;
 }
 
 #left {
@@ -26,7 +29,7 @@ body {
     width: 100%;
 }
 .input:invalid {
-    border-color: red;
+    border-color: rgb(255, 255, 255);
 }
 #left .inline {
     display: inline-block;

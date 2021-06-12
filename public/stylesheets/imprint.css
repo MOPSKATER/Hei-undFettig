@@ -10,7 +10,8 @@ body {
 
 #page {
 	width: 100%;
-	display: block;
+  opacity: 60%;
+  display: block;
 }
 
 #left {
@@ -56,6 +57,7 @@ body {
     margin-right: 1vw;
     width: 48vw;
     height: calc(100vh - 25vh - 11.5vh - 34px);
+    opacity: 100%;
 }
 /*  MEDIA QUERY
 
