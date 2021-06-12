@@ -85,11 +85,11 @@ body {
 }
 #cart {
   left: 10vw;
-  top: 35vh;
+  top: 41vh;
 }
 #controlIcon {
   left: 26vw;
-  top: 35vh;
+  top: 41vh;
 }
 #login{
   padding: 6px;
@@ -120,7 +120,7 @@ body {
   background-color: transparent;
 }
 .dropbtn {
-  background-color: #44aa00;
+  background-color: lightgray;
   padding: 5px;
   color: white;
   font-weight: bold;
@@ -199,16 +199,15 @@ body {
       height: calc(100vh - 25vh - 11.5vh - 34px);
       overflow: auto;
       width: fit-content;
+      margin: 2%;
     }
     #map {   
       position: relative;  
-      margin: 0;
-      width: 100%;
+      margin: 2%;
+      width: 96%;
       height: 40%;
-      margin-left: 0;
-      margin-right: 0;
-      margin-bottom: 10px;
     }
+   
     .openHourImprint{
       border: none;
       display: none;

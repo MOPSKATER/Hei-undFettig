@@ -1,7 +1,6 @@
 body {
   padding: 0px;
   margin: 0px;
-  display: float;
 	overflow-x: hidden;
 	overflow-y: auto;
 }
@@ -207,22 +206,27 @@ th {
   /*
    -------- INDEX --------
   */
+  #home1 {
+    height: 75vh;
+    width: auto;
+  }
   #home2 {
-    width: 100%;
+    width: 96%;
     height: fit-content;
     background-color: rgb(179, 179, 179);
     display: block;
+    margin: 2%;
   }
   #news {
     height: fit-content;
-    background-color: rgb(255, 85, 85);
+    background-color: lightgray;
     overflow: auto;
     color: black;
     font-size: 5vw;
     display: flex;
     justify-content: center;
     align-items: center;
-    outline: 3px solid #830202;
+    outline: 3px solid darkgray;
     outline-offset: -3px;
     margin-bottom: 5vh;
   } 

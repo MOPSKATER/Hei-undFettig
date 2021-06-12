@@ -80,11 +80,11 @@ body {
 }
 #cart {
   left: 10vw;
-  top: 35vh;
+  top: 41vh;
 }
 #controlIcon {
   left: 26vw;
-  top: 35vh;
+  top: 41vh;
 }
 #login{
   padding: 6px;
@@ -115,7 +115,7 @@ body {
   background-color: transparent;
 }
 .dropbtn {
-  background-color: #44aa00;
+  background-color: lightgray;
   padding: 5px;
   color: white;
   font-weight: bold;

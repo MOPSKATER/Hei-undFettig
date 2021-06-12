@@ -123,11 +123,11 @@ tr:nth-child(even) {
   }
   #cart {
 	left: 10vw;
-	top: 35vh;
+	top: 41vh;
   }
   #controlIcon {
 	left: 26vw;
-	top: 35vh;
+	top: 41vh;
   }
   #login{
 	padding: 6px;
@@ -158,7 +158,7 @@ tr:nth-child(even) {
 	background-color: transparent;
   }
   .dropbtn {
-	background-color: #44aa00;
+	background-color: lightgray;
 	padding: 5px;
 	color: white;
 	font-weight: bold;
@@ -230,11 +230,13 @@ body {
 	background-color: #DDEEDD;
 	overflow-x: hidden;
 	overflow-y: auto;
-	background-color: rgb(179, 179, 179);
+	background-color: rgb(255, 255, 255);
 	}
 	#page {
-		width: 100%;
+		width: 96%;
 		height: auto;
+		background-color: lightgray;
+		margin: 2%;
 	}
 	#methode {
 		padding: 0px;
@@ -250,10 +252,12 @@ body {
 		position: relative;
 		border-top: 1px solid;
 		float: left;
-		margin-top: 4vh;
-		margin-bottom: 4vh;
-		margin-left: 10px;
 		width: 80%;
 		text-align: left;
+		background-color: lightgray;
+		margin-bottom: 2%;
+		padding-left: 2%;
+		padding-right: 18%;
+		padding-bottom: 2%;
 	}
 }
