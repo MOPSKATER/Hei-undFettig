@@ -1,7 +1,7 @@
 body{
   height: fit-content;
   margin: 0;
-	padding: 0;
+	padding-right: 8%;
 	overflow-x: hidden;
 	overflow-y: auto;
   
@@ -157,6 +157,10 @@ body{
   /*
     -------- FOOTER --------
   */
+  #footer{
+    width: 100%;
+    padding-right: 8%;
+  }
   #impressum {
     display: flex;
     width: fit-content;
