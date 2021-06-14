@@ -87,12 +87,12 @@ input {
   max-block-size: 4vw;
 }
 #cart {
-  left: 10vw;
-  top: 41vh;
+  left: 22%;
+  top: 92%;
 }
 #controlIcon {
-  left: 26vw;
-  top: 41vh;
+  left: 62%;
+  top: 92%;
 }
 #login{
   padding: 6px;
