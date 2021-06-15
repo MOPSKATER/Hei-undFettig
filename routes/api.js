@@ -30,8 +30,10 @@ router.get('/user/:uid', function (req, res, next) {
             }
             else {
                 if (table) {
+                    delete table.salt;
+                    delete table.password;
                     res.set({ 'Content-Type': 'application/json' });
-                    res.write(JSON.stringify(table)) //FIXME Don't send all data!
+                    res.write(JSON.stringify(table))
                 }
                 else
                     res.statusCode = 404
