@@ -4,14 +4,17 @@ html body {
   padding: 0px;
 	overflow-x: hidden;
 	overflow-y: auto;
-	background-color: rgb(179, 179, 179);
+	background-color: rgb(255, 255, 255);
 }
 
 .orderPage{
-  width: 100vw;
+  width: 96%;
   min-height: calc(100vh - 25vh - 11.5vh);
   justify-content: center;
   display: flex;
+  background-color: lightgray;
+  opacity: 60%;
+  margin: 2%;
 }
 
 #orderContainer{
@@ -32,7 +35,7 @@ html body {
   height: max-content;
   padding: 1%;
   border: 2px solid black;
-  background-color: darkgoldenrod;
+  background-color: darkgray;
   margin-bottom: 1%;
   display: flexbox;
 }
@@ -55,10 +58,11 @@ html body {
 
 #done {
   position: relative;
-  background-color: rgb(0, 167, 0);
+  background-color: rgb(0, 0, 0);
   top: -37px;
   right: 16px;
   float: right;
+  color: white;
 }
 
 .tableWrapper {
@@ -106,12 +110,12 @@ html body {
   max-block-size: 4vw;
 }
 #cart {
-  left: 10vw;
-  top: 35vh;
+  left: 22%;
+  top: 92%;
 }
 #controlIcon {
-  left: 26vw;
-  top: 35vh;
+  left: 62%;
+  top: 92%;
 }
 #login{
   padding: 6px;
@@ -142,7 +146,7 @@ html body {
   background-color: transparent;
 }
 .dropbtn {
-  background-color: #44aa00;
+  background-color: lightgray;
   padding: 5px;
   color: white;
   font-weight: bold;
@@ -201,7 +205,7 @@ html body {
     width: fit-content;
     height: fit-content;
     margin-left: 3vw;
-    background-color: #67811a;
+    background-color: lightgray;
   }
   /*
    -------- ORDER--------
@@ -214,7 +218,7 @@ html body {
   }  
   #done {
     position: relative;
-    background-color: rgb(0, 167, 0);
+    background-color: rgb(0, 0, 0);
     top: -55px;
     right: 4px;
     float: right;

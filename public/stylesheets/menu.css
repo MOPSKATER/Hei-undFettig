@@ -1,10 +1,10 @@
 body {
 	margin: 0;
 	padding: 0;
-	background-color: #DDEEDD;
+	background-color: #ffffff;
 	overflow-x: hidden;
 	overflow-y: auto;
-	background-color: rgb(179, 179, 179);
+	background-color: rgb(255, 255, 255);
 }
 
 #page {
@@ -16,14 +16,18 @@ body {
 	padding-top: 20px;
 	font-weight: bold;
     text-align: center;
-	color: #332522;
+	color: black;
 }
 
 #card {
 	table-layout: fixed;
 	text-align: center;
 	font-size: large;
-	width: 100%;
+	width: 98%;
+	padding: 4%;
+	margin: 1%;
+	background-color: lightgray;
+	opacity: 40%;
 }
 #card .colOuter {
 	width: 100px;
@@ -37,7 +41,7 @@ body {
 #card .item .basket {
 	width: 30px;
 	height: auto;
-	background-color: bisque;
+	background-color: lightgray;
 }
 #card .item .basket:hover {
 	cursor: pointer;
@@ -66,12 +70,12 @@ body {
 	max-block-size: 4vw;
   }
   #cart {
-	left: 10vw;
-	top: 35vh;
+	left: 22%;
+	top: 92%;
   }
   #controlIcon {
-	left: 26vw;
-	top: 35vh;
+	left: 62%;
+	top: 92%;
   }
   #login{
 	padding: 6px;
@@ -102,7 +106,7 @@ body {
 	background-color: transparent;
   }
   .dropbtn {
-	background-color: #44aa00;
+	background-color: lightgray;
 	padding: 5px;
 	color: white;
 	font-weight: bold;
@@ -161,7 +165,7 @@ body {
 	  width: fit-content;
 	  height: fit-content;
 	  margin-left: 3vw;
-	  background-color: #67811a;
+	  background-color: lightgray;
 	}
 	/*
 	 -------- MENU --------
@@ -169,11 +173,14 @@ body {
 	body {
 		width: 100%;
 		height: 100%;
-		background-color: rgb(179, 179, 179);
+		background-color: rgb(255, 255, 255);
 	}
 	#page {
-		width: 100%;
+		width: 96%;
 		display: block;
+		background-color: lightgray;
+		margin: 2%;
+
 	}
 	#page h1 {
 		padding-top: 20px;
@@ -201,7 +208,7 @@ body {
 	#card .item .basket {
 		width: 30px;
 		height: auto;
-		background-color: bisque;
+		background-color: lightgray;
 	}
 	#card .item .basket:hover {
 		cursor: pointer;

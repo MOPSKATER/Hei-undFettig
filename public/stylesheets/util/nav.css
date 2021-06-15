@@ -7,7 +7,7 @@
   position: fixed;
   left: 0px;
   top: 0px;
-  background-color: rgba(170, 255, 170, 0.3);
+  background-color: transparent;
   width: 100vw;
   height: 10vh;
   display: flex;
@@ -20,20 +20,23 @@
   justify-content: center;
 }
 #menuButton {
-  color: darkgreen;
+  color: darkgray;
   margin: 1vw;
 }
 .menuItem {
   font-weight: bold;
-  border-style: solid;
-  padding: 1vh;
-  background: rgba(50, 50, 50, 0.3);
+  border: 2px solid;
+  padding: 2vh;
+  background: lightgray;
+  opacity: 80%;
+  padding-left: 3vh;
+  padding-right: 3vh;
 }
 .centerContent {
   position: relative;
   top: 25%;
   text-align: center;
-  color: #aaffaa;
+  color: black;
 }
 #titleImage {
   width: 100%;
@@ -42,13 +45,14 @@
 #logo {
   position: absolute;
   left: 20vw;
-  width: 5vh;
+  width: 7vh;
+  opacity: 80%;
 }
 .icon {
   position: absolute;
   max-height: 3vw;
   top: 2vh;
-  border-radius: 20px;
+  
 }
 #cart {
   left: 90vw;
@@ -63,7 +67,7 @@
   left: 87vw;
   top: 9vh;
   width: 10vw;
-  border: 4px solid;
+  border: 2px solid;
   padding-bottom: 5px;
   font-weight: 550;
   border-radius: 5px;

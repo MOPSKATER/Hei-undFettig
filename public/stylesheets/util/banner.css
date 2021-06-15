@@ -10,7 +10,7 @@
 }
 #banner_small .banner_logo {
     position: relative;
-    color: white;
+    color: darkgray;
     text-shadow: 0 0 6px #000;
 	font-weight: bold;
 	font-family: "Lucida Console", Courier, monospace;
@@ -37,7 +37,7 @@
 }
 #banner_full .banner_logo {
     position: relative;
-    color: white;
+    color: lightgray;
     text-shadow: 0 0 15px #000;
 	font-weight: bold;
 	font-family: "Lucida Console", Courier, monospace;

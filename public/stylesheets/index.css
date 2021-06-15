@@ -1,7 +1,6 @@
 body {
   padding: 0px;
   margin: 0px;
-  display: float;
 	overflow-x: hidden;
 	overflow-y: auto;
 }
@@ -14,20 +13,21 @@ body {
 #home2 {
   width: 100%;
   height: 100vh;
-  background-color: rgb(179, 179, 179);
+  background-color: rgb(255, 255, 255);
   display: block;
+  opacity: 65%;
 }
 
 #news {
   height: 15%;
-  background-color: rgb(255, 85, 85);
+  background-color: lightgray;
   overflow: auto;
   color: black;
   font-size: 2vw;
   display: flex;
   justify-content: center;
   align-items: center;
-  outline: 3px solid #830202;
+  outline: 3px solid darkgray;
   outline-offset: -3px;
   margin-bottom: 5vh;
 }
@@ -44,15 +44,15 @@ body {
 }
 
 #left {
-  border-right: 1px solid #808080;
+  border-right: 1px solid darkgray;
 }
 
 #right {
-  border-left: 1px solid #808080;
+  border-left: 1px solid darkgray;
 }
 
 .underline {
-  border-bottom: 1px solid #808080;
+  border-bottom: 1px solid darkgray;
 }
 
 th {
@@ -71,9 +71,9 @@ th {
 #btnSpeisekarte {
   width: 60%;
   height: 10%;
-  border-color: #704b6a;
-  border-width: 5px;
-  background-color: #f2991a;
+  border-color:darkgray;
+  border-width: 3px;
+  background-color:lightgray;
   margin-bottom: 10%;
   font-size: 30px;
   margin-left: auto;
@@ -103,12 +103,12 @@ th {
   max-block-size: 4vw;
 }
 #cart {
-  left: 10vw;
-  top: 35vh;
+  left: 22%;
+  top: 92%;
 }
 #controlIcon {
-  left: 26vw;
-  top: 35vh;
+  left: 62%;
+  top: 92%;
 }
 #login{
   padding: 6px;
@@ -139,7 +139,7 @@ th {
   background-color: transparent;
 }
 .dropbtn {
-  background-color: #44aa00;
+  background-color: lightgray;
   padding: 5px;
   color: white;
   font-weight: bold;
@@ -170,13 +170,13 @@ th {
    /*
     -------- BANNER --------
   */
-  #banner_full {
+  #banner_small {
     background-image: url(https://cdn.gutekueche.de/upload/rezept/10862/1600x1200_rib-eye-steak.jpg);
     position: relative;
     width: 100%;
     height: fit-content;
   }
-  #banner_full .banner_logo {
+  #banner_small .banner_logo {
       position: relative;
       color: white;
       text-shadow: 0 0 15px #000;
@@ -186,12 +186,14 @@ th {
       font-size: 50px;
       top: 1px;
   }
-  #banner_full .banner_logo img {
+  #banner_small .banner_logo img {
     display: none;
   }
+
   /*
     -------- FOOTER --------
   */
+
   #impressum {
     display: flex;
     width: fit-content;
@@ -200,27 +202,32 @@ th {
     width: fit-content;
     height: fit-content;
     margin-left: 3vw;
-    background-color: #67811a;
+    background-color: lightgray;
   }
   /*
    -------- INDEX --------
   */
+  #home1 {
+    height: 75vh;
+    width: auto;
+  }
   #home2 {
-    width: 100%;
+    width: 96%;
     height: fit-content;
     background-color: rgb(179, 179, 179);
     display: block;
+    margin: 2%;
   }
   #news {
     height: fit-content;
-    background-color: rgb(255, 85, 85);
+    background-color: lightgray;
     overflow: auto;
     color: black;
     font-size: 5vw;
     display: flex;
     justify-content: center;
     align-items: center;
-    outline: 3px solid #830202;
+    outline: 3px solid darkgray;
     outline-offset: -3px;
     margin-bottom: 5vh;
   } 

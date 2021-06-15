@@ -1,14 +1,18 @@
 html body{
-    margin: 0px;
-    padding: 0px;
+  padding: 0px;
+  margin: 0px;
+	overflow-x: hidden;
+	overflow-y: auto;
 }
 
 #page {
-    width: 100vw;
+    width: 96vw;
     height: 76vh;
     display: flex;
     justify-content: center;
-    background-color: #AEAEAE;
+    background-color: lightgray;
+    opacity: 60%;
+    margin:  2%;
 }
 
 #container{
@@ -48,7 +52,7 @@ input {
     height: 6%;
     left: 15%;
     margin-top: 10%;
-    background-color: #2CA02C;
+    background-color: lightgray;
     border: 2px solid;
     font-weight: bold;
 }
@@ -83,12 +87,12 @@ input {
   max-block-size: 4vw;
 }
 #cart {
-  left: 10vw;
-  top: 35vh;
+  left: 22%;
+  top: 92%;
 }
 #controlIcon {
-  left: 26vw;
-  top: 35vh;
+  left: 62%;
+  top: 92%;
 }
 #login{
   padding: 6px;
@@ -119,7 +123,7 @@ input {
   background-color: transparent;
 }
 .dropbtn {
-  background-color: #44aa00;
+  background-color: lightgray;
   padding: 5px;
   color: white;
   font-weight: bold;
@@ -178,7 +182,7 @@ input {
     width: fit-content;
     height: fit-content;
     margin-left: 3vw;
-    background-color: #67811a;
+    background-color: lightgray;
   }
     /*
      -------- LOGIN --------
@@ -186,7 +190,7 @@ input {
     #page {
       padding-bottom: 20px;
       position: relative;
-      width: 100vw;
+      width: 96vw;
       height: fit-content;
       background-color: #AEAEAE;
     }

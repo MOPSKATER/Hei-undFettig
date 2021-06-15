@@ -4,13 +4,16 @@ body {
 	padding: 0;
 	overflow-x: hidden;
 	overflow-y: auto;
-	background-color: rgb(179, 179, 179);
+	background-color: rgb(255, 255, 255);
 }
 
 #page {
-	width: 100%;
+	width: 96%;
 	display: block;
 	min-height: calc(100vh - 25vh - 11.5vh);
+  background-color: lightgray;
+  opacity: 60%;
+  margin: 2%;
 }
 
 #left {
@@ -26,7 +29,7 @@ body {
     width: 100%;
 }
 .input:invalid {
-    border-color: red;
+    border-color: rgb(255, 255, 255);
 }
 #left .inline {
     display: inline-block;
@@ -76,12 +79,12 @@ body {
   max-block-size: 4vw;
 }
 #cart {
-  left: 10vw;
-  top: 35vh;
+  left: 22%;
+  top: 92%;
 }
 #controlIcon {
-  left: 26vw;
-  top: 35vh;
+  left: 62%;
+  top: 92%;
 }
 #login{
   padding: 6px;
@@ -112,7 +115,7 @@ body {
   background-color: transparent;
 }
 .dropbtn {
-  background-color: #44aa00;
+  background-color: lightgray;
   padding: 5px;
   color: white;
   font-weight: bold;
@@ -171,7 +174,7 @@ body {
     width: fit-content;
     height: fit-content;
     margin-left: 3vw;
-    background-color: #67811a;
+    background-color: lightgray;
   }
     /*
      -------- PROFILE --------
