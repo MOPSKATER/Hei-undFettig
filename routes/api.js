@@ -127,7 +127,6 @@ router.get('/account/isLoggedin', function (req, res, next) {
     Accountmanager.isLoggedIn(req) ? res.sendStatus(200) : res.sendStatus(401)
 });
 
-//TODO implement
 router.put('/account/set', function (req, res, next) {
     if (Accountmanager.isLoggedIn(req)) {
         res.statusCode = 401
