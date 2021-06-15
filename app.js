@@ -14,8 +14,13 @@ if (process.env.UNSAFE === "true")
 
 var app = express();
 var session = require('express-session')
-//FIXME fix secret
-app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 300000 }, rolling: true, SameSite: true, resave: false, saveUninitialized: false }))
+
+secret = ""
+const alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-.,=?<>_!?&%"
+for (let i = 0; i < 16; i++)
+  secret += alphabet[Math.floor(Math.random() * alphabet.length)]
+
+app.use(session({ secret: secret, cookie: { maxAge: 300000 }, rolling: true, SameSite: true, resave: false, saveUninitialized: false }))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
