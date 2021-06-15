@@ -250,8 +250,8 @@ router.delete('/news/edit', function (req, res, next) {
 
     data = { id: req.body.id, caption: req.body.caption, text: req.body.text }
     err = validate(data, {
-        id: Ruleset.Id, caption: { presence: true, format: { pattern: "[^" + unsafe + "]+" }, length: { maximum: 30 } },
-        text: { format: { pattern: "[^" + unsafe + "]+" }, length: { maximum: 200 } }
+        id: Ruleset.Id, caption: Ruleset.Caption,
+        text: Ruleset.Text
     })
 
     if (printErr(err, res))
@@ -281,7 +281,7 @@ router.delete('/news/delete', function (req, res, next) {
     }
 
     data = { id: req.body.id }
-    err = validate(data, { id: { presence: true, numericality: true } })
+    err = validate(data, { id: Ruleset.Id })
 
     if (printErr(err, res))
         return
@@ -301,7 +301,7 @@ router.post('/cart/add', function (req, res, next) {
         return
     }
 
-    err = validate({ id: req.body.id }, { id: { presence: true, numericality: true } })
+    err = validate({ id: req.body.id }, { id: Ruleset.Id })
 
     if (printErr(err, res))
         return
@@ -327,7 +327,7 @@ router.post('/cart/remove', function (req, res, next) {
         return
     }
 
-    err = validate({ id: req.body.id }, { id: { presence: true, numericality: true } })
+    err = validate({ id: req.body.id }, { id: Ruleset.Id })
 
     if (printErr(err, res))
         return
@@ -444,7 +444,7 @@ router.delete('/orders/delete', function (req, res, next) {
         return
     }
 
-    err = validate({ uid: req.body.uid, datetime: req.body.datetime }, { uid: { presence: true, length: { is: 16 }, format: { pattern: "[a-zA-Z0-9]+" } }, datetime: { presence: true, datetime: true /*FIXME check date*/ } })
+    err = validate({ uid: req.body.uid, datetime: req.body.datetime }, { uid: Ruleset.Uid, datetime: Ruleset.Datetime })
 
     if (printErr(err, res))
         return
