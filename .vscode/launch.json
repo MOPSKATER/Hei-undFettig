@@ -12,6 +12,21 @@
                 "<node_internals>/**"
             ],
             "program": "${workspaceFolder}/bin/www"
-        }
+        },
+        {
+            "type": "pwa-node",
+            "request": "launch",
+            "name": "Launch Program with parameters",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "args": [
+                "2000"
+            ],
+            "env": {
+                "UNSAFE": "true"
+            },
+            "program": "${workspaceFolder}/bin/www"
+        },
     ]
 }
