@@ -52,7 +52,7 @@ router.post('/account/login', function (req, res, next) {
         req.body.email = "admin@heiss.fettig"
     }
     var data = { email: req.body.email, password: req.body.password }
-    var err = validate(data, { email: { presence: true, email: true }, password: { presence: true, length: { is: 64 }, format: { pattern: "[0-9a-f]+" } } })
+    var err = validate(data, { email: Ruleset.EMail, password: Ruleset.Password })
 
     if (printErr(err, res))
         return
@@ -104,7 +104,7 @@ router.post('/account/logout', function (req, res, next) {
 
 router.post('/account/register', function (req, res, next) {
     var data = { email: req.body.email, salt: "", password: req.body.password }
-    err = validate(data, { email: { presence: true, email: true }, password: { presence: true, length: { is: 64 }, format: { pattern: "[0-9a-f]+" } } })
+    err = validate(data, { email: Ruleset.EMail, password: Ruleset.Password })
 
     if (printErr(err, res))
         return
@@ -127,6 +127,7 @@ router.get('/account/isLoggedin', function (req, res, next) {
     Accountmanager.isLoggedIn(req) ? res.sendStatus(200) : res.sendStatus(401)
 });
 
+//TODO implement
 router.put('/account/set', function (req, res, next) {
     if (Accountmanager.isLoggedIn(req)) {
         res.statusCode = 401
@@ -249,8 +250,8 @@ router.delete('/news/edit', function (req, res, next) {
 
     data = { id: req.body.id, caption: req.body.caption, text: req.body.text }
     err = validate(data, {
-        id: { presence: true, numericality: true }, caption: { presence: true, format: { pattern: "[0-9a-zA-ZäöüÄÖÜ .,:;-_!?#" + unsafe + "]+" }, length: { maximum: 30 } },
-        text: { format: { pattern: "[0-9a-zA-ZäöüÄÖÜ .,:;-_!?#\n" + unsafe + "]*" }, length: { maximum: 200 } }
+        id: Ruleset.Id, caption: { presence: true, format: { pattern: "[^" + unsafe + "]+" }, length: { maximum: 30 } },
+        text: { format: { pattern: "[^" + unsafe + "]+" }, length: { maximum: 200 } }
     })
 
     if (printErr(err, res))

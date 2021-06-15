@@ -2,6 +2,7 @@ const Ruleset = {
 
     Name: { format: { pattern: "[a-zA-Z]+" } },
     Uid: { presence: true, length: { is: 16 } },
+    Id: { presence: true, numericality: true },
     EMail: { email: true, presence: true },
     Changeemail: { email: true },
     Password: { presence: true, length: { is: 64 }, format: { pattern: "[0-9a-f]+" } },
