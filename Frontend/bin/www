@@ -12,8 +12,10 @@ const { exit, argv } = require('process');
 args = process.argv.splice(2)
 if (args[0])
   process.env.api = args[0]
-else
-  process.env.api = "localhost:3001"
+else {
+  console.log("Api required!")
+  process.exit(1)
+}
 
 /**
  * Get port from environment and store in Express.

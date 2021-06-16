@@ -1,13 +1,11 @@
 # Heiß und Fettig
 
-Zum starten im Hauptverzeichnis "npm start" eingeben.
+Zum starten im Backend "npm start [<port>]" eingeben.
 
-Der Standart-Port ist 3000. Dieser kann mit dem parameter geändert werden (nur die aktuelle Version)
+Der Standart-Port ist 3001. Dieser kann mit einem parameter geändert werden
 
 Benutzer "Admin" wir beim ersten Start generiert (1).
 Das Passwort wird in der Konsole ausgegeben.
-
-(1) wenn die Tabelle users in der Datenbank fehlt.
 
 ### bisher dynamisierte funktionen:
 
