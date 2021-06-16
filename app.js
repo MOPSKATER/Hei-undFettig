@@ -8,10 +8,6 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var api = require('./routes/api');
 
-
-if (process.env.UNSAFE !== "true")
-  api.unsafe = "<>"
-
 var app = express();
 var session = require('express-session')
 

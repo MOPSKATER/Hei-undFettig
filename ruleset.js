@@ -12,8 +12,8 @@ const Ruleset = {
     Plz: { numericality: true },
     Place: { format: { pattern: "[a-zA-Z]+" } },
     Datetime: { presence: true, format: { pattern: "[0-9]{4}\.[0-9]{2}\.[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}" } },
-    Caption: { presence: true, format: { pattern: "[^" + unsafe + "]+" }, length: { maximum: 30 } },
-    Text: { format: { pattern: "[^" + unsafe + "]+" }, length: { maximum: 200 } }
+    Caption: { presence: true, format: { pattern: "[^<>]+" }, length: { maximum: 30 } },
+    Text: { format: { pattern: "[^<>]+" }, length: { maximum: 200 } }
 
 }
 

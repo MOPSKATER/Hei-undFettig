@@ -7,10 +7,6 @@ const Ruleset = require('../ruleset');
 var router = express.Router();
 const path = require('path');
 
-var unsafe = ""
-
-module.exports = unsafe;
-
 router.get('/', function (req, res, next) {
     res.sendFile(path.join(__dirname + "/../views/apiUsage.html"))
 });
@@ -217,8 +213,8 @@ router.post('/news/add', function (req, res, next) {
 
     data = { id: req.body.id, caption: req.body.caption, text: req.body.text }
     err = validate(data, {
-        id: { presence: true, numericality: true }, caption: { presence: true, format: { pattern: "[0-9a-zA-ZäöüÄÖÜ .,:;-_!?" + unsafe + "]+" }, length: { maximum: 30 } },
-        text: { format: { pattern: "[0-9a-zA-ZäöüÄÖÜ .,:;-_!?\n" + unsafe + "]*" }, length: { maximum: 200 } }
+        id: { presence: true, numericality: true }, caption: Ruleset.Caption,
+        text: Ruleset.Text
     })
 
     if (printErr(err, res))
