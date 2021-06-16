@@ -15,45 +15,45 @@ var data = {
 var params = window.location.search.substring(1).split('&');
 params.forEach((p) => {
     var pair = p.split('=');
-    if(pair[0] == "uid") {
+    if (pair[0] == "uid") {
         data.uid = pair[1];
     }
-} );
+});
 
 function load() {
-    if(!data.uid) data.uid = getJSONCookie("predict")["uid"];
-    fetch('/api/user/' + data.uid, { method: "GET", headers: { 'Content-Type': 'application/json' }, credentials: "include" })
-            .then(async response => {
-                switch (response.status) {
-                    case 200:
-                        resp = await response.json();
-                        data.permission = resp.permissionlevel;
-                        data.tp = resp.points;
-                        data.prename = resp.prename === null ? resp.prename : "";
-                        data.name = resp.name === null ? resp.name : "";
-                        data.email = resp.email;
-                        data.address = resp.street === null ? resp.street : "";
-                        data.plz = resp.plz === null ? resp.plz : "";
-                        data.city = resp.place === null ? resp.place : "";
-                        build(data.permission, data);
-                        break;
+    if (!data.uid) data.uid = getJSONCookie("predict")["uid"];
+    fetch('<%= api %>' + data.uid, { method: "GET", headers: { 'Content-Type': 'application/json' }, credentials: "include" })
+        .then(async response => {
+            switch (response.status) {
+                case 200:
+                    resp = await response.json();
+                    data.permission = resp.permissionlevel;
+                    data.tp = resp.points;
+                    data.prename = resp.prename === null ? resp.prename : "";
+                    data.name = resp.name === null ? resp.name : "";
+                    data.email = resp.email;
+                    data.address = resp.street === null ? resp.street : "";
+                    data.plz = resp.plz === null ? resp.plz : "";
+                    data.city = resp.place === null ? resp.place : "";
+                    build(data.permission, data);
+                    break;
 
-                    // FIXME: correct error handling
-                    case 401:
-                        //TODO unsufficient permissions error
-                        break;
+                // FIXME: correct error handling
+                case 401:
+                    //TODO unsufficient permissions error
+                    break;
 
-                    case 404:
-                        // error: exists not
-                        alert("user existiert nicht")
-                        break;
+                case 404:
+                    // error: exists not
+                    alert("user existiert nicht")
+                    break;
 
-                    default:
-                        alert("interner Server Error")
-                        break;
-                }
-            });
-    document.getElementById('data').onsubmit = function(e) {
+                default:
+                    alert("interner Server Error")
+                    break;
+            }
+        });
+    document.getElementById('data').onsubmit = function (e) {
         e.preventDefault();
         var data = {
             name: document.getElementById("name").value,

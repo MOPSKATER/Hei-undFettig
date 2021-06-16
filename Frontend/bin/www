@@ -9,10 +9,16 @@ var debug = require('debug')('hei-und-fettig:server');
 var http = require('http');
 const { exit, argv } = require('process');
 
+args = process.argv.splice(2)
+if (args[0])
+  process.env.api = args[0]
+else
+  process.env.api = "localhost:3001"
+
 /**
  * Get port from environment and store in Express.
  */
-var port = normalizePort(process.argv.splice(2)[0] || '3000');
+var port = normalizePort(args[1] || '3000');
 app.set('port', port);
 
 /**
