@@ -17,7 +17,7 @@ function update() {
     });
     var predict = getJSONCookie("predict");
     predict ? permission = predict.accessLevel : permission = 0
-    fetch('/api/news/all', { method: "GET", headers: { 'Content-Type': 'application/json' } })
+    fetch('http://<%= api %>/api/news/all', { method: "GET", headers: { 'Content-Type': 'application/json' } })
         .then(async response => {
             if (response.status === 200) {
                 var data = await response.json();
@@ -44,7 +44,7 @@ function update() {
 function add(e) {
     div = e.parentNode.parentNode;
     if (div.querySelector(".header").value !== "") {
-        fetch('/api/news/add', { method: "POST", body: JSON.stringify({ id: highestId+1, caption: document.getElementById("new-news").querySelector(".header").value, text: document.getElementById("new-news").querySelector(".text").value }), headers: { 'Content-Type': 'application/json' } })
+        fetch('http://<%= api %>/api/news/add', { method: "POST", body: JSON.stringify({ id: highestId+1, caption: document.getElementById("new-news").querySelector(".header").value, text: document.getElementById("new-news").querySelector(".text").value }), headers: { 'Content-Type': 'application/json' } })
             .then(async response => {
                 switch (response.status) {
                     case 200:
@@ -65,7 +65,7 @@ function add(e) {
     }
 }
 function remove(e) {
-    fetch('/api/news/delete', { method: "DELETE", body: JSON.stringify({ id: e.parentNode.parentNode.getAttribute("newsId") }), headers: { 'Content-Type': 'application/json' } })
+    fetch('http://<%= api %>/api/news/delete', { method: "DELETE", body: JSON.stringify({ id: e.parentNode.parentNode.getAttribute("newsId") }), headers: { 'Content-Type': 'application/json' } })
     .then(async response => {
         switch (response.status) {
             case 200:
@@ -95,7 +95,7 @@ function edit(e) {
 function save(e) {
     div = e.parentNode.parentNode;
     if (div.querySelector(".header").value !== "") {
-        fetch('/api/news/edit', { method: "DELETE", body: JSON.stringify({ id: lastId, caption: div.querySelector(".header").value.replaceAll("\n",""), text: div.querySelector(".text").value }), headers: { 'Content-Type': 'application/json' } })
+        fetch('http://<%= api %>/api/news/edit', { method: "DELETE", body: JSON.stringify({ id: lastId, caption: div.querySelector(".header").value.replaceAll("\n",""), text: div.querySelector(".text").value }), headers: { 'Content-Type': 'application/json' } })
             .then(async response => {
                 switch (response.status) {
                     case 200:

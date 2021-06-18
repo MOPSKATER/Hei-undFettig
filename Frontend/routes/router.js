@@ -17,7 +17,7 @@ function loadJavaScripts(dir) {
                         console.log(err)
                         process.exit(0)
                     }
-                    javascripts[filename] = content.replace("<%= api %>", process.env.api)
+                    javascripts[filename] = content.replace(/<%= api %>/g, process.env.api)
                 });
             else
                 loadJavaScripts(dir + "util/")

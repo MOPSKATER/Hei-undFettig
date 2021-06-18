@@ -22,7 +22,7 @@ params.forEach((p) => {
 
 function load() {
     if (!data.uid) data.uid = getJSONCookie("predict")["uid"];
-    fetch('<%= api %>' + data.uid, { method: "GET", headers: { 'Content-Type': 'application/json' }, credentials: "include" })
+    fetch('http://<%= api %>/api' + data.uid, { method: "GET", headers: { 'Content-Type': 'application/json' }, credentials: "include" })
         .then(async response => {
             switch (response.status) {
                 case 200:

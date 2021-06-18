@@ -13,7 +13,7 @@ const testImg = {
 let counter = 0
 
 function loadNews() {
-    fetch('/api/news/new', { method: "GET", headers: { 'Content-Type': 'application/json' } })
+    fetch('http://<%= api %>/api/news/new', { method: "GET", headers: { 'Content-Type': 'application/json' } })
         .then(async response => {
             if (response.status !== 404) {
                 var data = await response.json();

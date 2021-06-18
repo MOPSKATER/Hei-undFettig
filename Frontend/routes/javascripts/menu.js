@@ -37,7 +37,7 @@ function load() {
 
 function addToBasket(elem) {
     var div = elem.parentNode.parentNode;
-    fetch('/api/cart/add', { method: "POST", body: JSON.stringify({ id: parseInt(div.querySelector(".num").innerHTML) }), headers: { 'Content-Type': 'application/json' } })
+    fetch('http://<%= api %>/api/cart/add', { method: "POST", body: JSON.stringify({ id: parseInt(div.querySelector(".num").innerHTML) }), headers: { 'Content-Type': 'application/json' } })
         .then(async response => {
             switch (response.status) {
                 case 200:

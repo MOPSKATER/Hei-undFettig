@@ -23,14 +23,14 @@ function update() {
     cart = []
     total = 0;
 
-    fetch('/api/cart/get', { method: "GET", headers: { 'Content-Type': 'application/json' } })
+    fetch('http://<%= api %>/api/cart/get', { method: "GET", headers: { 'Content-Type': 'application/json' } })
         .then(async response => {
             if (response.status === 200) {
                 var data = await response.json();
                 var fetches = [];
                 data.forEach(function(item) {
                     console.log(item.itemid)
-                    fetches.push(fetch('/api/item/get', { method: "POST", body: JSON.stringify({ id: item.itemid }), headers: { 'Content-Type': 'application/json' } })
+                    fetches.push(fetch('http://<%= api %>/api/item/get', { method: "POST", body: JSON.stringify({ id: item.itemid }), headers: { 'Content-Type': 'application/json' } })
                         .then(async response => {
                             var data = await response.json();
                             if (response.status === 200) {
@@ -73,7 +73,7 @@ function update() {
 function changedCount(e) {
     var div = e.parentNode.parentNode;
     var id = div.querySelector(".num").innerHTML;
-    fetch('/api/cart/updateCount', { method: "POST", body: JSON.stringify({ id: id, count: div.querySelector(".count").querySelector("input").value }), headers: { 'Content-Type': 'application/json' } })
+    fetch('http://<%= api %>/api/cart/updateCount', { method: "POST", body: JSON.stringify({ id: id, count: div.querySelector(".count").querySelector("input").value }), headers: { 'Content-Type': 'application/json' } })
         .then(async response => {
             //TODO: add error handling
 
@@ -90,7 +90,7 @@ function changedMethode() {
 function remove(e) {
     var div = e.parentNode.parentNode;
     var id = div.querySelector(".num").innerHTML;
-    fetch('/api/cart/remove', { method: "POST", body: JSON.stringify({ id: id }), headers: { 'Content-Type': 'application/json' } })
+    fetch('http://<%= api %>/api/cart/remove', { method: "POST", body: JSON.stringify({ id: id }), headers: { 'Content-Type': 'application/json' } })
         .then(async response => {
             //TODO: add error handling
 

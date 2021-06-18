@@ -7,7 +7,7 @@ function removeUnderline(obj) {
 }
 
 function toggleControl() {
-    fetch('/api/account/isLoggedin', { method: "GET" })
+    fetch('http://<%= api %>/api/account/isLoggedin', { method: "GET" })
             .then(async response => {
                 var profile = getJSONCookie("predict");
                 switch (response.status) {
@@ -42,7 +42,7 @@ function displayLogin(name, points) {
     login.href = "javascript:displayLogout()";
 }
 function displayLogout() {
-    fetch('/api/account/logout', { method: "POST", headers: { 'Content-Type': 'application/json' }, credentials: "include" })
+    fetch('http://<%= api %>/api/account/logout', { method: "POST", headers: { 'Content-Type': 'application/json' }, credentials: "include" })
             .then(async response => {
                 switch (response.status) {
                     case 200:
