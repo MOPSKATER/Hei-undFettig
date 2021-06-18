@@ -27,7 +27,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use('/api', api);
-app.use(cors)
 
 
 // catch 404 and forward to error handler

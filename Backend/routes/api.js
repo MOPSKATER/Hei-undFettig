@@ -6,6 +6,8 @@ const Privileges = require('../privileges');
 const Ruleset = require('../ruleset');
 var router = express.Router();
 const path = require('path');
+var cors = require("cors")
+router.use(cors)
 
 router.get('/', function (req, res, next) {
     res.sendFile(path.join(__dirname + "/../views/apiUsage.html"))
