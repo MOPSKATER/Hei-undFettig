@@ -1,5 +1,13 @@
 #!/usr/bin/env node
 
+args = process.argv.splice(2)
+if (args[0])
+  process.env.frontend = args[0]
+else {
+  console.log("Api required!")
+  process.exit(1)
+}
+
 /**
  * Module dependencies.
  */

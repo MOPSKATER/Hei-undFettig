@@ -7,7 +7,8 @@ const Ruleset = require('../ruleset');
 var router = express.Router();
 const path = require('path');
 var cors = require("cors")
-router.use(cors)
+
+router.use(cors({credentials: true, origin: "http://" + process.env.frontend, withCredentials: true}))
 
 router.get('/', function (req, res, next) {
     res.sendFile(path.join(__dirname + "/../views/apiUsage.html"))

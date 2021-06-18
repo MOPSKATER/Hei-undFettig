@@ -7,7 +7,7 @@ function removeUnderline(obj) {
 }
 
 function toggleControl() {
-    fetch('http://<%= api %>/api/account/isLoggedin', { method: "GET" })
+    fetch('http://<%= api %>/api/account/isLoggedin', { method: "GET", credentials: "include" })
             .then(async response => {
                 var profile = getJSONCookie("predict");
                 switch (response.status) {

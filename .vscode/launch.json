@@ -23,9 +23,9 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "env": {
-                "UNSAFE": "true"
-            },
+            "args": [
+                "localhost:3000"
+            ],
             "program": "${workspaceFolder}/Backend/bin/www"
         },
     ]
