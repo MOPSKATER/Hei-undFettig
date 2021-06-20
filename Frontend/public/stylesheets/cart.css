@@ -15,11 +15,9 @@ body {
 	min-height: calc(100vh - 25vh - 11.5vh);
 	margin: 2%;
 	background-color: lightgray;
-	opacity: 60%;
 }
 #bon-page{
 	background-color: lightgray;
-	opacity: 60%;
 	margin: 2%;
 }
 

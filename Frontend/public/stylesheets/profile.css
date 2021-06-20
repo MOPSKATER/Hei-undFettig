@@ -12,7 +12,6 @@ body {
 	display: block;
 	min-height: calc(100vh - 25vh - 11.5vh);
   background-color: lightgray;
-  opacity: 60%;
   margin: 2%;
 }
 
