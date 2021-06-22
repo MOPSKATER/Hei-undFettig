@@ -16,10 +16,11 @@
   align-items: center;
 }
 #btnImpressum {
-  width: 20%;
   height: 15%;
   margin-left: 3vw;
-  background-color: #ffffff;
+  background-color: lightgray;
+  border: 2px sold darkgray;
+  width: fit-content;
 }
 .btn {
   display: flex;
@@ -30,14 +31,5 @@
 .noDeco {
   text-decoration: none;
   color: black;
-}
-.openHour{
-  border: 1px solid;
-  display: block;
-  position: relative;
-  color: black;
-  font-size: bold;
-  background-color: #ffffff;
-  margin: 20px;
 }
 
