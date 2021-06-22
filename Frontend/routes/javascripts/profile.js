@@ -101,4 +101,3 @@ function build(permission, data) {
 }
 
 window.onload = load;
-

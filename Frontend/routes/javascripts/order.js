@@ -1,44 +1,77 @@
 
 // exampledata if cookies don't work (local)
 // TODO: change back to empty
-var orders = JSON.parse('[{"name":"Peter Parker","time":"16:55","cart":[{"id":1.1,"name":"Salat","price":19.01,"count":"1"},{"id":1.2,"name":"Suppe","price":29.01,"count":"2"}],"notice":"","total":"77.03","paypal":true},{"name":"Peter Pan","time":"09:43","cart":[{"id":2.1,"name":"Steak","price":19.02,"count":1},{"id":2.3,"name":"Schnitzel x2","price":39.02,"count":"2"},{"id":3.1,"name":"Salz","price":19.03,"count":3}],"notice":"Danke! <3","total":"154.15","paypal":true},{"name":"Tony Stark","time":"19:49","cart":[{"id":1.1,"name":"Salat","price":19.01,"count":1},{"id":1.2,"name":"Suppe","price":29.01,"count":1},{"id":2.1,"name":"Steak","price":19.02,"count":1},{"id":2.2,"name":"Schnitzel","price":29.02,"count":1},{"id":2.3,"name":"Schnitzel x2","price":39.02,"count":1},{"id":3.1,"name":"Salz","price":19.03,"count":1}],"notice":"","total":"154.00","paypal":true}]') // = [];
 
 function load() {
-    orders = getJSONCookie("orders") || orders;
-    if (orders.length === 0) {
-        document.getElementById("orderContainer").append("Alles erledigt! :)");
-    }
-    else {
-        orders.forEach(function (item) {
-            var newItem = document.getElementById("order").content.cloneNode(true);
-            newItem.querySelector(".headline").innerHTML += item.time;
-            newItem.querySelector(".name").innerHTML += item.name;
-            newItem.querySelector(".name").href = "./profile.html?id=10";
-            newItem.querySelector(".price").innerHTML = parseFloat(item.total).toFixed(2).replace(".",",") + "€";
-            if (item.paypal) {
-                newItem.querySelector(".price").innerHTML += " (bezahlt: PayPal)"
-            }
-            item.cart.forEach(function (cartItem) {
-                var newItemContent = document.getElementById("orderContent").content.cloneNode(true);
-                newItemContent.querySelector(".content").innerHTML += cartItem.id + " " + cartItem.name + " <i>x" + cartItem.count + "</i>";
-                newItem.querySelector(".orderContent").append(newItemContent);
-            });
-            if (item.notice !== "") {
-                newItem.querySelector(".noticeblock").innerHTML = item.notice;
-                newItem.querySelector(".noticeblock").removeAttribute("hidden");
-            }
-            document.getElementById("orderContainer").append(newItem);
-        })
-    }
+    document.getElementById("orderContainer").innerHTML = "";
+    fetch('<%= api %>/api/orders/get', { method: "GET", headers: { 'Content-Type': 'application/json' }, credentials: "include" })
+    .then(async response => {
+        //TODO: add error handling
+        orders = await response.json();
+        if (orders.length === 0) {
+            document.getElementById("orderContainer").append("Alles erledigt! :)");
+        }
+        else {
+            var fetches = [];
+            var orderGroups = {};
+            orders.forEach(function (item) {
+                fetches.push(fetch('<%= api %>/api/user/' + item.uid, { method: "GET", headers: { 'Content-Type': 'application/json' }, credentials: "include" })
+                .then(async response => {
+                    //TODO: add error handling
+                    var user = await response.json();
+                    var key = item.uid + item.datetime;
+                    if (orderGroups[key] === undefined) {
+                        var newItem = {}
+                        newItem.datetime = item.datetime;
+                        newItem.name = user.prename && user.name ? user.prename + " " + user.name : user.email;
+                        newItem.uid = item.uid;
+                        orderGroups[key] = {}
+                        orderGroups[key].general = newItem;
+                        orderGroups[key].items = [];
+                    }
+                    await fetch('<%= api %>/api/item/get', { method: "POST", body: JSON.stringify({id: item.itemid}), headers: { 'Content-Type': 'application/json' }, credentials: "include" })
+                    .then(async response => {
+                        var content = (await response.json())[0];
+                        var newItemContent = content.id + " " + content.name + " <i>x" + item.amount + "</i> " + content.price.toFixed(2) + "€";
+                        orderGroups[key].items.push(newItemContent);
+                    });
+                }));
+            })
+            Promise.all(fetches).then(function() {
+                Object.keys(orderGroups).forEach(key => {
+                    var x = document.getElementById("order").content.cloneNode(true);
+                    x.querySelector(".headline").innerHTML += orderGroups[key].general.datetime;
+                    x.querySelector(".name").innerHTML += orderGroups[key].general.name;
+                    x.querySelector(".name").href = "./profile.html?uid=" + orderGroups[key].general.uid;
+                    orderGroups[key].items.forEach(content => {
+                        var newItemContent = document.getElementById("orderContent").content.cloneNode(true);
+                        newItemContent.querySelector(".content").innerHTML += content;
+                        x.querySelector(".orderContent").append(newItemContent);
+                    });
+                    document.getElementById("orderContainer").append(x);
+                    var el = document.getElementById("orderContainer").children;
+                    el[el.length - 1].setAttribute("uid", orderGroups[key].general.uid);
+                    el[el.length - 1].setAttribute("datetime", orderGroups[key].general.datetime);
+                });
+            })
+        }
+    });
 }
 
 function remove(e) {
-    orders.splice(Array.prototype.indexOf.call(e.parentNode.parentNode.children, e.parentNode), 1);
-    setJSONCookie("orders", orders);
-    e.parentNode.parentNode.removeChild(e.parentNode);
-    if (orders.length === 0) {
-        document.getElementById("orderContainer").append("Alles erledigt! :)");
-    }
+    fetch('<%= api %>/api/orders/delete', { method: "DELETE", body: JSON.stringify({ uid: e.parentNode.getAttribute("uid"), datetime: e.parentNode.getAttribute("datetime") }), headers: { 'Content-Type': 'application/json' }, credentials: "include" })
+    .then(async response => {
+        switch (response.status) {
+            case 200:
+                update();
+                break;
+            default:
+                //TODO: add proper error handling
+                alert("failed")
+                break;
+        }
+        load()
+    });
 }
 
 window.onload = load;
