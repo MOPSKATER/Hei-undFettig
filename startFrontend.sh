@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#Frontend address
+#Backend address
 BACKEND=http://localhost:3000
 
 cd Frontend
