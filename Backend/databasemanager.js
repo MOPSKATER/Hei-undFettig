@@ -220,6 +220,12 @@ const Databasemanager = {
         db.prepare("SELECT * FROM item WHERE id=?").all(itemid, (err, table) => {
             callback(err, table)
         })
+    },
+
+    getAllItems(callback) {
+        db.prepare("SELECT * FROM item").all((err, table) => {
+            callback(err, table)
+        })
     }
 }
 

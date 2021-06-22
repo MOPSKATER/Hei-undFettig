@@ -1,38 +1,20 @@
 
 function load() {
-    menu = [
-        [
-            "starters",
-            [
-                ["Salat", "Diese Beschreibung ist sehr lang und sagt nichts über das Essen aus.", 19.01],
-                ["Suppe", "Suppe mit Schnittlauch", 29.00]
-            ]
-        ],
-        [
-            "mainCourses",
-            [
-                ["Steak", "Steak mit Pommes und Salat", 19.02],
-                ["Schnitzel", "Schnitzel mit Pommes und Salat", 29.02],
-                ["Schnitzel x2", "Das obendrüber. Nur mehr.", 39.02]
-            ]
-        ],
-        [
-            "desserts",
-            [
-                ["Salz", "Salz-Lecksteine (nur für Kühe!)", 19.03]
-            ]
-        ]
-    ]
-
-    var prev = 0;
-    for (var i = 0; i < menu.length; i++) {
-        var current = 0
-        for (var j = menu[i][1].length - 1; j >= 0; j--) {
-            add(menu[i][0], prev + j, menu[i][1][j]);
-            current += 1;
-        }
-        prev += current;
-    }
+    fetch('<%= api %>/api/item/all/', { method: "GET", headers: { 'Content-Type': 'application/json' }})
+        .then(async response => {
+            switch (response.status) {
+                case 200:
+                    var data = await response.json();
+                    data = data.sort((a,b)=>{return b.id - a.id})
+                    data.forEach(element => {
+                        add(element.id.split(".")[0], element)
+                    });
+                    break;
+                default:
+                    alert("interner Server Error")
+                    break;
+            }
+        });
 }
 
 function addToBasket(elem) {
@@ -64,13 +46,13 @@ function addToBasket(elem) {
         });
 }
 
-function add(course, num, attr) {
+function add(course, attr) {
     var newItem = document.getElementsByTagName("template")[0].content.cloneNode(true);
-    newItem.querySelector(".num").innerHTML = num;
-    newItem.querySelector(".name").innerHTML = attr[0];
-    newItem.querySelector(".descr").innerHTML = attr[1];
-    newItem.querySelector(".price").innerHTML = attr[2].toFixed(2).replace(".", ",") + "€";
-    document.getElementById(course).parentNode.insertBefore(newItem, document.getElementById(course).nextSibling);
+    newItem.querySelector(".num").innerHTML = attr.id;
+    newItem.querySelector(".name").innerHTML = attr.name;
+    newItem.querySelector(".descr").innerHTML = attr.description;
+    newItem.querySelector(".price").innerHTML = attr.price.toFixed(2).replace(".", ",") + "€";
+    document.getElementById(["starters","mainCourses","desserts"][course-1]).parentNode.insertBefore(newItem, document.getElementById(["starters","mainCourses","desserts"][course-1]).nextSibling);
 }
 
 window.onload = load;

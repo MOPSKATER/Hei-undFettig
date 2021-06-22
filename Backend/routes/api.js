@@ -418,6 +418,18 @@ router.post('/item/get', function (req, res, next) {
     })
 });
 
+router.get('/item/all', function (req, res, next) {
+    Database.getAllItems((err, table) => {
+        if (err) {
+            res.statusCode = 500
+            res.write(JSON.stringify(err))
+        }
+        else
+            res.write(JSON.stringify(table))
+        res.end()
+    })
+});
+
 router.post('/cart/order', function (req, res, next) {
     if (!Accountmanager.isLoggedIn(req)) {
         res.sendStatus(401)
