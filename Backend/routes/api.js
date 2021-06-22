@@ -447,7 +447,7 @@ router.delete('/orders/delete', function (req, res, next) {
     if (printErr(err, res))
         return
 
-    Database.deleteOrder(uid, datetime, (err) => {
+    Database.deleteOrder(req.body.uid, req.body.datetime, (err) => {
         if (err) {
             statusCode = 500
             res.write(JSON.stringify(err))

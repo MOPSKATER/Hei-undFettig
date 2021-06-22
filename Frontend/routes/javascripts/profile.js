@@ -72,7 +72,6 @@ function load() {
             alert("Keine leeren Felder erlaubt!");
         }
         if (valid) {
-            console.log(data);
             // Passwort hash bilden (nur einmal senden; nicht data verwenden)
             // Änderungen an senden und Antwort erwarten
             alert("\u00c4nderungen gespeichert")

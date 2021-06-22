@@ -4,7 +4,7 @@ args = process.argv.splice(2)
 if (args[0])
   process.env.frontend = args[0]
 else {
-  console.log("Api required!")
+  console.log("Frontend required!")
   process.exit(1)
 }
 

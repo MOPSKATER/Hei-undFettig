@@ -7,7 +7,6 @@ params.forEach((p) => {
         source = pair[1];
     }
 });
-console.log(source);
 
 function doLogin() {
     email = document.getElementById("loginMail").value;
@@ -18,7 +17,6 @@ function doLogin() {
                     data = await response.json();
                     switch (response.status) {
                         case 200:
-                            console.log(data);
                             setJSONCookie("predict", { displayName: data.username, accessLevel: data.accessLevel, points: data.points, uid: data.uid });
                             if (source) window.location.href = "/" + source;
                             break;
@@ -32,7 +30,6 @@ function doLogin() {
                             alert("interner Server Error")
                             break;
                     }
-                    console.log(response.status);
                 });
         });
     }
@@ -54,8 +51,7 @@ function register() {
     }
 
     // Is password long enought?
-    // FIXME >= 8
-    if (pass.lenght < 8 || pass.lenght >= 8) {
+    if (pass.lenght >= 8) {
         // error: password too short
         alert("passwort zu kurz");
         return
@@ -76,7 +72,6 @@ function register() {
                 switch (response.status) {
                     case 200:
                         data = await response.json();
-                        console.log(data);
                         setJSONCookie("predict", { displayName: email, accessLevel: 5, points: 0, uid: data.uid });
                         // TODO: redirect to Profile for missing data
                         window.location.href = "./profile.html";

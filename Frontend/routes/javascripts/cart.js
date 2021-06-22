@@ -1,6 +1,4 @@
 
-// exampledata if cookies don't work (local)
-// TODO: change back to empty
 var cart = [];
 var total = 0;
 var paypal = 0;
@@ -30,9 +28,8 @@ function update() {
                     window.location.href = "./login.html";
                     break;
             }
-            console.log(response.status);
         });
-        
+
     document.getElementById("cartContent").innerHTML = "";
     cart = []
     total = 0;
@@ -43,17 +40,14 @@ function update() {
                 var data = await response.json();
                 var fetches = [];
                 data.forEach(function (item) {
-                    console.log(item.itemid)
                     fetches.push(fetch('<%= api %>/api/item/get', { method: "POST", body: JSON.stringify({ id: item.itemid }), headers: { 'Content-Type': 'application/json' }, credentials: "include" })
                         .then(async response => {
                             var data = await response.json();
                             if (response.status === 200) {
-                                console.log(data)
                                 data[0].count = item.amount;
                                 cart.push(data[0]);
                             }
                         }))
-                    // TODO: add error handling
                 })
                 Promise.all(fetches).then(function () {
                     if (cart.length === 0) {
@@ -80,7 +74,6 @@ function update() {
                     document.getElementById("cut_paypal").innerHTML = "Paypal Gebühren: " + paypal.toFixed(2).replace(".", ",") + "€";
                 });
             }
-            //TODO: add error handling
         });
 }
 

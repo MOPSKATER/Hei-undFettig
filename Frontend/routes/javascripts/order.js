@@ -14,7 +14,6 @@ function load() {
                     window.location.href = "./login.html";
                     break;
             }
-            console.log(response.status);
         });
     document.getElementById("orderContainer").innerHTML = "";
     fetch('<%= api %>/api/orders/get', { method: "GET", headers: { 'Content-Type': 'application/json' }, credentials: "include" })
@@ -76,7 +75,7 @@ function remove(e) {
     .then(async response => {
         switch (response.status) {
             case 200:
-                update();
+                load();
                 break;
             default:
                 //TODO: add proper error handling

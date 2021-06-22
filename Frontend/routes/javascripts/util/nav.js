@@ -25,7 +25,6 @@ function toggleControl() {
                     delCookie("predict");
                     break;
             }
-            console.log(response.status);
         });
     panel = document.getElementById("controlPanel");
     if (panel.style.display === "block")
@@ -46,7 +45,6 @@ function displayLogout() {
         .then(async response => {
             switch (response.status) {
                 case 200:
-                    console.log("log-out succesfull");
                     break;
 
                 case 500:
@@ -55,7 +53,6 @@ function displayLogout() {
                     alert(data)
                     break;
             }
-            console.log(response.status);
         });
     delCookie("predict");
     document.getElementById("summary").innerHTML = "Anonym";
