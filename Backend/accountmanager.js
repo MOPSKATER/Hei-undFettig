@@ -25,8 +25,8 @@ const Accountmanager = {
         return req.session.accessLevel > Privileges.Guest ? true : false
     },
 
-    async register(data, callback) {
-        generateHash(data)
+    register(data, callback) {
+        this.generateHash(data)
         //Add creds to table
         Database.register(data, callback)
     },
