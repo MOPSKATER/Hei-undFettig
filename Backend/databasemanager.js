@@ -53,7 +53,7 @@ db.run("CREATE TABLE IF NOT EXISTS item (id text PRIMARY KEY, name text, descrip
             data = item.split(" ")
             description = data.slice(3).join(" ")
 
-            db.prepare("REPLACE INTO item (id, name, price, description) VALUES (? ? ? ?)").run(data[0], data[1], data[2], description, (err) => {
+            db.prepare("REPLACE INTO item (id, name, price, description) VALUES (?, ?, ?, ?)").run(data[0], data[1], data[2], description, (err) => {
                 if (err) {
                     console.error(err)
                     return
@@ -99,7 +99,7 @@ const Databasemanager = {
         })
     },
 
-    setData(uid, data, callback) {
+    setData(data, callback) {
         for (key in Object.keys(data))
             if (!key in validKeys) {
                 callback("Invalid key: " + key)
@@ -112,7 +112,7 @@ const Databasemanager = {
         statement = Object.keys(data)
         for (i = 0; i < statement.length; i++)
             statement[i] = statement[i] + "=\"" + data[statement[i]] + "\""
-        db.prepare("UPDATE users SET " + statement.join(", ") + " WHERE uid=?").run(uid, (err) => {
+        db.prepare("UPDATE users SET " + statement.join(", ") + " WHERE uid=?").run(data.uid, (err) => {
             callback(err)
         })
     },
