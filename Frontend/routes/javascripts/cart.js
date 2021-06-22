@@ -23,14 +23,14 @@ function update() {
     cart = []
     total = 0;
 
-    fetch('http://<%= api %>/api/cart/get', { method: "GET", headers: { 'Content-Type': 'application/json' } })
+    fetch('<%= api %>/api/cart/get', { method: "GET", headers: { 'Content-Type': 'application/json' } })
         .then(async response => {
             if (response.status === 200) {
                 var data = await response.json();
                 var fetches = [];
-                data.forEach(function(item) {
+                data.forEach(function (item) {
                     console.log(item.itemid)
-                    fetches.push(fetch('http://<%= api %>/api/item/get', { method: "POST", body: JSON.stringify({ id: item.itemid }), headers: { 'Content-Type': 'application/json' } })
+                    fetches.push(fetch('<%= api %>/api/item/get', { method: "POST", body: JSON.stringify({ id: item.itemid }), headers: { 'Content-Type': 'application/json' } })
                         .then(async response => {
                             var data = await response.json();
                             if (response.status === 200) {
@@ -41,7 +41,7 @@ function update() {
                         }))
                     // TODO: add error handling
                 })
-                Promise.all(fetches).then(function() {
+                Promise.all(fetches).then(function () {
                     if (cart.length === 0) {
                         document.getElementById("cartContent").append("Noch nichts hier! :( Schaue auf der Speisekarte vorbei!");
                     }
@@ -51,20 +51,20 @@ function update() {
                             var newItem = document.getElementsByTagName("template")[0].content.cloneNode(true);
                             newItem.querySelector(".num").innerHTML = item.id;
                             newItem.querySelector(".name").innerHTML = item.name;
-                            newItem.querySelector(".price").innerHTML = item.price.toFixed(2).replace(".",",") + "€";
+                            newItem.querySelector(".price").innerHTML = item.price.toFixed(2).replace(".", ",") + "€";
                             newItem.querySelector(".count").querySelector("input").value = item.count;
                             document.getElementById("cartContent").append(newItem);
-                
+
                             total += item.price * item.count;
                         })
                     }
-            
+
                     paypal = 0;
                     if (document.getElementById("paypal").checked) paypal = (total * 0.0249 + 0.35);
-                    document.getElementById("total_price").innerHTML = "Preis gesammt: " + (total + paypal).toFixed(2).replace(".",",") + "€";
-                    document.getElementById("cut_mwst").innerHTML = "Anteil MwSt: " + (total * 0.19).toFixed(2).replace(".",",") + "€";
-                    document.getElementById("cut_paypal").innerHTML = "Paypal Gebühren: " + paypal.toFixed(2).replace(".",",") + "€";  
-                });      
+                    document.getElementById("total_price").innerHTML = "Preis gesammt: " + (total + paypal).toFixed(2).replace(".", ",") + "€";
+                    document.getElementById("cut_mwst").innerHTML = "Anteil MwSt: " + (total * 0.19).toFixed(2).replace(".", ",") + "€";
+                    document.getElementById("cut_paypal").innerHTML = "Paypal Gebühren: " + paypal.toFixed(2).replace(".", ",") + "€";
+                });
             }
             //TODO: add error handling
         });
@@ -73,7 +73,7 @@ function update() {
 function changedCount(e) {
     var div = e.parentNode.parentNode;
     var id = div.querySelector(".num").innerHTML;
-    fetch('http://<%= api %>/api/cart/updateCount', { method: "POST", body: JSON.stringify({ id: id, count: div.querySelector(".count").querySelector("input").value }), headers: { 'Content-Type': 'application/json' } })
+    fetch('<%= api %>/api/cart/updateCount', { method: "POST", body: JSON.stringify({ id: id, count: div.querySelector(".count").querySelector("input").value }), headers: { 'Content-Type': 'application/json' } })
         .then(async response => {
             //TODO: add error handling
 
@@ -90,7 +90,7 @@ function changedMethode() {
 function remove(e) {
     var div = e.parentNode.parentNode;
     var id = div.querySelector(".num").innerHTML;
-    fetch('http://<%= api %>/api/cart/remove', { method: "POST", body: JSON.stringify({ id: id }), headers: { 'Content-Type': 'application/json' } })
+    fetch('<%= api %>/api/cart/remove', { method: "POST", body: JSON.stringify({ id: id }), headers: { 'Content-Type': 'application/json' } })
         .then(async response => {
             //TODO: add error handling
 
@@ -106,27 +106,27 @@ function order() {
             time.setMinutes(time.getMinutes() + parseFloat(document.getElementById("time").value.split(":")[1]));
 
             var height = window.innerHeight;
-            let newWin = window.open("./bon.html", "bon", "toolbar=no,menubar=no,location=no,height=" + height + ",width=" + Math.floor(height*(7/10)));
-            newWin.onload = function() {
+            let newWin = window.open("./bon.html", "bon", "toolbar=no,menubar=no,location=no,height=" + height + ",width=" + Math.floor(height * (7 / 10)));
+            newWin.onload = function () {
                 cart.forEach(function (item) {
                     var newItem = document.getElementsByTagName("template")[0].content.cloneNode(true);
                     newItem.querySelector(".num").innerHTML = item.id;
                     newItem.querySelector(".name").innerHTML = item.name;
-                    newItem.querySelector(".price").innerHTML = item.price.toFixed(2).replace(".",",") + "€";
+                    newItem.querySelector(".price").innerHTML = item.price.toFixed(2).replace(".", ",") + "€";
                     newItem.querySelector(".count").innerHTML = "#" + item.count;
                     newItem.querySelector(".remove").remove()
                     newWin.document.getElementById("cartContent").append(newItem);
                 });
                 newWin.document.getElementById("retrieval").innerHTML = time;
-                newWin.document.getElementById("total").innerHTML = (total + paypal).toFixed(2).replace(".",",") + "€";
-                newWin.document.getElementById("cut_mwst").innerHTML = "Anteil MwSt: " + (total * 0.19).toFixed(2).replace(".",",") + "€";
+                newWin.document.getElementById("total").innerHTML = (total + paypal).toFixed(2).replace(".", ",") + "€";
+                newWin.document.getElementById("cut_mwst").innerHTML = "Anteil MwSt: " + (total * 0.19).toFixed(2).replace(".", ",") + "€";
                 if (document.getElementById("paypal").checked) {
-                    newWin.document.getElementById("cut_paypal").innerHTML = "Paypal Gebühren: " + paypal.toFixed(2).replace(".",",") + "€";
+                    newWin.document.getElementById("cut_paypal").innerHTML = "Paypal Gebühren: " + paypal.toFixed(2).replace(".", ",") + "€";
                     newWin.document.getElementById("paym_methode").innerHTML = "PayPal";
                 }
                 if (document.getElementById("notice").value !== "") {
                     newWin.document.getElementById("bon-notice").hidden = false;
-                    newWin.document.getElementById("bon-notice").innerHTML += document.getElementById("notice").value.replaceAll("\n","<br>");
+                    newWin.document.getElementById("bon-notice").innerHTML += document.getElementById("notice").value.replaceAll("\n", "<br>");
                 }
                 delCookie("cart");
                 cart = [];
@@ -137,7 +137,7 @@ function order() {
             var orders = getJSONCookie("orders") || [];
             var newOrder = {
                 name: "Peter Pan",
-                time: ["Mo","Di","Mi","Do","Fr","Sa","So"][time.getDay()-1] + " - " + time.getHours() + ":" + time.getMinutes(),
+                time: ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"][time.getDay() - 1] + " - " + time.getHours() + ":" + time.getMinutes(),
                 cart: cart,
                 notice: document.getElementById("notice").value,
                 total: total.toFixed(2),

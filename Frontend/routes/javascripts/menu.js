@@ -25,10 +25,10 @@ function load() {
     ]
 
     var prev = 0;
-    for (var i=0; i < menu.length; i++) {
+    for (var i = 0; i < menu.length; i++) {
         var current = 0
-        for (var j=menu[i][1].length - 1; j >= 0 ; j--) {
-            add(menu[i][0], prev+j , menu[i][1][j]);
+        for (var j = menu[i][1].length - 1; j >= 0; j--) {
+            add(menu[i][0], prev + j, menu[i][1][j]);
             current += 1;
         }
         prev += current;
@@ -37,7 +37,7 @@ function load() {
 
 function addToBasket(elem) {
     var div = elem.parentNode.parentNode;
-    fetch('http://<%= api %>/api/cart/add', { method: "POST", body: JSON.stringify({ id: parseInt(div.querySelector(".num").innerHTML) }), headers: { 'Content-Type': 'application/json' } })
+    fetch('<%= api %>/api/cart/add', { method: "POST", body: JSON.stringify({ id: parseInt(div.querySelector(".num").innerHTML) }), headers: { 'Content-Type': 'application/json' } })
         .then(async response => {
             switch (response.status) {
                 case 200:
@@ -48,7 +48,7 @@ function addToBasket(elem) {
                     //TODO: add proper error handling
                     alert("Menu \"" + div.querySelector(".name").innerHTML + "\" bereits im Warenkorb.");
                     break;
-                }
+            }
         });
 }
 
@@ -57,8 +57,8 @@ function add(course, num, attr) {
     newItem.querySelector(".num").innerHTML = num;
     newItem.querySelector(".name").innerHTML = attr[0];
     newItem.querySelector(".descr").innerHTML = attr[1];
-    newItem.querySelector(".price").innerHTML = attr[2].toFixed(2).replace(".",",") + "€";
-    document.getElementById(course).parentNode.insertBefore(newItem,document.getElementById(course).nextSibling);
+    newItem.querySelector(".price").innerHTML = attr[2].toFixed(2).replace(".", ",") + "€";
+    document.getElementById(course).parentNode.insertBefore(newItem, document.getElementById(course).nextSibling);
 }
 
 window.onload = load;
