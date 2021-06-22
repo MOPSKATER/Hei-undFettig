@@ -5,7 +5,7 @@ function load() {
             "starters",
             [
                 ["Salat", "Diese Beschreibung ist sehr lang und sagt nichts über das Essen aus.", 19.01],
-                ["Suppe", "Suppe mit Schittlauch", 29.00]
+                ["Suppe", "Suppe mit Schnittlauch", 29.00]
             ]
         ],
         [
