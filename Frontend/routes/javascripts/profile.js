@@ -58,6 +58,7 @@ function load() {
 function submitForm() {
     // e.preventDefault();
     var data = {
+        uid: window.data.uid,
         prename: document.getElementById("forename").value,
         name: document.getElementById("name").value,
         email: document.getElementById("email").value,
