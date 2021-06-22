@@ -127,7 +127,7 @@ router.get('/account/isLoggedin', function (req, res, next) {
 });
 
 router.put('/account/set', function (req, res, next) {
-    if (Accountmanager.isLoggedIn(req)) {
+    if (!Accountmanager.isLoggedIn(req)) {
         res.statusCode = 401
         res.end()
         return
