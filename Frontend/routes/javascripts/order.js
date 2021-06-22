@@ -27,6 +27,7 @@ function load() {
             var fetches = [];
             var orderGroups = {};
             orders.forEach(function (item) {
+                console.log(item)
                 fetches.push(fetch('<%= api %>/api/user/' + item.uid, { method: "GET", headers: { 'Content-Type': 'application/json' }, credentials: "include" })
                 .then(async response => {
                     //TODO: add error handling

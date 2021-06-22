@@ -36,7 +36,7 @@ db.run("CREATE TABLE IF NOT EXISTS users (uid text, prename text, name text, poi
     });
 });
 db.run("CREATE TABLE IF NOT EXISTS news (id integer, caption text, text text, date text)");
-db.run("CREATE TABLE IF NOT EXISTS cart (uid integer, itemid integer, amount integer)");
+db.run("CREATE TABLE IF NOT EXISTS cart (uid integer, itemid text, amount integer)");
 db.run("CREATE TABLE IF NOT EXISTS item (id text PRIMARY KEY, name text, description text, price decimal)", (err) => {
     if (err) {
         console.error(err)
@@ -63,7 +63,7 @@ db.run("CREATE TABLE IF NOT EXISTS item (id text PRIMARY KEY, name text, descrip
     })
 
 });
-db.run("CREATE TABLE IF NOT EXISTS orders (uid text, itemid integer, amount integer, datetime datetime)");
+db.run("CREATE TABLE IF NOT EXISTS orders (uid text, itemid text, amount integer, datetime datetime)");
 
 const validKeys = ["prename", "name", "street", "number", "place", "plz", "email", "password"]
 
@@ -86,7 +86,7 @@ const Databasemanager = {
                 return
             }
             db.prepare("INSERT INTO users (uid, prename, name, points, street , number , place , plz, email, salt , password , permissionlevel) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)").
-                run(newUID, data.prename, data.name, 0, data.street, data.number, data.place, data.plz, data.email, data.salt, data.hash, Privileges.User, (err) => {
+                run(newUID, data.prename, data.name, 0, data.street, data.number, data.place, data.plz, data.email, data.salt, data.password, Privileges.User, (err) => {
                     callback(err, newUID)
                 });
 
@@ -105,9 +105,6 @@ const Databasemanager = {
                 callback("Invalid key: " + key)
                 return
             }
-
-        if (data.password)
-            Accountmanager.generateHash(data)
 
         statement = Object.keys(data)
         for (i = 0; i < statement.length; i++)

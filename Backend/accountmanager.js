@@ -34,6 +34,7 @@ const Accountmanager = {
     generateHash(data) {
         //Generate Salt
         if (!data.salt) {
+            data.salt=""
             const alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-.,=?<>_!?&%"
             for (let i = 0; i < 16; i++)
                 data.salt += alphabet[Math.floor(Math.random() * alphabet.length)]
@@ -41,6 +42,7 @@ const Accountmanager = {
 
         //Hash Password
         data.password = crypto.createHash("sha256").update(data.salt + data.password).digest("hex")
+        console.log(data)
     }
 };
 

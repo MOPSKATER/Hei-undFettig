@@ -114,9 +114,9 @@ router.post('/account/register', function (req, res, next) {
             res.write(JSON.stringify(err))
         } else {
             req.session.uid = uid
-            req.session.accessLevel = Privileges.Guest
+            req.session.accessLevel = Privileges.User
             req.session.cart = []
-            res.write(JSON.stringify({ uid: uid, accessLevel: Privileges.Guest }))
+            res.write(JSON.stringify({ uid: uid, accessLevel: Privileges.User }))
         }
         res.end()
     })
@@ -156,12 +156,16 @@ router.put('/account/set', function (req, res, next) {
         }
     }
 
-    data.keys().array.forEach(key => {
-        if (!["uid", "prename", "name", "email", "street", "number", "plz", "place", "password", "accessLevel"].contains(key)) {
+    Object.keys(data).forEach((key) => {
+        if (!["uid", "prename", "name", "email", "street", "number", "plz", "place", "password", "permissionlevel"].includes(key)) {
             printErr("Unknown field: " + key, res)
             return
         }
     });
+
+    if (data.password) {
+        Accountmanager.generateHash(data)
+    }
 
     Database.setData(data, (err) => {
         if (err) {
@@ -320,7 +324,7 @@ router.post('/cart/add', function (req, res, next) {
 
     Database.addCart(req.session.uid, req.body.id, (err) => {
         if (err) {
-            res.statusCode = 500
+            res.statusCode = 400
             res.write(JSON.stringify(err))
         }
         res.end()
@@ -390,14 +394,14 @@ router.post('/item/get', function (req, res, next) {
         return
     }
 
-    err = validate({ id: req.body.id }, { id: Ruleset.Id })
+    err = validate({ id: req.body.id+"" }, { id: Ruleset.Id })
 
     if (printErr(err))
         return
 
     Database.getItem(req.body.id, (err, table) => {
         if (err) {
-            res.statusCode = 500
+            res.statusCode = 400
             res.write(JSON.stringify(err))
         }
         else

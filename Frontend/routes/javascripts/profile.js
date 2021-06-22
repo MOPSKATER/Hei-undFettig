@@ -21,7 +21,8 @@ params.forEach((p) => {
 });
 
 function load() {
-    if (!data.uid) data.uid = getJSONCookie("predict")["uid"];
+    var predict = getJSONCookie("predict");
+    if (!data.uid) data.uid = predict.uid;
     fetch('<%= api %>/api/user/' + data.uid, { method: "GET", headers: { 'Content-Type': 'application/json' }, credentials: "include" })
         .then(async response => {
             switch (response.status) {
@@ -35,7 +36,7 @@ function load() {
                     data.street = resp.street !== undefined ? resp.street : "";
                     data.plz = resp.plz !== undefined ? resp.plz : "";
                     data.place = resp.place !== undefined ? resp.place : "";
-                    build(data.permission, data);
+                    build(predict.accessLevel, data);
                     break;
 
                 // FIXME: correct error handling
@@ -103,10 +104,11 @@ function submitForm() {
 function build(permission, data) {
     if (permission >= 10) {
         document.getElementById("select_box").removeAttribute("hidden");
+        var index = data.permission;
+        if (data.permission === 8) index = 1;
+        else if (data.permission === 10) index = 2;
+        document.getElementById("select").selectedIndex = index;
     }
-    var index = data.permission;
-    if (data.permission === 9) index = 1;
-    else if (data.permission === 10) index = 2;
     document.getElementById("forename").value = data.prename;
     document.getElementById("name").value = data.name;
     document.getElementById("email").value = data.email;
@@ -114,7 +116,6 @@ function build(permission, data) {
     document.getElementById("extra").value = data.extra;
     document.getElementById("plz").value = data.plz;
     document.getElementById("city").value = data.place;
-    document.getElementById("select").selectedIndex = index;
     document.getElementById("id").innerHTML = "ID: " + data.uid;
     document.getElementById("tp").innerHTML = "Treuepunkte: " + data.tp;
 }

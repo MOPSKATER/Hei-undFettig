@@ -1,5 +1,5 @@
 
-var source;
+var source = "./html/menu.html";
 var params = window.location.search.substring(1).split('&');
 params.forEach((p) => {
     var pair = p.split('=');
