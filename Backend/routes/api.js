@@ -368,6 +368,11 @@ router.post('/cart/updateCount', function (req, res, next) {
         return
     }
 
+    err = validate({ id: req.body.id, count: req.body.count }, { id: Ruleset.Id, count: Ruleset.Count })
+
+    if (printErr(err))
+        return
+
     Database.updateCountCart(req.session.uid, req.body.id, req.body.count, (err) => {
         if (err) {
             res.statusCode = 500
@@ -382,6 +387,11 @@ router.post('/item/get', function (req, res, next) {
         res.sendStatus(401)
         return
     }
+
+    err = validate({ id: req.body.id }, { id: Ruleset.Id })
+
+    if (printErr(err))
+        return
 
     Database.getItem(req.body.id, (err, table) => {
         if (err) {
