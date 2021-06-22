@@ -3,6 +3,19 @@
 // TODO: change back to empty
 
 function load() {
+    fetch('<%= api %>/api/account/isLoggedin', { method: "GET", credentials: "include" })
+        .then(async response => {
+            var profile = getJSONCookie("predict");
+            switch (response.status) {
+                case 200:
+                    break;
+                case 401:
+                default:
+                    window.location.href = "./login.html";
+                    break;
+            }
+            console.log(response.status);
+        });
     document.getElementById("orderContainer").innerHTML = "";
     fetch('<%= api %>/api/orders/get', { method: "GET", headers: { 'Content-Type': 'application/json' }, credentials: "include" })
     .then(async response => {
@@ -50,8 +63,8 @@ function load() {
                     });
                     document.getElementById("orderContainer").append(x);
                     var el = document.getElementById("orderContainer").children;
-                    el[el.length - 1].setAttribute("uid", orderGroups[key].general.uid);
-                    el[el.length - 1].setAttribute("datetime", orderGroups[key].general.datetime);
+                    el[el.length - 2].setAttribute("uid", orderGroups[key].general.uid);
+                    el[el.length - 2].setAttribute("datetime", orderGroups[key].general.datetime);
                 });
             })
         }

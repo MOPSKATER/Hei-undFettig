@@ -19,6 +19,20 @@ function load() {
 }
 
 function update() {
+    fetch('<%= api %>/api/account/isLoggedin', { method: "GET", credentials: "include" })
+        .then(async response => {
+            var profile = getJSONCookie("predict");
+            switch (response.status) {
+                case 200:
+                    break;
+                case 401:
+                default:
+                    window.location.href = "./login.html";
+                    break;
+            }
+            console.log(response.status);
+        });
+        
     document.getElementById("cartContent").innerHTML = "";
     cart = []
     total = 0;

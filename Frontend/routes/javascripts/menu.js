@@ -36,6 +36,19 @@ function load() {
 }
 
 function addToBasket(elem) {
+    fetch('<%= api %>/api/account/isLoggedin', { method: "GET", credentials: "include" })
+        .then(async response => {
+            var profile = getJSONCookie("predict");
+            switch (response.status) {
+                case 200:
+                    break;
+                case 401:
+                default:
+                    window.location.href = "./login.html";
+                    break;
+            }
+            console.log(response.status);
+        });
     var div = elem.parentNode.parentNode;
     fetch('<%= api %>/api/cart/add', { method: "POST", body: JSON.stringify({ id: parseInt(div.querySelector(".num").innerHTML) }), headers: { 'Content-Type': 'application/json' }, credentials: "include" })
         .then(async response => {
