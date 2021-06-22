@@ -53,32 +53,52 @@ function load() {
                     break;
             }
         });
-    document.getElementById('data').onsubmit = function (e) {
-        e.preventDefault();
-        var data = {
-            name: document.getElementById("name").value,
-            address: document.getElementById("address").value,
-            password: document.getElementById("password").value,
-            repeatPassword: document.getElementById("repeatPassword").value,
-            index: document.getElementById("select").selectedIndex
-        }
-        var valid = true;
-        if (data.password !== data.repeatPassword) {
-            valid = false;
-            alert("Die Passw\u00f6rter stimmen nicht überein!");
-        }
-        if (data.name === "" || data.address === "") {
-            valid = false;
-            alert("Keine leeren Felder erlaubt!");
-        }
-        if (valid) {
-            // Passwort hash bilden (nur einmal senden; nicht data verwenden)
-            // Änderungen an senden und Antwort erwarten
-            alert("\u00c4nderungen gespeichert")
-        }
-        return false;
+}
+
+function submitForm() {
+    // e.preventDefault();
+    var data = {
+        prename: document.getElementById("forename").value,
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        address: document.getElementById("address").value,
+        plz: document.getElementById("plz").value,
+        city: document.getElementById("city").value,
+        permissionlevel: [5, 8, 10][document.getElementById("select").selectedIndex]
+    }
+    var password = document.getElementById("password").value
+    var repeatPassword = document.getElementById("repeatPassword").value
+    var valid = true;
+    if (password !== repeatPassword) {
+        valid = false;
+        alert("Die Passw\u00f6rter stimmen nicht überein!");
+    }
+    // if (data.prename === "" || data.name === "" || data.email === "" || data.address === "" || data.plz === "" || data.city === "") {
+    //     valid = false;
+    //     alert("Keine leeren Felder erlaubt!");
+    // }
+    if (valid) {
+        (async () => {
+            if (password !== "" && password == repeatPassword) {
+                await genHash(password, (hash) => { data.password = hash });
+            }
+            fetch('<%= api %>/api/account/set', { method: "PUT", body: JSON.stringify(data), headers: { 'Content-Type': 'application/json' }, credentials: "include" })
+                .then(async response => {
+                    switch (response.status) {
+                        case 200:
+                            alert("Gespeichert!");
+                            break;
+                        default:
+                            alert("Etwas ist schiefgegangen :(");
+                            break;
+                    }
+                });
+        })();
+
     }
 }
+
+
 
 function build(permission, data) {
     if (permission >= 10) {
@@ -100,3 +120,9 @@ function build(permission, data) {
 }
 
 window.onload = load;
+
+async function genHash(pass, callback) {
+    callback(Array.prototype.map.call(new Uint8Array(
+        await crypto.subtle.digest("SHA-256", new TextEncoder().encode(pass))),
+        (x) => ("0" + x.toString(16)).slice(-2)).join(""));
+}

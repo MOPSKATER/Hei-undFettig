@@ -37,7 +37,32 @@ db.run("CREATE TABLE IF NOT EXISTS users (uid text, prename text, name text, poi
 });
 db.run("CREATE TABLE IF NOT EXISTS news (id integer, caption text, text text, date text)");
 db.run("CREATE TABLE IF NOT EXISTS cart (uid integer, itemid integer, amount integer)");
-db.run("CREATE TABLE IF NOT EXISTS item (id integer, name text, description text, price decimal)");
+db.run("CREATE TABLE IF NOT EXISTS item (id text PRIMARY KEY, name text, description text, price decimal)", (err) => {
+    if (err) {
+        console.error(err)
+        process.exit(1)
+    }
+    const fs = require('fs')
+    fs.readFile(__dirname + "/menu.cfg", 'utf8', (err, items) => {
+        if (err) {
+            console.error(err)
+            return
+        }
+
+        items.split("\n").forEach(item => {
+            data = item.split(" ")
+            description = data.slice(3).join(" ")
+
+            db.prepare("REPLACE INTO item (id, name, price, description) VALUES (? ? ? ?)").run(data[0], data[1], data[2], description, (err) => {
+                if (err) {
+                    console.error(err)
+                    return
+                }
+            })
+        })
+    })
+
+});
 db.run("CREATE TABLE IF NOT EXISTS orders (uid text, itemid integer, amount integer, datetime datetime)");
 
 const validKeys = ["prename", "name", "street", "number", "place", "plz", "email", "password"]
