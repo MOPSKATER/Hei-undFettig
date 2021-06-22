@@ -109,14 +109,14 @@ input {
   margin: 0px;
 }
 #controlPanel{
-  left: 43%;
-  top: 100%;
+  left: 100%;
+  top: 60%;
   display: none;
   color: black;
   background-color: gray;
   position: absolute;
   width: fit-content;
-  border: 2px solid white;
+  border: 1px solid white;
   font-weight: bold;
   border-radius: 0px;
   opacity: 90%;
