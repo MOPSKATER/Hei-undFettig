@@ -17,7 +17,7 @@ router.get('/', function (req, res, next) {
 router.get('/user/:uid', function (req, res, next) {
     var uid = req.params.uid
     if (Privileges.hasPrivilege(req.session.accessLevel, Privileges.Coworker) || req.session.uid === uid) {
-        var err = validate({ uid: uid }, { uid: { length: { is: 16 }, format: { pattern: "[a-zA-Z0-9]+" } } })
+        var err = validate({ uid: uid }, { uid: Ruleset.Uid })
 
         if (printErr(err, res))
             return
@@ -318,19 +318,13 @@ router.post('/cart/add', function (req, res, next) {
     if (printErr(err, res))
         return
 
-    if (req.body.id >= 0 && req.body.id < 6)
-        Database.addCart(req.session.uid, req.body.id, (err) => {
-            if (err) {
-                res.statusCode = 500
-                res.write(JSON.stringify(err))
-            }
-            res.end()
-        })
-    else {
-        res.statusCode = 400
-        res.write(JSON.stringify("Invalid id"))
+    Database.addCart(req.session.uid, req.body.id, (err) => {
+        if (err) {
+            res.statusCode = 500
+            res.write(JSON.stringify(err))
+        }
         res.end()
-    }
+    })
 });
 
 router.post('/cart/remove', function (req, res, next) {
@@ -344,19 +338,13 @@ router.post('/cart/remove', function (req, res, next) {
     if (printErr(err, res))
         return
 
-    if (req.body.id >= 0 && req.body.id < 6)
-        Database.updateCountCart(req.session.uid, req.body.id, 0, (err) => {
-            if (err) {
-                res.statusCode = 500
-                res.write(JSON.stringify(err))
-            }
-            res.end()
-        })
-    else {
-        res.statusCode = 400
-        res.write("Invalid id")
+    Database.updateCountCart(req.session.uid, req.body.id, 0, (err) => {
+        if (err) {
+            res.statusCode = 500
+            res.write(JSON.stringify(err))
+        }
         res.end()
-    }
+    })
 });
 
 router.get('/cart/get', function (req, res, next) {
