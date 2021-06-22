@@ -3,7 +3,8 @@
 // TODO: change back to empty
 
 function load() {
-    fetch('http://<%= api %>/api/orders/get', { method: "GET", headers: { 'Content-Type': 'application/json' }, credentials: "include" })
+    document.getElementById("orderContainer").innerHTML = "";
+    fetch('<%= api %>/api/orders/get', { method: "GET", headers: { 'Content-Type': 'application/json' }, credentials: "include" })
     .then(async response => {
         //TODO: add error handling
         orders = await response.json();
@@ -14,7 +15,7 @@ function load() {
             var fetches = [];
             var orderGroups = {};
             orders.forEach(function (item) {
-                fetches.push(fetch('http://<%= api %>/api/user/' + item.uid, { method: "GET", headers: { 'Content-Type': 'application/json' }, credentials: "include" })
+                fetches.push(fetch('<%= api %>/api/user/' + item.uid, { method: "GET", headers: { 'Content-Type': 'application/json' }, credentials: "include" })
                 .then(async response => {
                     //TODO: add error handling
                     var user = await response.json();
@@ -28,7 +29,7 @@ function load() {
                         orderGroups[key].general = newItem;
                         orderGroups[key].items = [];
                     }
-                    await fetch('http://<%= api %>/api/item/get', { method: "POST", body: JSON.stringify({id: item.itemid}), headers: { 'Content-Type': 'application/json' }, credentials: "include" })
+                    await fetch('<%= api %>/api/item/get', { method: "POST", body: JSON.stringify({id: item.itemid}), headers: { 'Content-Type': 'application/json' }, credentials: "include" })
                     .then(async response => {
                         var content = (await response.json())[0];
                         var newItemContent = content.id + " " + content.name + " <i>x" + item.amount + "</i> " + content.price.toFixed(2) + "€";
@@ -38,18 +39,14 @@ function load() {
             })
             Promise.all(fetches).then(function() {
                 Object.keys(orderGroups).forEach(key => {
-                    console.log(orderGroups[key])
                     var x = document.getElementById("order").content.cloneNode(true);
                     x.querySelector(".headline").innerHTML += orderGroups[key].general.datetime;
                     x.querySelector(".name").innerHTML += orderGroups[key].general.name;
                     x.querySelector(".name").href = "./profile.html?uid=" + orderGroups[key].general.uid;
-                    console.log(orderGroups[key].items)
                     orderGroups[key].items.forEach(content => {
-                        console.log(content)
                         var newItemContent = document.getElementById("orderContent").content.cloneNode(true);
                         newItemContent.querySelector(".content").innerHTML += content;
                         x.querySelector(".orderContent").append(newItemContent);
-                        console.log(x.querySelector(".orderContent"))
                     });
                     document.getElementById("orderContainer").append(x);
                     var el = document.getElementById("orderContainer").children;
@@ -62,7 +59,7 @@ function load() {
 }
 
 function remove(e) {
-    fetch('http://<%= api %>/api/orders/delete', { method: "DELETE", body: JSON.stringify({ uid: e.parentNode.getAttribute("uid"), datetime: e.parentNode.getAttribute("datetime") }), headers: { 'Content-Type': 'application/json' }, credentials: "include" })
+    fetch('<%= api %>/api/orders/delete', { method: "DELETE", body: JSON.stringify({ uid: e.parentNode.getAttribute("uid"), datetime: e.parentNode.getAttribute("datetime") }), headers: { 'Content-Type': 'application/json' }, credentials: "include" })
     .then(async response => {
         switch (response.status) {
             case 200:

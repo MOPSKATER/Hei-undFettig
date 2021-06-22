@@ -23,14 +23,14 @@ function update() {
     cart = []
     total = 0;
 
-    fetch('http://<%= api %>/api/cart/get', { method: "GET", headers: { 'Content-Type': 'application/json' }, credentials: "include" })
+    fetch('<%= api %>/api/cart/get', { method: "GET", headers: { 'Content-Type': 'application/json' }, credentials: "include" })
         .then(async response => {
             if (response.status === 200) {
                 var data = await response.json();
                 var fetches = [];
                 data.forEach(function (item) {
                     console.log(item.itemid)
-                    fetches.push(fetch('http://<%= api %>/api/item/get', { method: "POST", body: JSON.stringify({ id: item.itemid }), headers: { 'Content-Type': 'application/json' }, credentials: "include" })
+                    fetches.push(fetch('<%= api %>/api/item/get', { method: "POST", body: JSON.stringify({ id: item.itemid }), headers: { 'Content-Type': 'application/json' }, credentials: "include" })
                         .then(async response => {
                             var data = await response.json();
                             if (response.status === 200) {
@@ -73,7 +73,7 @@ function update() {
 function changedCount(e) {
     var div = e.parentNode.parentNode;
     var id = div.querySelector(".num").innerHTML;
-    fetch('http://<%= api %>/api/cart/updateCount', { method: "POST", body: JSON.stringify({ id: id, count: div.querySelector(".count").querySelector("input").value }), headers: { 'Content-Type': 'application/json' }, credentials: "include" })
+    fetch('<%= api %>/api/cart/updateCount', { method: "POST", body: JSON.stringify({ id: id, count: div.querySelector(".count").querySelector("input").value }), headers: { 'Content-Type': 'application/json' }, credentials: "include" })
         .then(async response => {
             //TODO: add error handling
 
@@ -90,7 +90,7 @@ function changedMethode() {
 function remove(e) {
     var div = e.parentNode.parentNode;
     var id = div.querySelector(".num").innerHTML;
-    fetch('http://<%= api %>/api/cart/remove', { method: "POST", body: JSON.stringify({ id: id }), headers: { 'Content-Type': 'application/json' }, credentials: "include" })
+    fetch('<%= api %>/api/cart/remove', { method: "POST", body: JSON.stringify({ id: id }), headers: { 'Content-Type': 'application/json' }, credentials: "include" })
         .then(async response => {
             //TODO: add error handling
 
@@ -135,7 +135,7 @@ function order() {
             }
             // setJSONCookie("orders", orders);
             var orderDatetime = time.getFullYear() + ":" + ("0" + time.getMonth()).slice(-2) + ":" + ("0" + time.getDate()).slice(-2) + " " + ("0" + time.getHours()).slice(-2) + ":" + ("0" + time.getMinutes()).slice(-2) + ":" + ("0" + time.getSeconds()).slice(-2);
-            fetch('http://<%= api %>/api/cart/order', { method: "POST", body: JSON.stringify({ datetime: orderDatetime }), headers: { 'Content-Type': 'application/json' }, credentials: "include" });
+            fetch('<%= api %>/api/cart/order', { method: "POST", body: JSON.stringify({ datetime: orderDatetime }), headers: { 'Content-Type': 'application/json' }, credentials: "include" });
         }
     }
     else {
