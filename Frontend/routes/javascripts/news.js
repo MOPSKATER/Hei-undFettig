@@ -1,4 +1,4 @@
-var lastChange = ["",""];
+var lastChange = ["", ""];
 var lastId = 0;
 // TODO: get permission level from server / predict cookie
 var permission = 0;
@@ -13,18 +13,18 @@ function load() {
 function update() {
     editing = false;
     Array.from(document.getElementsByClassName("news")).forEach(elem => {
-        if(elem.id != "new-news") elem.remove();
+        if (elem.id != "new-news") elem.remove();
     });
     var predict = getJSONCookie("predict");
     predict ? permission = predict.accessLevel : permission = 0
-    fetch('http://<%= api %>/api/news/all', { method: "GET", headers: { 'Content-Type': 'application/json' } })
+    fetch('<%= api %>/api/news/all', { method: "GET", headers: { 'Content-Type': 'application/json' } })
         .then(async response => {
             if (response.status === 200) {
                 var data = await response.json();
-                data.forEach(function(item) {
+                data.forEach(function (item) {
                     var newItem = document.getElementById("news-item").content.cloneNode(true);
                     newItem.querySelector(".header").innerHTML = item.caption;
-                    newItem.querySelector(".text").innerHTML = item.text.replaceAll("\n","<br/>");
+                    newItem.querySelector(".text").innerHTML = item.text.replaceAll("\n", "<br/>");
                     if (highestId <= item.id) highestId = item.id;
                     if (permission >= 10) newItem.querySelector(".admin").removeAttribute("hidden");
                     document.getElementById("news-container").insertBefore(newItem, document.getElementById("news-container").children[0].nextSibling);
@@ -44,7 +44,7 @@ function update() {
 function add(e) {
     div = e.parentNode.parentNode;
     if (div.querySelector(".header").value !== "") {
-        fetch('http://<%= api %>/api/news/add', { method: "POST", body: JSON.stringify({ id: highestId+1, caption: document.getElementById("new-news").querySelector(".header").value, text: document.getElementById("new-news").querySelector(".text").value }), headers: { 'Content-Type': 'application/json' } })
+        fetch('<%= api %>/api/news/add', { method: "POST", body: JSON.stringify({ id: highestId + 1, caption: document.getElementById("new-news").querySelector(".header").value, text: document.getElementById("new-news").querySelector(".text").value }), headers: { 'Content-Type': 'application/json' } })
             .then(async response => {
                 switch (response.status) {
                     case 200:
@@ -65,29 +65,29 @@ function add(e) {
     }
 }
 function remove(e) {
-    fetch('http://<%= api %>/api/news/delete', { method: "DELETE", body: JSON.stringify({ id: e.parentNode.parentNode.getAttribute("newsId") }), headers: { 'Content-Type': 'application/json' } })
-    .then(async response => {
-        switch (response.status) {
-            case 200:
-                update();
-                break;
+    fetch('<%= api %>/api/news/delete', { method: "DELETE", body: JSON.stringify({ id: e.parentNode.parentNode.getAttribute("newsId") }), headers: { 'Content-Type': 'application/json' } })
+        .then(async response => {
+            switch (response.status) {
+                case 200:
+                    update();
+                    break;
 
-            default:
-                //TODO: add proper error handling
-                alert("failed")
-                break;
-        }
-    });
+                default:
+                    //TODO: add proper error handling
+                    alert("failed")
+                    break;
+            }
+        });
 }
 function edit(e) {
-    if(!editing){
+    if (!editing) {
         editing = true;
         div = e.parentNode.parentNode;
         lastId = e.parentNode.parentNode.getAttribute("newsId");
         lastChange = [div.querySelector(".header").innerHTML, div.querySelector(".text").innerHTML];
         var newItem = document.getElementById("edit-news").content.cloneNode(true);
         newItem.querySelector(".header").value = lastChange[0];
-        newItem.querySelector(".text").value = lastChange[1].replaceAll("<br>","\n");
+        newItem.querySelector(".text").value = lastChange[1].replaceAll("<br>", "\n");
         newItem.querySelector(".content").style.width = "87%";
         div.parentNode.replaceChild(newItem, div);
     }
@@ -95,7 +95,7 @@ function edit(e) {
 function save(e) {
     div = e.parentNode.parentNode;
     if (div.querySelector(".header").value !== "") {
-        fetch('http://<%= api %>/api/news/edit', { method: "DELETE", body: JSON.stringify({ id: lastId, caption: div.querySelector(".header").value.replaceAll("\n",""), text: div.querySelector(".text").value }), headers: { 'Content-Type': 'application/json' } })
+        fetch('<%= api %>/api/news/edit', { method: "DELETE", body: JSON.stringify({ id: lastId, caption: div.querySelector(".header").value.replaceAll("\n", ""), text: div.querySelector(".text").value }), headers: { 'Content-Type': 'application/json' } })
             .then(async response => {
                 switch (response.status) {
                     case 200:

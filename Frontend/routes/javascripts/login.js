@@ -13,7 +13,7 @@ function doLogin() {
     email = document.getElementById("loginMail").value;
     if (checkMail(email)) {
         genHash(document.getElementById("loginPass").value, (hash) => {
-            fetch('http://<%= api %>/api/account/login', { method: "POST", body: JSON.stringify({ email: email, password: hash }), headers: { 'Content-Type': 'application/json' }, credentials: "include"})
+            fetch('<%= api %>/api/account/login', { method: "POST", body: JSON.stringify({ email: email, password: hash }), headers: { 'Content-Type': 'application/json' }, credentials: "include" })
                 .then(async response => {
                     data = await response.json();
                     switch (response.status) {
@@ -71,7 +71,7 @@ function register() {
     // hash password and send register request
     genHash(pass, (hash) => {
         var regData = { email: email, password: hash }
-        fetch('http://<%= api %>/api/account/register', { method: "POST", body: JSON.stringify(regData), headers: { 'Content-Type': 'application/json' }, credentials: "include"})
+        fetch('<%= api %>/api/account/register', { method: "POST", body: JSON.stringify(regData), headers: { 'Content-Type': 'application/json' }, credentials: "include" })
             .then(async response => {
                 switch (response.status) {
                     case 200:

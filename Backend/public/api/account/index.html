@@ -1,0 +1,95 @@
+<html>
+
+<head>
+
+</head>
+
+<body style="padding-left: 2%; padding-top: 1%;">
+
+    <a href="./login">
+        <h3>/login</h3>
+    </a>
+    <ul>
+        <h4>Methoden: POST</h4>
+        <h4>Felder:</h4>
+        <ul>
+            email: Valide E-Mail Addresse oder Admin<br>
+            password: SHA256 in hex, kleine Buchstaben
+        </ul>
+        <h4>Rückgabefelder:</h4>
+        <ul>
+            username: Nutzername, falls vorhanden. Sonst E-Mail Addresse<br>
+            points: Gesammelte Punkte als Ganzzahl<br>
+            accessLevel: Berechtigungsstufe als Ganzzahl<br>
+            uid: NutzerID als 16 Zeichen langer String
+        </ul>
+    </ul>
+
+    <a href="./logout">
+        <h3>/logout</h3>
+    </a>
+    <ul>
+        <h4>Methoden: POST</h4>
+        <h4>Felder: -</h4>
+        <h4>Rückgabefelder: -</h4>
+    </ul>
+
+    <a href="./register">
+        <h3>/register</h3>
+    </a>
+    <ul>
+        <h4>Methoden: POST</h4>
+        <h4>Felder:</h4>
+        <ul>
+            email: Valide E-Mail Addresse oder Admin<br>
+            password: SHA256 in hex, kleine Buchstaben
+        </ul>
+        <h4>Rückgabefelder:</h4>
+        <ul>
+            accessLevel: Berechtigungsstufe als Ganzzahl<br>
+            uid: NutzerID als 16 Zeichen langer String
+        </ul>
+    </ul>
+
+    <a href="./isLoggedin">
+        <h3>/isLoggedin</h3>
+    </a>
+    <ul>
+        <h4>Methoden: GET</h4>
+        <h4>Felder: -</h4>
+        <h4>Rückgabefelder: -</h4>
+    </ul>
+
+    <a href="./set">
+        <h3>/set</h3>
+    </a>
+    <ul>
+        <h4>Methoden: PUT</h4>
+        <h4>Felder:</h4>
+        <ul>
+            *prename: String aus Groß- und Kleinbuchstaben<br>
+            *name: String aus Groß- und Kleinbuchstaben<br>
+            *email: Valide E-Mail Addresse<br>
+            *street: String aus Groß- und Kleinbuchstaben<br>
+            *number: Ganzzahl<br>
+            *plz: Ganzzahl<br>
+            *place: String aus Groß- und Kleinbuchstaben<br>
+            *password: SHA256 in hex, kleine Buchstaben
+        </ul>
+        <h4>Rückgabefelder: -</h4>
+    </ul>
+
+    <a href="./delete">
+        <h3>/delete</h3>
+    </a>
+    <ul>
+        <h4>Methoden: DELETE</h4>
+        <h4>Felder: -</h4>
+        <h4>Rückgabefelder: -</h4>
+    </ul><br>
+
+    *Feld wird nicht benötigt<br><br><br>
+
+</body>
+
+</html>
