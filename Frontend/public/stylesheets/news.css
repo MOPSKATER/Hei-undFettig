@@ -1,17 +1,14 @@
 body{
   height: fit-content;
   margin: 0;
-	padding-right: 8%;
 	overflow-x: hidden;
 	overflow-y: auto;
-  
 }
 .news .content {
   float: left;
   width: 100%;
   margin: 1%;
   margin-top: 18px;
-  opacity: 60%;
   background-color: lightgray;
   padding: 3vw;
 }

@@ -27,7 +27,6 @@ body {
 	padding: 4%;
 	margin: 1%;
 	background-color: lightgray;
-	opacity: 40%;
 }
 #card .colOuter {
 	width: 100px;
@@ -41,7 +40,7 @@ body {
 #card .item .basket {
 	width: 30px;
 	height: auto;
-	background-color: lightgray;
+	background-color: darkgray;
 }
 #card .item .basket:hover {
 	cursor: pointer;
