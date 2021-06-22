@@ -10,17 +10,19 @@ body {
 #page {
 	width: 96%;
 	display: block;
-	min-height: calc(100vh - 25vh - 11.5vh);
+	height: fit-content;
   background-color: lightgray;
   margin: 2%;
+  padding-bottom: 2%;
 }
 
 #left {
     display: inline-block;
-    margin-top: 2vh;
-	margin-left: 10vw;
+    margin-top: 5vh;
+    margin-left: 10vh;
     font-size: large;
     width: 59vw;
+    
 }
 #left .input {
     margin-top: 1%;
@@ -41,19 +43,13 @@ body {
     float: right;
     width: auto;
 }
+#right{
+  position: relative;
+  left: 115%;
+  bottom: 25vh;
+  text-align: left;
+}
 
-#right {
-    float: right;
-    margin-top: 4vh;
-	margin-right: 10vw;
-    width: 19vw;
-}
-#right p {
-    text-align: right;
-}
-#right #select_box {
-    float: right;
-}
 #icon_order{
   width: 15%;
   left: 83%;
@@ -101,14 +97,14 @@ body {
   margin: 0px;
 }
 #controlPanel{
-  left: 43%;
-  top: 100%;
+  left: 100%;
+  top: 60%;
   display: none;
   color: black;
   background-color: gray;
   position: absolute;
   width: fit-content;
-  border: 2px solid white;
+  border: 1px solid white;
   font-weight: bold;
   border-radius: 0px;
   opacity: 90%;
@@ -199,21 +195,12 @@ body {
       float: left;
       width: auto;
     }
-    #right {
-      float: left;
-      margin-top: 10px;
-      margin-left: 10px;
-      width: 95%;
-      border-top: 1px solid;
-      height: 20%;      
-    }
-    #right p {
+    #right{
+      position: relative;
+      left: 50%;
+      bottom: 0vh;
+      width: 33%;
       text-align: left;
     }
-    #right #select_box {
-      float:none;
-      margin-left: 300px;
-      margin-top: -70px;
-    }
-  
+
   }
