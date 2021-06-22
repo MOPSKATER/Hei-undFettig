@@ -133,6 +133,11 @@ router.put('/account/set', function (req, res, next) {
         return
     }
 
+    if (req.body.accessLevel && !Privileges.hasPrivilege(req.session.accessLevel, Privileges.Admin)) {
+        res.sendStatus(401)
+        return
+    }
+
     data = req.body
 
     if (!Object.keys(data).length) {
