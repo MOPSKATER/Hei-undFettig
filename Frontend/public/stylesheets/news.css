@@ -43,6 +43,12 @@ body{
   margin-right: 10vw;
   min-height: calc(100vh - 25vh - 11.5vh);
 }
+
+#icon_order{
+  width: 15%;
+  left: 83%;
+  top: 70%;
+}
 /*  MEDIA QUERY
 
   --> for all divices 
@@ -85,19 +91,24 @@ body{
   margin: 0px;
 }
 #controlPanel{
-  left: 24vw;
-  top: 39vh;
+  left: 43%;
+  top: 100%;
   display: none;
   color: black;
-  background-color: lightgray;
+  background-color: gray;
   position: absolute;
   width: fit-content;
   border: 2px solid white;
   font-weight: bold;
   border-radius: 0px;
-  opacity: 70%;
+  opacity: 90%;
   margin: 0px;
   padding: 0px;
+}
+#icon_order{
+  width: 15%;
+  left: 43%;
+  top: 85%;
 }
 .noDeco {
   background-color: transparent;

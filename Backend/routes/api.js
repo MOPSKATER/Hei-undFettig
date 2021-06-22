@@ -142,14 +142,21 @@ router.put('/account/set', function (req, res, next) {
     }
 
     err = validate(data, {
-        prename: Ruleset.Name, name: Ruleset.Name, email: Ruleset.Changeemail,
+        uid: Ruleset.Uid, prename: Ruleset.Name, name: Ruleset.Name, email: Ruleset.Changeemail,
         street: Ruleset.street, number: Ruleset.Number, plz: Ruleset.Plz, place: Ruleset.Place, password: Ruleset.ChangePassword
     })
 
     if (printErr(err, res))
         return
 
-    Database.setData(req.session.uid, data, (err) => {
+    if (!Privileges.hasPrivilege(req.session.accessLevel, Privileges.Admin)) {
+        if (req.body.accessLevel || req.body.uid != req.session.uid) {
+            res.sendStatus(401)
+            return
+        }
+    }
+
+    Database.setData(data, (err) => {
         if (err) {
             res.statusCode = 500
             res.write(JSON.stringify(err))

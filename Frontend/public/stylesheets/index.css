@@ -78,6 +78,11 @@ th {
   margin-left: auto;
   margin-right: auto;
 }
+#icon_order{
+  width: 15%;
+  left: 83%;
+  top: 70%;
+}
 /*  MEDIA QUERY
 
   --> for all divices 
@@ -120,19 +125,24 @@ th {
   margin: 0px;
 }
 #controlPanel{
-  left: 24vw;
-  top: 39vh;
+  left: 43%;
+  top: 100%;
   display: none;
   color: black;
-  background-color: lightgray;
+  background-color: gray;
   position: absolute;
   width: fit-content;
   border: 2px solid white;
   font-weight: bold;
   border-radius: 0px;
-  opacity: 70%;
+  opacity: 90%;
   margin: 0px;
   padding: 0px;
+}
+#icon_order{
+  width: 15%;
+  left: 43%;
+  top: 85%;
 }
 .noDeco {
   background-color: transparent;
@@ -154,8 +164,6 @@ th {
   background-color: gray;
   max-width: 50vw;
   height: fit-content;
-
-  
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
   opacity: 90%;
