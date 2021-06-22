@@ -156,6 +156,13 @@ router.put('/account/set', function (req, res, next) {
         }
     }
 
+    data.keys().array.forEach(key => {
+        if (!["uid", "prename", "name", "email", "street", "number", "plz", "place", "password", "accessLevel"].contains(key)) {
+            printErr("Unknown field: " + key, res)
+            return
+        }
+    });
+
     Database.setData(data, (err) => {
         if (err) {
             res.statusCode = 500
