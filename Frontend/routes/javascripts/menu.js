@@ -47,7 +47,6 @@ function addToBasket(elem) {
                     window.location.href = "./login.html";
                     break;
             }
-            console.log(response.status);
         });
     var div = elem.parentNode.parentNode;
     fetch('<%= api %>/api/cart/add', { method: "POST", body: JSON.stringify({ id: parseInt(div.querySelector(".num").innerHTML) }), headers: { 'Content-Type': 'application/json' }, credentials: "include" })
