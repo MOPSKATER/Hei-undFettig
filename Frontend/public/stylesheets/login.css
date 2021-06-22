@@ -61,7 +61,7 @@ input {
     position: relative;
     left: 10%;
 }
-#order{
+#icon_order{
   width: 15%;
   left: 83%;
   top: 70%;
@@ -123,7 +123,7 @@ input {
   margin: 0px;
   padding: 0px;
 }
-#order{
+#icon_order{
   width: 15%;
   left: 43%;
   top: 85%;

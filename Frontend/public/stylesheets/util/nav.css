@@ -68,10 +68,9 @@
   top: 9vh;
   width: 10vw;
   border: 2px solid;
-  padding-bottom: 5px;
   font-weight: 550;
   border-radius: 5px;
-  display: none;
+  display: none;  
 }
 .noDeco {
   text-decoration: none;

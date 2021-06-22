@@ -58,7 +58,7 @@ body {
     height: calc(100vh - 25vh - 11.5vh - 34px);
     opacity: 100%;
 }
-#order{
+#icon_order{
   width: 15%;
   left: 83%;
   top: 70%;
@@ -120,7 +120,7 @@ body {
   margin: 0px;
   padding: 0px;
 }
-#order{
+#icon_order{
   width: 15%;
   left: 43%;
   top: 85%;

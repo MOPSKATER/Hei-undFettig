@@ -54,7 +54,7 @@ body {
 #right #select_box {
     float: right;
 }
-#order{
+#icon_order{
   width: 15%;
   left: 83%;
   top: 70%;
@@ -113,7 +113,7 @@ body {
   border-radius: 0px;
   opacity: 90%;
 }
-#order{
+#icon_order{
   width: 15%;
   left: 43%;
   top: 85%;
