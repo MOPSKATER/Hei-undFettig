@@ -6,10 +6,10 @@ var data = {
     prename: "",
     name: "",
     email: "",
-    address: "",
+    street: "",
     extra: "",
     plz: "",
-    city: ""
+    place: ""
 }
 
 var params = window.location.search.substring(1).split('&');
@@ -29,12 +29,12 @@ function load() {
                     resp = await response.json();
                     data.permission = resp.permissionlevel;
                     data.tp = resp.points;
-                    data.prename = resp.prename === null ? resp.prename : "";
-                    data.name = resp.name === null ? resp.name : "";
+                    data.prename = resp.prename !== undefined ? resp.prename : "";
+                    data.name = resp.name !== undefined ? resp.name : "";
                     data.email = resp.email;
-                    data.address = resp.street === null ? resp.street : "";
-                    data.plz = resp.plz === null ? resp.plz : "";
-                    data.city = resp.place === null ? resp.place : "";
+                    data.street = resp.street !== undefined ? resp.street : "";
+                    data.plz = resp.plz !== undefined ? resp.plz : "";
+                    data.place = resp.place !== undefined ? resp.place : "";
                     build(data.permission, data);
                     break;
 
@@ -62,9 +62,9 @@ function submitForm() {
         prename: document.getElementById("forename").value,
         name: document.getElementById("name").value,
         email: document.getElementById("email").value,
-        address: document.getElementById("address").value,
+        street: document.getElementById("address").value,
         plz: document.getElementById("plz").value,
-        city: document.getElementById("city").value,
+        place: document.getElementById("city").value,
         permissionlevel: [5, 8, 10][document.getElementById("select").selectedIndex]
     }
     var password = document.getElementById("password").value
@@ -74,10 +74,9 @@ function submitForm() {
         valid = false;
         alert("Die Passw\u00f6rter stimmen nicht überein!");
     }
-    // if (data.prename === "" || data.name === "" || data.email === "" || data.address === "" || data.plz === "" || data.city === "") {
-    //     valid = false;
-    //     alert("Keine leeren Felder erlaubt!");
-    // }
+    Object.keys(data).forEach((key) => {
+        if (data[key] == "" || data[key] == "Admin") delete data[key];
+    })
     if (valid) {
         (async () => {
             if (password !== "" && password == repeatPassword) {
@@ -111,10 +110,10 @@ function build(permission, data) {
     document.getElementById("forename").value = data.prename;
     document.getElementById("name").value = data.name;
     document.getElementById("email").value = data.email;
-    document.getElementById("address").value = data.address;
+    document.getElementById("address").value = data.street;
     document.getElementById("extra").value = data.extra;
     document.getElementById("plz").value = data.plz;
-    document.getElementById("city").value = data.city;
+    document.getElementById("city").value = data.place;
     document.getElementById("select").selectedIndex = index;
     document.getElementById("id").innerHTML = "ID: " + data.uid;
     document.getElementById("tp").innerHTML = "Treuepunkte: " + data.tp;
