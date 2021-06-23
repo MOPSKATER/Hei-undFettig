@@ -1,6 +1,7 @@
 # Heiß und Fettig
 
-Zum starten im Hauptverzeichnis "npm start <api> [<port>]" eingeben.
+Zum starten werden die startScripts empfohlen. 
+Alternativ kann man den Server auch vom Verzeichnis "Backend" mit dem Befehl "npm start <backend>[:<port>]" starten
 
 Der Server benötigt beim Start die api um mit dem Backend kommunizieren zu können.
-Der Standart-Port ist 3000. Dieser kann mit dem parameter geändert werden.
+Der Standart-Port ist 3000.
