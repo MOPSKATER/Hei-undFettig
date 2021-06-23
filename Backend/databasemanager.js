@@ -11,31 +11,44 @@ const db = new sqlite3.Database("db.sqlite", (err) => {
 })
 
 const usedIDs = []
-db.run("CREATE TABLE IF NOT EXISTS users (uid text, prename text, name text, points integer, street text, number text, place text, plz integer, email text, salt text, password text, permissionlevel integer)", (err) => {
+
+db.run("CREATE TABLE IF NOT EXISTS news (id integer, caption text, text text, date text)", (err) => {
     if (err) {
         console.error(err)
         process.exit(1)
     }
-    db.all("SELECT uid FROM users", (err, rows) => {
-        if (rows)
-            rows.forEach(element => {
-                usedIDs.push(element.id)
-            });
-        if (usedIDs.length === 0) {
-            newUID = IDGenerator()
-            usedIDs.push(newUID)
-            pass = IDGenerator()
-            salt = IDGenerator()
-            hash = crypto.createHash("sha256").update(pass).digest("hex")
-            hash = crypto.createHash("sha256").update(salt + hash).digest("hex")
-            db.prepare("INSERT INTO users (uid, prename, name, points, street , number , place , plz, email, salt , password , permissionlevel) VALUES (?, null, null, 0, null, null, null, null, ?, ?, ?, ?)").
-                run(newUID, "Admin", salt, hash, Privileges.Admin, (err) => {
-                    console.log("Admin credentials:\nemail: Admin\npassword: " + pass + "\n\nChange the default password!")
-                });
+    db.run("CREATE TABLE IF NOT EXISTS users (uid text, prename text, name text, points integer, street text, number text, place text, plz integer, email text, salt text, password text, permissionlevel integer)", (err) => {
+        if (err) {
+            console.error(err)
+            process.exit(1)
         }
+        db.all("SELECT uid FROM users", (err, rows) => {
+            if (rows)
+                rows.forEach(element => {
+                    usedIDs.push(element.id)
+                });
+            if (usedIDs.length === 0) {
+                var date = new Date(Date.now()),
+                    month = "0" + (date.getMonth() + 1),
+                    day = "0" + date.getDate(),
+                    year = date.getFullYear();
+                date = [year, month.slice(-2), day.slice(-2)].join("-")
+
+                db.prepare("INSERT INTO news (id, caption, text, date) VALUES (?, ?, ?, ?)").run(1, "Willkommen im Restaurant Heiß und Fettig", "", date)
+                newUID = IDGenerator()
+                usedIDs.push(newUID)
+                pass = IDGenerator()
+                salt = IDGenerator()
+                hash = crypto.createHash("sha256").update(pass).digest("hex")
+                hash = crypto.createHash("sha256").update(salt + hash).digest("hex")
+                db.prepare("INSERT INTO users (uid, prename, name, points, street , number , place , plz, email, salt , password , permissionlevel) VALUES (?, null, null, 0, null, null, null, null, ?, ?, ?, ?)").
+                    run(newUID, "Admin", salt, hash, Privileges.Admin, (err) => {
+                        console.log("Admin credentials:\nemail: Admin\npassword: " + pass + "\n\nChange the default password!")
+                    });
+            }
+        });
     });
 });
-db.run("CREATE TABLE IF NOT EXISTS news (id integer, caption text, text text, date text)");
 db.run("CREATE TABLE IF NOT EXISTS cart (uid integer, itemid text, amount integer)");
 db.run("CREATE TABLE IF NOT EXISTS item (id text PRIMARY KEY, name text, description text, price decimal)", (err) => {
     if (err) {
