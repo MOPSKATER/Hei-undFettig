@@ -217,7 +217,7 @@ body {
 	#card .item .basket {
 		width: 30px;
 		height: auto;
-		background-color: lightgray;
+		background-color: darkgray;
 	}
 	#card .item .basket:hover {
 		cursor: pointer;
