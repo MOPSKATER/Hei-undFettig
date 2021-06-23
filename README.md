@@ -14,3 +14,7 @@ Als Mitarbeiter erhält man Zugriff auf die Bestelliste und Profile anderer Nutz
 # Admin
 
 Als Admin kann man die Neuigkeiten und Nutzerprofile bearbeiten sowie Rollen von Nutzern ändern.
+
+# Readme
+
+Für das Frontend und Backend sind jeweils README-Dateien in den entsprchenden Unterordnern hinterlegt.
