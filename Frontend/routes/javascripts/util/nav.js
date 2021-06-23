@@ -34,8 +34,10 @@ function toggleControl() {
 }
 
 function displayLogin(name, points) {
+    var predict = getJSONCookie("predict");
     document.getElementById("summary").innerHTML = name + "<br>Treuepunkte: " + points;
     document.getElementById("profilLink").style.display = "block";
+    if (predict.accessLevel >= 8) document.getElementById("orderlink").removeAttribute("hidden");
     login = document.getElementById("login");
     login.innerHTML = "<u>Logout</u>";
     login.href = "javascript:displayLogout()";
@@ -45,6 +47,7 @@ function displayLogout() {
         .then(async response => {
             switch (response.status) {
                 case 200:
+                    document.getElementById("orderlink").setAttribute("hidden", true)
                     break;
 
                 case 500:
