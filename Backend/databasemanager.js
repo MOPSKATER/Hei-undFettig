@@ -56,17 +56,14 @@ db.run("CREATE TABLE IF NOT EXISTS item (id text PRIMARY KEY, name text, descrip
         process.exit(1)
     }
     const fs = require('fs')
-    fs.readFile(__dirname + "/menu.cfg", 'utf8', (err, items) => {
+    fs.readFile(__dirname + "/menu.json", 'utf8', (err, items) => {
         if (err) {
             console.error(err)
             return
         }
 
-        items.split("\n").forEach(item => {
-            data = item.split(" ")
-            description = data.slice(3).join(" ")
-
-            db.prepare("REPLACE INTO item (id, name, price, description) VALUES (?, ?, ?, ?)").run(data[0], data[1], data[2], description, (err) => {
+        JSON.parse(items).forEach(item => {
+            db.prepare("REPLACE INTO item (id, name, price, description) VALUES (?, ?, ?, ?)").run(item.id, item.name, item.price, item.description, (err) => {
                 if (err) {
                     console.error(err)
                     return
