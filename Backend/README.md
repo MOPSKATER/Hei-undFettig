@@ -8,8 +8,15 @@ Der Server benötigt beim Start ein frontend um mit dem CORS Probleme zu vermeid
 
 
 Benutzer "Admin" wir beim ersten Start generiert und
- die zugehörigen Daten in der Konsole ausgegeben.
+die zugehörigen Daten in der Konsole ausgegeben.
 
- # API
+# Installation
 
- Die API dokumentation kann auf dem Backend unter "<backend>[:<port>]/api" gefunden werden.
+Vor dem ersten Start die Installation der Module per "npm install" durchführen.
+
+
+# API
+
+Die API dokumentation kann auf dem Backend unter "<backend>[:<port>]/api" gefunden werden.
+
+
