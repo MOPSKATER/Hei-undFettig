@@ -75,7 +75,6 @@ function remove(e) {
         .then(async response => {
             switch (response.status) {
                 case 200:
-                    load();
                     break;
                 default:
                     //TODO: add proper error handling
