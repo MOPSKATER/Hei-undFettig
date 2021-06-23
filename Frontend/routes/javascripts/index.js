@@ -1,13 +1,13 @@
 const staff = {
     0: "Hermann Müller",
-    1: "Susi Strolch",
+    1: "Koch Chef",
     2: "Cap Cappa"
 }
 
 const testImg = {
-    0: "https://static.toiimg.com/photo/73244344.cms",
-    1: "https://image.gala.de/21207136/t/D5/v16/w1440/r1.5/-/susi-erdmann--11474305-.jpg",
-    2: "https://www.tipps-vom-experten.de/uploads/2018/04/mann-schoen-gesicht-lacht-fotolia-viacheslav-iakobchuk-700xpl.jpg"
+    0: "./html/img/besitzer.jpg",
+    1: "./html/img/koch.jpg",
+    2: "./html/img/kellner.jpg"
 }
 
 let counter = 0
