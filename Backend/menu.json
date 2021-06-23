@@ -1,38 +1,44 @@
 [
     {
         "id": "1.1",
-        "name": "Salat",
-        "price": 19.01,
-        "description": "Diese Beschreibung ist sehr lang und sagt nichts über das Essen aus."
+        "name": "Caesar Salad",
+        "price": 5.00,
+        "description": "Saftiger Salat mit jogurt dressing und Parmesan"
     },
     {
         "id": "1.2",
-        "name": "Suppe",
-        "price": 29.00,
-        "description": "Suppe mit Schnittlauch"
+        "name": "Gulasch Suppe",
+        "price": 6.00,
+        "description": "Würzige Gulasch Suppe mit großen Schweinefleischbrocken (scharf)"
     },
     {
         "id": "2.1",
         "name": "Steak",
-        "price": 19.02,
+        "price": 16.00,
         "description": "Steak mit Pommes und Salat"
     },
     {
         "id": "2.2",
-        "name": "Schnitzel",
-        "price": 29.02,
-        "description": "Schnitzel mit Pommes und Salat"
+        "name": "Wickinger Schnitzel",
+        "price": 14.00,
+        "description": "Schnitzel mit Bratkartoffeln und soße Hollondaise"
     },
     {
         "id": "2.3",
-        "name": "Schnitzel",
-        "price": 39.02,
-        "description": "x2 Das obendrüber. Nur mehr."
+        "name": "Der Endgegner",
+        "price": 35.50,
+        "description": "750g Rindersteak mit Kräuterbutter, Bratkartoffeln und Bratensoße"
     },
     {
         "id": "3.1",
-        "name": "Salz",
-        "price": 19.03,
-        "description": "Salz-Lecksteine (nur für Kühe!)"
+        "name": "Eis dreierlei",
+        "price": 4.50,
+        "description": "Erdbeer-, Schoko- und Vanilleeis"
+    },
+    {
+        "id": "3.2",
+        "name": "Wunderzauber",
+        "price": 127.01,
+        "description": "Gebackene Einhornschenkel mit schokolade überzogen"
     }
 ]
