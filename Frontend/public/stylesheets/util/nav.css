@@ -28,7 +28,7 @@
   border: 2px solid;
   padding: 2vh;
   background: lightgray;
-  opacity: 80%;
+  opacity: 90%;
   padding-left: 3vh;
   padding-right: 3vh;
 }
@@ -52,7 +52,6 @@
   position: absolute;
   max-height: 3vw;
   top: 2vh;
-  
 }
 #cart {
   left: 90vw;
@@ -77,5 +76,9 @@
   color: black;
 }
 .dropbtn{
-  display: none;
+  display:none;
+}
+
+#dropdown{
+  opacity: 96%;
 }

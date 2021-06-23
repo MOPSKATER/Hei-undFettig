@@ -271,4 +271,7 @@ th {
   #btnSpeisekarte {
   display: none;
   }
+  #dropdown{
+    opacity: 95%;
+  }
 }
