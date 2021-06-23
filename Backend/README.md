@@ -9,3 +9,7 @@ Der Server benötigt beim Start ein frontend um mit dem CORS Probleme zu vermeid
 
 Benutzer "Admin" wir beim ersten Start generiert und
  die zugehörigen Daten in der Konsole ausgegeben.
+
+ # API
+
+ Die API dokumentation kann auf dem Backend unter "<backend>[:<port>]/api" gefunden werden.
