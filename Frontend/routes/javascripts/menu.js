@@ -26,7 +26,7 @@ function addToBasket(elem) {
                     break;
                 case 401:
                 default:
-                    window.location.href = "./login.html";
+                    window.location.href = "./login.html?source=html/menu.html";
                     break;
             }
         });
