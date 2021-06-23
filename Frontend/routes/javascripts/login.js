@@ -73,7 +73,7 @@ function register() {
                     case 200:
                         data = await response.json();
                         setJSONCookie("predict", { displayName: email, accessLevel: 5, points: 0, uid: data.uid });
-                        // TODO: redirect to Profile for missing data
+                        // TODO: redirect to Profil for missing data
                         window.location.href = "./profile.html";
                         break;
 
