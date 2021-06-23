@@ -117,7 +117,8 @@ function build(permission, data) {
     if (permission >= 10) {
         document.getElementById("select_box").removeAttribute("hidden");
         var index = data.permission;
-        if (data.permission === 8) index = 1;
+        if (data.permission === 5) index = 0;
+        else if (data.permission === 8) index = 1;
         else if (data.permission === 10) index = 2;
         document.getElementById("select").selectedIndex = index;
     }
