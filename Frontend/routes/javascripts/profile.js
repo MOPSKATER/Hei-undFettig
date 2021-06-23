@@ -21,6 +21,18 @@ params.forEach((p) => {
 });
 
 function load() {
+    fetch('<%= api %>/api/account/isLoggedin', { method: "GET", credentials: "include" })
+        .then(async response => {
+            var profile = getJSONCookie("predict");
+            switch (response.status) {
+                case 200:
+                    break;
+                case 401:
+                default:
+                    window.location.href = "./login.html?source=html/profile.html";
+                    break;
+            }
+        });
     var predict = getJSONCookie("predict");
     if (!data.uid) data.uid = predict.uid;
     fetch('<%= api %>/api/user/' + data.uid, { method: "GET", headers: { 'Content-Type': 'application/json' }, credentials: "include" })
