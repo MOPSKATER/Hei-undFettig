@@ -234,7 +234,7 @@ router.post('/news/add', function (req, res, next) {
 
     data = { id: req.body.id, caption: req.body.caption, text: req.body.text }
     err = validate(data, {
-        id: { presence: true, numericality: true }, caption: Ruleset.Caption,
+        id: Ruleset.NewsId, caption: Ruleset.Caption,
         text: Ruleset.Text
     })
 
@@ -266,7 +266,7 @@ router.delete('/news/edit', function (req, res, next) {
 
     data = { id: req.body.id, caption: req.body.caption, text: req.body.text }
     err = validate(data, {
-        id: Ruleset.Id, caption: Ruleset.Caption,
+        id: Ruleset.NewsId, caption: Ruleset.Caption,
         text: Ruleset.Text
     })
 
@@ -297,7 +297,7 @@ router.delete('/news/delete', function (req, res, next) {
     }
 
     data = { id: req.body.id }
-    err = validate(data, { id: Ruleset.Id })
+    err = validate(data, { id: Ruleset.NewsId })
 
     if (printErr(err, res))
         return
@@ -394,7 +394,7 @@ router.post('/item/get', function (req, res, next) {
         return
     }
 
-    err = validate({ id: req.body.id+"" }, { id: Ruleset.Id })
+    err = validate({ id: req.body.id + "" }, { id: Ruleset.Id })
 
     if (printErr(err))
         return
