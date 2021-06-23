@@ -32,9 +32,9 @@ db.run("CREATE TABLE IF NOT EXISTS news (id integer, caption text, text text, da
                     month = "0" + (date.getMonth() + 1),
                     day = "0" + date.getDate(),
                     year = date.getFullYear();
-                data.date = [year, month.slice(-2), day.slice(-2)].join("-")
+                date = [year, month.slice(-2), day.slice(-2)].join("-")
 
-                db.prepare("INSERT INTO news (?, ?, ?, ?)").run(1, "Willkommen im Restaurant Heiß und Fettig", "", "")
+                db.prepare("INSERT INTO news (id, caption, text, date) VALUES (?, ?, ?, ?)").run(1, "Willkommen im Restaurant Heiß und Fettig", "", date)
                 newUID = IDGenerator()
                 usedIDs.push(newUID)
                 pass = IDGenerator()
