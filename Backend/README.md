@@ -1,16 +1,11 @@
 # Heiß und Fettig
 
-Zum starten im Backend "npm start [<port>]" eingeben.
+Zum starten werden die startScripts empfohlen. 
+Alternativ kann man den Server auch vom Verzeichnis "Backend" mit dem Befehl "npm start <frontend>[:<port>]" starten
+Der Standart-Port ist 3000.
 
-Der Standart-Port ist 3001. Dieser kann mit einem parameter geändert werden
+Der Server benötigt beim Start ein frontend um mit dem CORS Probleme zu vermeiden.
 
-Benutzer "Admin" wir beim ersten Start generiert (1).
-Das Passwort wird in der Konsole ausgegeben.
 
-### bisher dynamisierte funktionen:
-
-* Login / Registrieren / Logout
-* Neuigkeiten (inkl. hinzufügen, entfernen, bearbeiten)
-* Warenkorb (abgesehen der Darstellung auf der Speisekarte; wird eine ID ausgewählt, die nicht in der Datenbank existiert, gibt es einen Error)
-
-Abgesehen von dem Frontend funktioniert die API bereits komplett.
+Benutzer "Admin" wir beim ersten Start generiert und
+ die zugehörigen Daten in der Konsole ausgegeben.
