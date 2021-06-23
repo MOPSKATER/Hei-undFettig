@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Backend address
-BACKEND=http://localhost:3000
+BACKEND=http://localhost:3001
 
 cd Frontend
 npm start $BACKEND
