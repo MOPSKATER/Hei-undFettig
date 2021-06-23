@@ -18,7 +18,7 @@ html body {
 
 #orderContainer{
   width: 80vw;
-  height: fit-content;
+  height: min-content;
   margin-top: 3vh;
   margin-left: 10vw;
   margin-right: 10vw;
