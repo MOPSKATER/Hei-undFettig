@@ -124,7 +124,7 @@ function order() {
                     newItem.querySelector(".remove").remove()
                     newWin.document.getElementById("cartContent").append(newItem);
                 });
-                newWin.document.getElementById("retrieval").innerHTML = time;
+                newWin.document.getElementById("retrieval").innerHTML = time.toLocaleString('de-de');
                 newWin.document.getElementById("total").innerHTML = (total + paypal).toFixed(2).replace(".", ",") + "€";
                 newWin.document.getElementById("cut_mwst").innerHTML = "Anteil MwSt: " + (total * 0.19).toFixed(2).replace(".", ",") + "€";
                 if (document.getElementById("paypal").checked) {
