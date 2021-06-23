@@ -40,5 +40,17 @@
         "name": "Wunderzauber",
         "price": 127.01,
         "description": "Gebackene Einhornschenkel mit schokolade überzogen"
+    },
+    {
+        "id": "4.1",
+        "name": "Tafelwasser",
+        "price": 12700.00,
+        "description": "Wasser"
+    },
+    {
+        "id": "4.2",
+        "name": "Bier",
+        "price": 3.50,
+        "description": "Hopfenhaltiges Getränk"
     }
 ]

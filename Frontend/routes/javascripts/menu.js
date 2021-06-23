@@ -52,7 +52,8 @@ function add(course, attr) {
     newItem.querySelector(".name").innerHTML = attr.name;
     newItem.querySelector(".descr").innerHTML = attr.description;
     newItem.querySelector(".price").innerHTML = attr.price.toFixed(2).replace(".", ",") + "€";
-    document.getElementById(["starters","mainCourses","desserts"][course-1]).parentNode.insertBefore(newItem, document.getElementById(["starters","mainCourses","desserts"][course-1]).nextSibling);
+    var courseId = ["starters","mainCourses","desserts","drinks"];
+    document.getElementById(courseId[course-1]).parentNode.insertBefore(newItem, document.getElementById(courseId[course-1]).nextSibling);
 }
 
 window.onload = load;

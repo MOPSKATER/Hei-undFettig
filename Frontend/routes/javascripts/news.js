@@ -17,27 +17,38 @@ function update() {
     });
     var predict = getJSONCookie("predict");
     predict ? permission = predict.accessLevel : permission = 0
-    fetch('<%= api %>/api/news/all', { method: "GET", headers: { 'Content-Type': 'application/json' } })
+    fetch('<%= api %>/api/account/isLoggedin', { method: "GET", credentials: "include" })
         .then(async response => {
-            if (response.status === 200) {
-                var data = await response.json();
-                data.forEach(function (item) {
-                    var newItem = document.getElementById("news-item").content.cloneNode(true);
-                    newItem.querySelector(".header").innerHTML = item.caption;
-                    newItem.querySelector(".text").innerHTML = item.text.replaceAll("\n", "<br/>");
-                    if (highestId <= item.id) highestId = item.id;
-                    if (permission >= 10) newItem.querySelector(".admin").removeAttribute("hidden");
-                    document.getElementById("news-container").insertBefore(newItem, document.getElementById("news-container").children[0].nextSibling);
-                    document.getElementById("news-container").children[1].setAttribute("newsId", item.id);
-                });
+            switch (response.status) {
+                case 200:
+                    break;
+                case 401:
+                default:
+                    permission = 0;
+                    break;
             }
-            if (permission >= 10) {
-                document.getElementById("new-news").removeAttribute("hidden");
-                Array.from(document.getElementsByClassName("news")).forEach(elem => {
-                    elem.querySelector(".content").style.width = "87%"
+            fetch('<%= api %>/api/news/all', { method: "GET", headers: { 'Content-Type': 'application/json' } })
+                .then(async response => {
+                    if (response.status === 200) {
+                        var data = await response.json();
+                        data.forEach(function (item) {
+                            var newItem = document.getElementById("news-item").content.cloneNode(true);
+                            newItem.querySelector(".header").innerHTML = item.caption;
+                            newItem.querySelector(".text").innerHTML = item.text.replaceAll("\n", "<br/>");
+                            if (highestId <= item.id) highestId = item.id;
+                            if (permission >= 10) newItem.querySelector(".admin").removeAttribute("hidden");
+                            document.getElementById("news-container").insertBefore(newItem, document.getElementById("news-container").children[0].nextSibling);
+                            document.getElementById("news-container").children[1].setAttribute("newsId", item.id);
+                        });
+                    }
+                    if (permission >= 10) {
+                        document.getElementById("new-news").removeAttribute("hidden");
+                        Array.from(document.getElementsByClassName("news")).forEach(elem => {
+                            elem.querySelector(".content").style.width = "87%"
+                        });
+                    }
+                    //TODO: add error handling
                 });
-            }
-            //TODO: add error handling
         });
 }
 
