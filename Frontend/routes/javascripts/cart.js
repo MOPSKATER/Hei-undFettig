@@ -138,7 +138,7 @@ function order() {
                 delCookie("cart");
                 cart = [];
                 update();
-                window.location.href = "./order.html"; // = "../index.html"
+                window.location.href = "../index.html"; // = "../index.html"
             }
             // setJSONCookie("orders", orders);
             var orderDatetime = time.getFullYear() + ":" + ("0" + time.getMonth()).slice(-2) + ":" + ("0" + time.getDate()).slice(-2) + " " + ("0" + time.getHours()).slice(-2) + ":" + ("0" + time.getMinutes()).slice(-2) + ":" + ("0" + time.getSeconds()).slice(-2);
